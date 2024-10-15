@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="web3_auctioneer">Welcome to Web3 Auctioneer</string>
+    <string name="usr_login">User Login</string>
+    <string name="register">Register</string>
+    <string name="enter_your_details_to_regiser">Enter Your Details To Regiser</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="house_address">House Address</string>
+    <string name="first_name">First Name</string>
+    <string name="password">Password</string>
+    <string name="bidder_or_auctioneer">Bidder or Auctioneer</string>
+    <string name="register_string">Register</string>
+    <string name="last_name">Last Name</string>
+    <string name="login">Login</string>
+    <string name="email">Email Address</string>
+    <string name="login_page">Login Page</string>
+    <string name="enter_password">Enter password</string>
+    <string name="return_home">Return Home</string>
+    <string name="role">Role</string>
+</resources>
