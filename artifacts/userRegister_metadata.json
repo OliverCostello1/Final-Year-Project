@@ -1,0 +1,166 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "wallet_address",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "first_name",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "last_name",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "house_address",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "role",
+						"type": "string"
+					}
+				],
+				"name": "userRegistry",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "first_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "last_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "house_address",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "role",
+						"type": "string"
+					}
+				],
+				"name": "registerUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "users",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "first_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "last_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "house_address",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "role",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "wallet_address",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"register_user.sol": "userRegister"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"register_user.sol": {
+			"keccak256": "0xb9dde62968a28b728cea47bae3d3cc998c1a539cc85450e1e6c8ff1108402e75",
+			"license": "MDT",
+			"urls": [
+				"bzz-raw://38d78a2b5c9f430e26b5dbc214b24cc52e62964d9ff121057ae33f5fd1fcf34c",
+				"dweb:/ipfs/QmQKj6JAzQ4GRRMu6SkUK43PRxBZE6DPHo1kHb6tgzpjn1"
+			]
+		}
+	},
+	"version": 1
+}
