@@ -27,9 +27,13 @@ android {
             )
         }
     }
+    packaging {
+        exclude("META-INF/DISCLAIMER".toString())
+    }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_14
+        targetCompatibility = JavaVersion.VERSION_14
     }
 }
 
@@ -45,5 +49,8 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.okhttp)
+    implementation(libs.web3j.core)
+    implementation(libs.crypto)
+    implementation(libs.contracts)
 
 }

@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static java.sql.Types.NULL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
+import java.io.File;
 import java.io.IOException;
+import java.security.Security;
 
 import okhttp3.*;
-
-
+// Used to generate Wallet id for users
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 public class RegisterActivity extends AppCompatActivity{
 
     EditText emailField, firstNameField, lastNameField, passwordField, houseAddressField, roleField;
@@ -93,8 +99,18 @@ public class RegisterActivity extends AppCompatActivity{
                 }
                 if (!response.isSuccessful()){
                     throw new IOException("Error" + response);
+                    // Creates wallet address for new user.
+                    //
+                    // File directory ;
+                    // Using users password for encryption
+                    //String walletAddress =  EthereumWallet.createEthereumWallet(password, directory);
                 }
+            }
+
+            private void storeWalletAddress(String email, String walletAddress) {
+
             }
         });
     }
+
 }
