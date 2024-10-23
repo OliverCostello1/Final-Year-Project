@@ -77,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                             String role = json.getString("role");
                             runOnUiThread(() -> {
                                 Toast.makeText(LoginActivity.this, "Logged in as!" + role, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, BidderHome.class);
+                                finish();
                             });
                         } else {
                             runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show());
