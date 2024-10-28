@@ -18,5 +18,6 @@
     <string name="return_home">Return Home</string>
     <string name="role">Role</string>
     <string name="bidder1">Bidder Home Page</string>
-    <string name="bidding_system">The Bidding System is only Open Monday through Friday 9am-5pm</string>
+    <string name="bidding_system">The Bidding System is only Open Monday through \n Friday 9am-5pm.</string>
+    <string name="log_out">Log out</string>
 </resources>
