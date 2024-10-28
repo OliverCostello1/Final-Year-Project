@@ -71,13 +71,21 @@ public class LoginActivity extends AppCompatActivity {
                         String responseData = response.body().string();
                         JSONObject json = new JSONObject(responseData);
                         String status = json.getString("status");
+                        String role = json.getString("role"); // getting the user's role to switch to the correct role
                         Log.d("SERVER RESPONSE: ", responseData);
 
                         if (status.equals("success")) {
 
                             runOnUiThread(() -> {
                                 Toast.makeText(LoginActivity.this, "Welcome Back!" , Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, BidderHome.class);
+                                // Sends user to activity based on role type
+                                Intent intent = switch (role) {
+                                    case "admin" ->
+                                            new Intent(LoginActivity.this, AdminActivity.class);
+                                    case "auctioneer" ->
+                                            new Intent(LoginActivity.this, AuctioneerActivity.class);
+                                    default -> new Intent(LoginActivity.this, BidderActivity.class);
+                                };
                                 startActivity(intent);
                                 finish();
                             });

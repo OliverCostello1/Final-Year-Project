@@ -2,6 +2,7 @@ import com.android.build.api.dsl.Packaging
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -35,6 +36,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_14
         targetCompatibility = JavaVersion.VERSION_14
     }
+    kotlinOptions {
+        jvmTarget = "14"
+    }
 }
 
 dependencies {
@@ -45,6 +49,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.appcompat)
     implementation(libs.core)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -52,5 +57,6 @@ dependencies {
     implementation(libs.web3j.core)
     implementation(libs.crypto)
     implementation(libs.contracts)
+
 
 }

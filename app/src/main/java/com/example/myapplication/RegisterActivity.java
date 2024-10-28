@@ -5,8 +5,10 @@ import static java.sql.Types.NULL;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +28,8 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 public class RegisterActivity extends AppCompatActivity{
 
-    EditText emailField, firstNameField, lastNameField, passwordField, houseAddressField, roleField;
+    EditText emailField, firstNameField, lastNameField, passwordField, houseAddressField;
+    Spinner roleSpinner;
     Button registerButton;
     String registerURL = "http://10.0.2.2:8000/project/register.php";
 
@@ -40,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity{
         lastNameField = findViewById(R.id.last_name);
         passwordField = findViewById(R.id.password);
         houseAddressField = findViewById(R.id.house_address);
-        roleField = findViewById(R.id.role);
+        roleSpinner = findViewById(R.id.role);
         registerButton = findViewById(R.id.register);
 
         Button returnHome = findViewById(R.id.register_return);
@@ -50,6 +53,11 @@ public class RegisterActivity extends AppCompatActivity{
                 registerUser();
             }
         });
+
+        // Adding items to role Spinner: Bidder, Auctioneer and Admin
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(adapter);
 
         // Button to let user return home
 
@@ -65,7 +73,9 @@ public class RegisterActivity extends AppCompatActivity{
         String lastName =  lastNameField.getText().toString();
         String password =  passwordField.getText().toString();
         String houseAddress =  houseAddressField.getText().toString();
-        String role = roleField.getText().toString();
+        String role = roleSpinner.getSelectedItem().toString();
+
+
 
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
@@ -96,6 +106,22 @@ public class RegisterActivity extends AppCompatActivity{
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "User Registered !", Toast.LENGTH_SHORT).show());
+
+                    Intent intent;
+                    switch (role) {
+                        case "admin":
+                            intent = new Intent(RegisterActivity.this, AdminActivity.class);
+                            break;
+                        case "auctioneer":
+                            intent = new Intent(RegisterActivity.this, AuctioneerActivity.class);
+                            break;
+                        case "bidder":
+                        default:
+                            intent = new Intent(RegisterActivity.this, BidderActivity.class);
+                            break;
+                    }
+                    startActivity(intent);
+                    finish();
                 }
                 if (!response.isSuccessful()){
                     throw new IOException("Error" + response);

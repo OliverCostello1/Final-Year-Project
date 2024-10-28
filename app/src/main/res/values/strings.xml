@@ -18,6 +18,21 @@
     <string name="return_home">Return Home</string>
     <string name="role">Role</string>
     <string name="bidder1">Bidder Home Page</string>
-    <string name="bidding_system">The Bidding System is only Open Monday through \n Friday 9am-5pm.</string>
+    <string name="bidding_system">The Bidding System is only Open Monday - Friday 9am-5pm.</string>
     <string name="log_out">Log out</string>
+    <string name="property_listing">Property Listing:</string>
+    <string name="eircode">Eircode:</string>
+    <string name="link">Link:</string>
+    <string name="property_id">Property ID:</string>
+    <string-array name="role_array">
+        <item>Bidder</item>
+        <item>Auctioneer</item>
+        <item>Admin</item>
+    </string-array>
+    <string name="property_id_format">Property ID: %1$d</string>
+    <string name="eircode_format">Eircode: %1$s</string>
+    <string name="link_format">Link: %1$s</string>
+
+
+
 </resources>
