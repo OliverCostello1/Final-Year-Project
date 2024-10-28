@@ -3,7 +3,7 @@
     <string name="web3_auctioneer">Welcome to Web3 Auctioneer</string>
     <string name="usr_login">User Login</string>
     <string name="register">Register</string>
-    <string name="enter_your_details_to_regiser">Enter Your Details To Regiser</string>
+    <string name="enter_your_details_to_regiser">Enter Your Details To Register</string>
     <string name="enter_email">Enter Email</string>
     <string name="house_address">House Address</string>
     <string name="first_name">First Name</string>
@@ -17,4 +17,6 @@
     <string name="enter_password">Enter password</string>
     <string name="return_home">Return Home</string>
     <string name="role">Role</string>
+    <string name="bidder1">Bidder Home Page</string>
+    <string name="bidding_system">The Bidding System is only Open Monday through Friday 9am-5pm</string>
 </resources>

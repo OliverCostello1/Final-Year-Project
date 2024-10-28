@@ -74,10 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("SERVER RESPONSE: ", responseData);
 
                         if (status.equals("success")) {
-                            String role = json.getString("role");
+
                             runOnUiThread(() -> {
-                                Toast.makeText(LoginActivity.this, "Logged in as!" + role, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Welcome Back!" , Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, BidderHome.class);
+                                startActivity(intent);
                                 finish();
                             });
                         } else {
@@ -85,8 +86,10 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        throw new RuntimeException(e);
+                        Log.e("LOGIN ERROR", "JSON PARSNING ERROR" + e.getMessage());
                     }
+                } else {
+                    Log.e("LOGIN_ERROR", "Unsuccessful server response");
                 }
             }
 
@@ -94,7 +97,8 @@ public class LoginActivity extends AppCompatActivity {
             // If Login fails   
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_SHORT).show());
+                Log.e("LOGIN ERROR", "Network Failure" + e.getMessage());
 
             }
         });
