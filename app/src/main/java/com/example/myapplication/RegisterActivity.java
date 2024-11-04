@@ -1,10 +1,7 @@
 package com.example.myapplication;
 
-import static java.sql.Types.NULL;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,20 +12,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.R;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.crypto.exception.CipherException;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.Security;
 
 import okhttp3.*;
-// Used to generate Wallet id for users
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.WalletUtils;
-public class RegisterActivity extends AppCompatActivity{
 
-    EditText emailField, firstNameField, lastNameField, passwordField, houseAddressField;
+
+public class RegisterActivity extends AppCompatActivity {
+
+    EditText emailField, firstNameField, lastNameField, passwordField;
     Spinner roleSpinner;
     Button registerButton;
     String registerURL = "http://10.0.2.2:8000/project/register.php";
@@ -42,70 +46,80 @@ public class RegisterActivity extends AppCompatActivity{
         firstNameField = findViewById(R.id.first_name);
         lastNameField = findViewById(R.id.last_name);
         passwordField = findViewById(R.id.password);
-        houseAddressField = findViewById(R.id.house_address);
         roleSpinner = findViewById(R.id.role);
         registerButton = findViewById(R.id.register);
 
         Button returnHome = findViewById(R.id.register_return);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
-
-        // Adding items to role Spinner: Bidder, Auctioneer and Admin
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roleSpinner.setAdapter(adapter);
-
-        // Button to let user return home
-
         returnHome.setOnClickListener(view -> {
             Intent registerIntent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(registerIntent);
         });
+
+        registerButton.setOnClickListener(v -> registerUser());
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(adapter);
     }
 
+
     private void registerUser() {
-        String email =  emailField.getText().toString();
-        String firstName =  firstNameField.getText().toString();
-        String lastName =  lastNameField.getText().toString();
-        String password =  passwordField.getText().toString();
-        String houseAddress =  houseAddressField.getText().toString();
+        String email = emailField.getText().toString();
+        String firstName = firstNameField.getText().toString();
+        String lastName = lastNameField.getText().toString();
+        String password = passwordField.getText().toString();
         String role = roleSpinner.getSelectedItem().toString();
 
+        // Input validation
+        if (email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        // Create Ethereum address
+        String walletAddress;
+        try {
+            walletAddress = createEthereumAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error creating wallet: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormBody.Builder()
                 .add("email", email)
                 .add("first_name", firstName)
                 .add("last_name", lastName)
-                .add("password",password)
-                .add("house_address",houseAddress)
+                .add("password", password)
                 .add("role", role)
+                .add("wallet_address", walletAddress)
                 .build();
-        // Post user information to database
+
         Request request = new Request.Builder()
                 .url(registerURL)
                 .post(formBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-
-            // If user registration fails
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
-
-                runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> {
+                    Toast.makeText(RegisterActivity.this,
+                            "Network error: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                });
             }
-            // Otherwise user has been registered
+
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "User Registered !", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegisterActivity.this,
+                                "Registration successful!",
+                                Toast.LENGTH_SHORT).show();
+                    });
 
                     Intent intent;
                     switch (role) {
@@ -120,23 +134,40 @@ public class RegisterActivity extends AppCompatActivity{
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;
                     }
+                    intent.putExtra("wallet_address", walletAddress);
                     startActivity(intent);
                     finish();
+                } else {
+                    String errorMessage = response.body() != null ?
+                            response.body().string() :
+                            "Unknown error occurred";
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegisterActivity.this,
+                                "Registration failed: " + errorMessage,
+                                Toast.LENGTH_SHORT).show();
+                    });
                 }
-                if (!response.isSuccessful()){
-                    throw new IOException("Error" + response);
-                    // Creates wallet address for new user.
-                    //
-                    // File directory ;
-                    // Using users password for encryption
-                    //String walletAddress =  EthereumWallet.createEthereumWallet(password, directory);
-                }
-            }
-
-            private void storeWalletAddress(String email, String walletAddress) {
-
             }
         });
     }
 
-}
+    private String createEthereumAddress() {
+        try {
+            // Initialize BouncyCastle
+            if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+                Security.addProvider(new BouncyCastleProvider());
+            }
+
+            // Generate key pair
+            ECKeyPair ecKeyPair = Keys.createEcKeyPair();
+
+            // Get the Ethereum address directly from the key pair
+            return Keys.getAddress(ecKeyPair);
+
+        } catch (InvalidAlgorithmParameterException | NoSuchAlgorithmException | NoSuchProviderException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to create Ethereum address: " + e.getMessage());
+        }
+    }}
+
+

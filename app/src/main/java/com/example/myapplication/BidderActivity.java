@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import jnr.ffi.annotations.In;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -31,7 +35,6 @@ public class BidderActivity extends AppCompatActivity {
     private OkHttpClient client;
     private PropertyAdapter propertyAdapter;
     private RecyclerView propertyRecyclerView;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class BidderActivity extends AppCompatActivity {
         // Initialize adapter with an empty list
         propertyAdapter = new PropertyAdapter(new ArrayList<>(), this);
         propertyRecyclerView.setAdapter(propertyAdapter);
+
 
         // Initialize OkHttpClient with longer timeout
         client = new OkHttpClient.Builder()
@@ -131,6 +135,7 @@ public class BidderActivity extends AppCompatActivity {
                             obj.getString("link")
                     );
                     properties.add(property);
+
                     Log.d(TAG, "Parsed property: " + property.getPropertyId() +
                             ", " + property.getEircode());
                 }

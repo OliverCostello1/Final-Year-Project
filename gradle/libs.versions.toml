@@ -1,7 +1,10 @@
 [versions]
 agp = "8.7.1"
+bcprovJdk15on = "1.68"
+bcprovJdk18on = "1.78.1"
 contracts = "4.9.4"
 core = "1.13.1"
+coreVersion = "4.8.7"
 crypto = "4.12.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -16,9 +19,14 @@ my-library = "1.4"
 okhttp = "4.11.0"
 kotlin = "2.0.21"
 coreKtx = "1.13.1"
+web3jCore = "4.9.4"
 [libraries]
+bcprov-jdk15on = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bcprovJdk15on" }
+bcprov-jdk18on = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bcprovJdk18on" }
 contracts = { module = "org.web3j:contracts", version.ref = "contracts" }
 core = { module = "androidx.core:core", version.ref = "core" }
+core-v487 = { module = "org.web3j:core", version.ref = "coreVersion" }
+core-v494 = { module = "org.web3j:core", version.ref = "web3jCore" }
 crypto = { module = "org.web3j:crypto", version.ref = "crypto" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

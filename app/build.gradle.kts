@@ -1,11 +1,14 @@
 import com.android.build.api.dsl.Packaging
+import org.jetbrains.kotlin.com.intellij.ide.plugins.ActionDescriptorName
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
 
+
 android {
+
     namespace = "com.example.myapplication"
     compileSdk = 34
 
@@ -29,6 +32,8 @@ android {
         }
     }
     packaging {
+
+        exclude("META-INF/DEPENDENCIES".toString())
         exclude("META-INF/DISCLAIMER".toString())
     }
 
@@ -54,9 +59,14 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.okhttp)
-    implementation(libs.web3j.core)
+    implementation(libs.core.v494)
+    implementation(libs.bcprov.jdk18on)
+
     implementation(libs.crypto)
     implementation(libs.contracts)
 
 
+}
+configurations.all {
+    exclude(group = "org.bouncycastle", module = "bcprov-jdk15on")
 }

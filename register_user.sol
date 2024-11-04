@@ -7,7 +7,6 @@ contract userRegister {
         string email;
         string first_name;
         string last_name;
-        string house_address;
         string role;
         address wallet_address;
     }
@@ -20,8 +19,7 @@ contract userRegister {
         string email,
         string first_name,
         string last_name,
-        string house_address,
-        string role 
+        string role
     );
 
     // Registers new user 
@@ -29,8 +27,7 @@ contract userRegister {
         string memory email,
         string memory first_name,
         string memory last_name,
-        string memory house_address,
-        string memory role 
+        string memory role
     )
     public {
         require(users[msg.sender].wallet_address == address(0) , "User already exists!");
@@ -39,12 +36,11 @@ contract userRegister {
             email: email,
             first_name: first_name,
             last_name: last_name,
-            house_address: house_address,
             role: role,
             wallet_address: msg.sender 
         });
 
-        emit userRegistry(msg.sender, email, first_name, last_name, house_address, role);
+        emit userRegistry(msg.sender, email, first_name, last_name, role);
 
     }
 }
