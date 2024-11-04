@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+
     private void registerUser() {
         String email = emailField.getText().toString();
         String firstName = firstNameField.getText().toString();
@@ -119,20 +121,32 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this,
                                 "Registration successful!",
                                 Toast.LENGTH_SHORT).show();
+
+                        Log.d("RegisterActivity", "Selected Role: " + role);
                     });
 
                     Intent intent;
                     switch (role) {
-                        case "admin":
+                        case "Admin":
+                            Log.d("RegisterActivity", role);
+
                             intent = new Intent(RegisterActivity.this, AdminActivity.class);
                             break;
-                        case "auctioneer":
+                        case "Auctioneer":
+                            Log.d("RegisterActivity", role);
+
                             intent = new Intent(RegisterActivity.this, AuctioneerActivity.class);
                             break;
-                        case "bidder":
+                        case "Bidder":
+                            Log.d("RegisterActivity", "Navigating to BidderActivity");
+
+                            intent = new Intent(RegisterActivity.this, BidderActivity.class);
+                            break;
+
                         default:
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;
+
                     }
                     intent.putExtra("wallet_address", walletAddress);
                     startActivity(intent);

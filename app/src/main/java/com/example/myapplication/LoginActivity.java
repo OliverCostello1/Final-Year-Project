@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = switch (role) {
                                     case "admin" ->
                                             new Intent(LoginActivity.this, AdminActivity.class);
+
                                     case "auctioneer" ->
                                             new Intent(LoginActivity.this, AuctioneerActivity.class);
                                     default -> new Intent(LoginActivity.this, BidderActivity.class);

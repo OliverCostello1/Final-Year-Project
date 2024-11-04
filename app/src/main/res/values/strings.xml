@@ -3,7 +3,7 @@
     <string name="web3_auctioneer">Welcome to Web3 Auctioneer</string>
     <string name="usr_login">User Login</string>
     <string name="register">Register</string>
-    <string name="enter_your_details_to_regiser">Enter Your Details To Register</string>
+    <string name="enter_your_details_to_register">Enter Your Details To Register</string>
     <string name="enter_email">Enter Email</string>
     <string name="house_address">House Address</string>
     <string name="first_name">First Name</string>
@@ -32,7 +32,8 @@
     <string name="property_id_format">Property ID: %1$d</string>
     <string name="eircode_format">Eircode: %1$s</string>
     <string name="link_format">Link: %1$s</string>
-
+    <string name="admin_user_management">Admin User Management</string>
+    <string name="enter_your_details_to_regiser" />
 
 
 </resources>
