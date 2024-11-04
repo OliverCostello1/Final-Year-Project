@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         String status = json.getString("status");
                         String role = json.getString("role"); // getting the user's role to switch to the correct role
                         Log.d("SERVER RESPONSE: ", responseData);
+                        Log.d("LoginActivity", "Role value: " + role + ", Type: " + ((Object) role).getClass().getSimpleName());
 
                         if (status.equals("success")) {
 
@@ -75,13 +76,24 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Welcome Back!" , Toast.LENGTH_SHORT).show();
                                 // Sends user to activity based on role type
                                 Intent intent = switch (role) {
-                                    case "admin" ->
-                                            new Intent(LoginActivity.this, AdminActivity.class);
+                                    case "admin" -> {
+                                        Log.d("LoginActivity", role);
 
-                                    case "auctioneer" ->
-                                            new Intent(LoginActivity.this, AuctioneerActivity.class);
+                                        yield new Intent(LoginActivity.this, AdminActivity.class);
+                                    }
+                                    case "auctioneer" -> {
+                                        Log.d("LoginActivity", role);
+
+                                        yield new Intent(LoginActivity.this, AuctioneerActivity.class);
+                                    }
+                                    case "bidder" -> {
+                                        Log.d("LoginActivity", "Navigating to BidderActivity");
+
+                                        yield new Intent(LoginActivity.this, BidderActivity.class);
+                                    }
                                     default -> new Intent(LoginActivity.this, BidderActivity.class);
                                 };
+                                ;
                                 startActivity(intent);
                                 finish();
                             });

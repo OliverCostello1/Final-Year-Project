@@ -34,6 +34,10 @@
     <string name="link_format">Link: %1$s</string>
     <string name="admin_user_management">Admin User Management</string>
     <string name="enter_your_details_to_regiser" />
+    <string name="f_name">First Name</string>
+    <string name="l_name">Last Name</string>
+    <string name="role_string">Role</string>
+    <string name="wallet_address">Wallet Address</string>
 
 
 </resources>

@@ -57,7 +57,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void fetchUsers() {
-        String url = "http://10.0.2.2/get_users.php"; // Change this URL if necessary
+        String url = "http://10.0.2.2:8000/project/get_users.php"; // Change this URL if necessary
 
         // Build request with headers
         Request request = new Request.Builder()
@@ -88,28 +88,23 @@ public class AdminActivity extends AppCompatActivity {
                         throw new IOException("Unexpected response code: " + response.code());
                     }
 
-                    // Parse the response on a background thread
                     List<User> users = parseUsers(responseBody);
 
-                    // Update UI on the main thread
                     runOnUiThread(() -> {
                         if (users.isEmpty()) {
                             Log.d(TAG, "No users found");
-                            Toast.makeText(AdminActivity.this,
-                                    "No users available",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminActivity.this, "No users available", Toast.LENGTH_SHORT).show();
+                            userRecyclerView.setVisibility(View.GONE);
                         } else {
                             Log.d(TAG, "Updating adapter with " + users.size() + " users");
-                            userAdapter.updateData(users); // Assuming you have an updateData method in UserAdapter
+                            userAdapter.updateData(users);
                             userRecyclerView.setVisibility(View.VISIBLE);
                         }
                     });
 
                 } catch (Exception e) {
                     Log.e(TAG, "Error processing response", e);
-                    runOnUiThread(() -> Toast.makeText(AdminActivity.this,
-                            "Error processing data: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(AdminActivity.this, "Error processing data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
             }
         });
