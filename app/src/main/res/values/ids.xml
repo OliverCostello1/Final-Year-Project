@@ -5,4 +5,5 @@
     <item name="l_name_admin" type="id"/>
     <item name="f_name_admin" type="id"/>
     <item name="wallet_address_admin" type="id"/>
+    <item name="delete_user_button" type="id" />
 </resources>
