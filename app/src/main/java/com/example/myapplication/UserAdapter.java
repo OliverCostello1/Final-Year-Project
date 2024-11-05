@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
@@ -18,7 +21,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private final OnDeleteClickListener deleteClickListener;
 
     public interface OnDeleteClickListener {
-        void onDeleteClick(String walletAddress, int position);
+        void onDeleteClick(String id, int position);
     }
 
     public UserAdapter(List<User> userList, Context context, OnDeleteClickListener deleteClickListener) {
@@ -43,15 +46,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         Log.d("UserAdapter", "Binding ViewHolder at position: " + position);
 
         User user = userList.get(position);
+        holder.userIDTextView.setText(context.getString(R.string.user_id_label, user.getID()));
         holder.walletAddressTextView.setText(context.getString(R.string.wallet_address, user.getWalletAddress()));
         holder.firstNameTextView.setText(context.getString(R.string.f_name, user.getFirstName()));
         holder.lastNameTextView.setText(context.getString(R.string.l_name, user.getLastName()));
         holder.roleTextView.setText(context.getString(R.string.role_string, user.getRole()));
+        holder.deleteUserButton.setText(context.getString(R.string.delete_user_text, user.getID()));
 
         holder.deleteUserButton.setOnClickListener(v -> {
             if (deleteClickListener != null) {
-                // Call deleteUserFromDatabase with the user's wallet address
-                deleteUserFromDatabase(user.getWalletAddress(), position);
+                // Call deleteClickListener with the user's ID instead of wallet address
+                deleteClickListener.onDeleteClick(String.valueOf(user.getID()), position);
             }
         });
     }
@@ -72,21 +77,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         notifyItemRemoved(position);
     }
 
-    // Method to delete user from database
-    private void deleteUserFromDatabase(String walletAddress, int position) {
-        // Delete the user from the database. Replace this with actual database code.
-        // For example, if using Room:
-        // userDao.deleteUserByWalletAddress(walletAddress);
-        String url = "http://10.0.2.2:8000/project/get_users.php";
-        Log.d("UserAdapter", "User deleted from database: " + walletAddress);
-
-        // Remove user from the list and notify the adapter
-        userList.remove(position);
-        notifyItemRemoved(position);
-    }
-
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView walletAddressTextView;
+        TextView userIDTextView;
         TextView firstNameTextView;
         TextView lastNameTextView;
         TextView roleTextView;
@@ -94,6 +87,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
+            userIDTextView = itemView.findViewById(R.id.user_id);
             walletAddressTextView = itemView.findViewById(R.id.wallet_address_admin);
             firstNameTextView = itemView.findViewById(R.id.f_name_admin);
             lastNameTextView = itemView.findViewById(R.id.l_name_admin);

@@ -6,6 +6,18 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_id_label"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/wallet_address_admin"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <TextView
         android:id="@+id/wallet_address_admin"
         android:layout_width="match_parent"

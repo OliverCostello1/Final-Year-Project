@@ -5,11 +5,17 @@ public class User {
     private final String first_name;
     private final String last_name;
     private final String role;
-    public User(String walletAddress, String firstName, String lastName, String role) {
+    private final String id;
+    public User(String id, String walletAddress, String firstName, String lastName, String role) {
+        this.id = id;
         this.wallet_address = walletAddress;
         this.first_name = firstName;
         this.last_name = lastName;
         this.role = role;
+    }
+
+    public String getID() {
+        return id;
     }
 
     // Getter methods for user table
@@ -24,5 +30,8 @@ public class User {
     }
     public String getRole() {
         return role;
+    }
+
+    public void setId(int id) {
     }
 }

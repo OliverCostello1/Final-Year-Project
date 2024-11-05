@@ -116,11 +116,17 @@ public class AdminActivity extends AppCompatActivity implements UserAdapter.OnDe
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject obj = data.getJSONObject(i);
                     User user = new User(
+                            obj.getString("id"),
                             obj.getString("wallet_address"),
                             obj.getString("first_name"),
                             obj.getString("last_name"),
                             obj.getString("role")
                     );
+                    if (obj.has("id")) {
+                        user.setId(obj.getInt("id"));  // Ensure your User class has setId method
+                    } else {
+                        Log.e(TAG, "No id found for user at position " + i);
+                    }
                     users.add(user);
                 }
             }
@@ -131,19 +137,17 @@ public class AdminActivity extends AppCompatActivity implements UserAdapter.OnDe
 
         return users;
     }
-
     @Override
-    public void onDeleteClick(String walletAddress, int position) {
-        deleteUserFromDatabase(walletAddress, position);
+    public void onDeleteClick(String id, int position) {
+        deleteUserFromDatabase(id, position);
+        Log.d(TAG, "Called deleteUserFromDatabase method");
     }
-
-    private void deleteUserFromDatabase(String walletAddress, int position) {
-        String url = "http://localhost:8000/project/delete_user.php";
-        Log.d(TAG, "fetchUsers: Sending request to " + url);
-        Log.d(TAG, "Attempting to delete user: " + walletAddress + " at position: " + position);
+    private void deleteUserFromDatabase(String userID, int position) {
+        String url = "http://10.0.2.2:8000/project/delete_user.php";
+        Log.d(TAG, "Attempting to delete user with user id: " + userID);
 
         RequestBody formBody = new FormBody.Builder()
-                .add("wallet_address", walletAddress)
+                .add("id", userID)
                 .build();
 
         Request request = new Request.Builder()
@@ -154,7 +158,7 @@ public class AdminActivity extends AppCompatActivity implements UserAdapter.OnDe
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, "Delete request failed", e);
+                Log.e(TAG, "Failed to delete user: ", e);
                 runOnUiThread(() -> Toast.makeText(AdminActivity.this,
                         "Failed to delete user: " + e.getMessage(),
                         Toast.LENGTH_SHORT).show());
@@ -162,34 +166,19 @@ public class AdminActivity extends AppCompatActivity implements UserAdapter.OnDe
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                String responseData = response.body().string();
-                Log.d(TAG, "Server response: " + responseData);
-
-                runOnUiThread(() -> {
-                    try {
-                        JSONObject jsonResponse = new JSONObject(responseData);
-                        String status = jsonResponse.getString("status");
-                        String message = jsonResponse.getString("message");
-
-                        if (status.equals("success")) {
-                            if (position >= 0 && position < userAdapter.getItemCount()) {
-                                userAdapter.removeItem(position);
-                                Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
-                            }
-                            // Refresh the list to ensure UI is in sync with database
-                            fetchUsers();
-                        } else {
-                            Toast.makeText(AdminActivity.this,
-                                    "Failed to delete user: " + message,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        Log.e(TAG, "Error parsing response", e);
-                        Toast.makeText(AdminActivity.this,
-                                "Error processing server response",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Log.d(TAG, "Delete response code: " + response.code());
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "User deleted successfully");
+                    runOnUiThread(() -> {
+                        userAdapter.removeItem(position); // Remove item from adapter
+                        Toast.makeText(AdminActivity.this, "User deleted successfully", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    Log.e(TAG, "Failed to delete user from database");
+                    runOnUiThread(() -> Toast.makeText(AdminActivity.this,
+                            "Failed to delete user from database",
+                            Toast.LENGTH_SHORT).show());
+                }
             }
         });
     }
