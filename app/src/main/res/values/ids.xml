@@ -6,4 +6,8 @@
     <item name="f_name_admin" type="id"/>
     <item name="wallet_address_admin" type="id"/>
     <item name="delete_user_button" type="id" />
+    <item name="asking_price" type="id" />
+    <item name="auctioneer_id" type="id" />
+    <item name="current_bid" type="id" />
+    <item name="submit_bid" type="id" />
 </resources>

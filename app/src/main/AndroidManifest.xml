@@ -29,6 +29,8 @@
         <activity android:name=".RegisterActivity"/>
         <activity android:name = ".BidderActivity" />
         <activity android:name=".AdminActivity" />
+        <activity android:name=".UserAdminActivity"/>
+        <activity android:name=".UsageReportsActivity"/>
     </application>
 
 </manifest>

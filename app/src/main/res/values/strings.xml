@@ -32,6 +32,9 @@
     <string name="property_id_format">Property ID: %1$d</string>
     <string name="eircode_format">Eircode: %1$s</string>
     <string name="link_format">Link: %1$s</string>
+    <string name = "asking_price_format">Asking Price: %1$s</string>
+    <string name = "auctioneer_id_format">Auctioneer ID: %1$s</string>
+    <string name = "current_bid_format">Current Bid: %1$s</string>
     <string name="admin_user_management">Admin User Management</string>
     <string name="enter_your_details_to_regiser" />
     <string name="f_name">First Name: %1$s</string>
@@ -40,5 +43,13 @@
     <string name="wallet_address">Wallet Address: %1$s</string>
     <string name="delete_user_text">Delete User with User ID: %1$s</string>
     <string name ="user_id_label">User ID: %1$s</string>
-
+    <string name = "property_id_label"> Property ID: %1$s</string>
+    <string name = "eircode_label">Eirode: %1$s</string>
+    <string name = "link_label">View Link: %1$s</string>
+    <string name="submit_bid">Submit Bid</string>
+    <string name="enter_bid">Enter Bid</string>
+    <string name="admin_options">Admin User Options</string>
+    <string name="select_from_the_following_admin_options">Select From The Following Admin Options</string>
+    <string name="user_management">User Management</string>
+    <string name="view_app_usage_reports">View App Usage Reports</string>
 </resources>

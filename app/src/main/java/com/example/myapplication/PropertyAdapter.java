@@ -35,9 +35,12 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
     @Override
     public void onBindViewHolder(@NonNull PropertyViewHolder holder, int position) {
         Property property = properties.get(position);
-        holder.propertyIdTextView.setText(String.valueOf(property.getPropertyId()));
-        holder.eircodeTextView.setText(property.getEircode());
-        holder.linkTextView.setText(property.getLink());
+        holder.propertyIdTextView.setText(context.getString(R.string.property_id_label, String.valueOf(property.getPropertyId())));
+        holder.eircodeTextView.setText(context.getString(R.string.eircode_label, property.getEircode()));
+        holder.linkTextView.setText(context.getString(R.string.link_label, property.getLink()));
+        holder.auctioneerIdTextView.setText(context.getString(R.string.auctioneer_id_format, String.valueOf(property.getAuctioneer_id())));
+        holder.askingPriceTextView.setText(context.getString(R.string.asking_price_format, String.valueOf(property.getAsking_price())));
+        holder.currentBidTextView.setText(context.getString(R.string.current_bid_format, String.valueOf(property.getCurrent_bid())));
         Log.d(TAG, "Bound property at position " + position + ": " + property.getPropertyId());
     }
 
@@ -61,12 +64,18 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
         public TextView propertyIdTextView;
         public TextView eircodeTextView;
         public TextView linkTextView;
+        public TextView auctioneerIdTextView;
+        public TextView askingPriceTextView;
+        public TextView currentBidTextView;
 
         public PropertyViewHolder(@NonNull View itemView) {
             super(itemView);
             propertyIdTextView = itemView.findViewById(R.id.property_id);
             eircodeTextView = itemView.findViewById(R.id.eircode);
             linkTextView = itemView.findViewById(R.id.link);
+            auctioneerIdTextView = itemView.findViewById(R.id.auctioneer_id);
+            askingPriceTextView = itemView.findViewById(R.id.asking_price);
+            currentBidTextView = itemView.findViewById(R.id.current_bid);
         }
     }
 }
