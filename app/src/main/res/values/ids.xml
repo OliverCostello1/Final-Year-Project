@@ -11,4 +11,6 @@
     <item name="current_bid" type="id" />
     <item name="submit_bid" type="id" />
     <item name="user_count" type="id" />
+    <item name="usage_report" type="id" />
+    <item name="welcome_back" type="id" />
 </resources>

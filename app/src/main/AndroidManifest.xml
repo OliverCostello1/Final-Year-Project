@@ -31,6 +31,8 @@
         <activity android:name=".AdminActivity" />
         <activity android:name=".UserAdminActivity"/>
         <activity android:name=".UsageReportsActivity"/>
+        <activity android:name=".PlaceBidActivity"/>
+        <activity android:name=".ViewBidsActivity"/>
     </application>
 
 </manifest>

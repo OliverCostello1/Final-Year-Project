@@ -1,9 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -66,14 +67,24 @@ public class LoginActivity extends AppCompatActivity {
                         String responseData = response.body().string();
                         JSONObject json = new JSONObject(responseData);
                         String status = json.getString("status");
-                        String role = json.getString("role"); // getting the user's role to switch to the correct role
+                        String user_status = json.getString("user_status");
+                        String role = json.getString("role");// getting the user's role to switch to the correct role
+                        String userID = json.getString("id");
+                        String first_name = json.getString("first_name");
                         Log.d("SERVER RESPONSE: ", responseData);
                         Log.d("LoginActivity", "Role value: " + role + ", Type: " + ((Object) role).getClass().getSimpleName());
 
                         if (status.equals("success")) {
+                            SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor  = prefs.edit();
+                            editor.putString("user_id", userID);
+                            editor.putString("user_status", user_status);
+                            editor.putString("role", role);
+                            editor.putString("first_name", first_name);
+                            editor.apply();
 
                             runOnUiThread(() -> {
-                                Toast.makeText(LoginActivity.this, "Welcome Back!" , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Welcome Back," + first_name + "!" , Toast.LENGTH_SHORT).show();
                                 // Sends user to activity based on role type
                                 Intent intent = switch (role) {
                                     case "admin" -> {
@@ -102,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.e("LOGIN ERROR", "JSON PARSNING ERROR" + e.getMessage());
+                        Log.e("LOGIN ERROR", "JSON PARSING ERROR" + e.getMessage());
                     }
                 } else {
                     Log.e("LOGIN_ERROR", "Unsuccessful server response");

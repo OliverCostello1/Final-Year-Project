@@ -57,4 +57,14 @@
     <string name = "property_count_label">Property Count: %1$d</string>
     <string name = "bid_count_label">Bid Count: %1$d</string>
     <string name = "error_fetching_data"> Error Fetching Data</string>
+
+    <string name = "all_properties">View all Properties</string>
+    <string name = "all_users">View all Users</string>
+    <string name = "all_bids">View all Bids</string>
+
+    <string name = "register_status"> Register Status: %1$s </string>
+    <string name = "place_bid"> Place Bid</string>
+    <string name = "view_bids"> View My Bids</string>
+    <string name = "welcome_back_string">Welcome Back, %1$s !</string>
+    <string name = "pending_approval"> Users Pending Approval cannot place bids. Please come back later.</string>
 </resources>
