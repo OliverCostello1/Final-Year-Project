@@ -10,4 +10,5 @@
     <item name="auctioneer_id" type="id" />
     <item name="current_bid" type="id" />
     <item name="submit_bid" type="id" />
+    <item name="user_count" type="id" />
 </resources>

@@ -52,4 +52,9 @@
     <string name="select_from_the_following_admin_options">Select From The Following Admin Options</string>
     <string name="user_management">User Management</string>
     <string name="view_app_usage_reports">View App Usage Reports</string>
+
+    <string name = "user_count_label"> User Count: %1$d</string>
+    <string name = "property_count_label">Property Count: %1$d</string>
+    <string name = "bid_count_label">Bid Count: %1$d</string>
+    <string name = "error_fetching_data"> Error Fetching Data</string>
 </resources>
