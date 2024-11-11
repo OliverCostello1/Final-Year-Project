@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,20 +24,18 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class UserAdminActivity extends AppCompatActivity implements ApprovedUserAdapter.OnDeleteClickListener {
-    private static final String TAG = "AdminActivity";
-    private OkHttpClient client;
-    private ApprovedUserAdapter userAdapter;
+public class PendingUsersActivity extends AppCompatActivity {
+    private PendingUserAdapter userAdapter;
     private RecyclerView userRecyclerView;
+    private OkHttpClient client;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_recycler);
 
@@ -44,7 +44,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
         userRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize adapter with an empty list and delete click listener
-        userAdapter = new ApprovedUserAdapter(new ArrayList<>(), this, this);
+        userAdapter = new PendingUserAdapter(new ArrayList<>(), this);
         userRecyclerView.setAdapter(userAdapter);
 
         // Initialize OkHttpClient with timeout
@@ -57,12 +57,13 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
 
         Log.d(TAG, "onCreate: Fetching users from database");
 
-        // Fetch users from the database
         fetchUsers();
+
     }
 
+
     private void fetchUsers() {
-        String url = "http://10.0.2.2:8000/project/get_users.php"; // Update URL as needed
+        String url = "http://10.0.2.2:8000/project/get_pending_users.php"; // Update URL as needed
         Log.d(TAG, "fetchUsers: Sending request to " + url);
         Request request = new Request.Builder()
                 .url(url)
@@ -74,7 +75,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(() -> Toast.makeText(UserAdminActivity.this,
+                runOnUiThread(() -> Toast.makeText(PendingUsersActivity.this,
                         "Failed to fetch users: " + e.getMessage(),
                         Toast.LENGTH_SHORT).show());
             }
@@ -90,7 +91,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
                     List<User> users = parseUsers(responseBody);
                     runOnUiThread(() -> {
                         if (users.isEmpty()) {
-                            Toast.makeText(UserAdminActivity.this, "No users available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PendingUsersActivity.this, "No users available", Toast.LENGTH_SHORT).show();
                             userRecyclerView.setVisibility(View.GONE);
                         } else {
                             userAdapter.updateData(users);
@@ -99,22 +100,22 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
                     });
 
                 } catch (Exception e) {
-                    runOnUiThread(() -> Toast.makeText(UserAdminActivity.this, "Error processing data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(PendingUsersActivity.this, "Error processing data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
             }
         });
     }
-
     private List<User> parseUsers(String jsonStr) {
         List<User> users = new ArrayList<>();
         try {
-
-            Log.d(TAG, "parseUsers: Parsing JSON Data " + users.size());
+            Log.d(TAG, "parseUsers: Parsing JSON Data, initial size " + users.size());
             JSONObject response = new JSONObject(jsonStr);
             if (response.has("data")) {
                 JSONArray data = response.getJSONArray("data");
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject obj = data.getJSONObject(i);
+                    Log.d("id::", obj.getString("id"));  // Log the user ID
+
                     User user = new User(
                             obj.getString("id"),
                             obj.getString("wallet_address"),
@@ -133,53 +134,8 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
         } catch (JSONException e) {
             Log.e(TAG, "Error parsing JSON", e);
         }
-        Log.d(TAG, "onResponse: Parsed Users " + users.size());
-
+        Log.d(TAG, "onResponse: Parsed Users count: " + users.size());  // Log the final size of users
         return users;
     }
-    @Override
-    public void onDeleteClick(String id, int position) {
-        deleteUserFromDatabase(id, position);
-        Log.d(TAG, "Called deleteUserFromDatabase method");
-    }
-    private void deleteUserFromDatabase(String userID, int position) {
-        String url = "http://10.0.2.2:8000/project/delete_user.php";
-        Log.d(TAG, "Attempting to delete user with user id: " + userID);
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("id", userID)
-                .build();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, "Failed to delete user: ", e);
-                runOnUiThread(() -> Toast.makeText(UserAdminActivity.this,
-                        "Failed to delete user: " + e.getMessage(),
-                        Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Log.d(TAG, "Delete response code: " + response.code());
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "User deleted successfully");
-                    runOnUiThread(() -> {
-                        userAdapter.removeItem(position); // Remove item from adapter
-                        Toast.makeText(UserAdminActivity.this, "User deleted successfully", Toast.LENGTH_SHORT).show();
-                    });
-                } else {
-                    Log.e(TAG, "Failed to delete user from database");
-                    runOnUiThread(() -> Toast.makeText(UserAdminActivity.this,
-                            "Failed to delete user from database",
-                            Toast.LENGTH_SHORT).show());
-                }
-            }
-        });
-    }
-}
+};

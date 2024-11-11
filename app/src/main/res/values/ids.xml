@@ -13,4 +13,5 @@
     <item name="user_count" type="id" />
     <item name="usage_report" type="id" />
     <item name="welcome_back" type="id" />
+    <item name="pendingRecycler" type="id" />
 </resources>

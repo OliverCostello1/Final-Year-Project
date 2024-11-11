@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,15 +24,17 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
-
 public class PlaceBidActivity extends AppCompatActivity {
-    private static final String TAG = "BidderActivity";
+    private static final String TAG = "PlaceBidActivity";
     private OkHttpClient client;
     private PropertyAdapter propertyAdapter;
     private RecyclerView propertyRecyclerView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +48,15 @@ public class PlaceBidActivity extends AppCompatActivity {
         propertyAdapter = new PropertyAdapter(new ArrayList<>(), this);
         propertyRecyclerView.setAdapter(propertyAdapter);
 
-
         // Initialize OkHttpClient with longer timeout
         client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
+
+        // Get the shared preferences instance
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
 
         // Fetch properties
         fetchProperties();
@@ -124,7 +130,6 @@ public class PlaceBidActivity extends AppCompatActivity {
             if (response.has("data")) {
                 JSONArray data = response.getJSONArray("data");
 
-
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject obj = data.getJSONObject(i);
                     // Sets the current bid to 0 if no bids made yet.
@@ -135,7 +140,8 @@ public class PlaceBidActivity extends AppCompatActivity {
                             obj.getString("link"),
                             obj.getInt("auctioneer_id"),
                             obj.getInt("asking_price"),
-                            current_bid
+                            current_bid,
+                            obj.getString("auctioneer_wallet")
                     );
                     properties.add(property);
 
@@ -149,5 +155,76 @@ public class PlaceBidActivity extends AppCompatActivity {
             Log.e(TAG, "Error parsing JSON", e);
         }
         return properties;
+    }
+
+    public void submitBid(Property property, String userId, String userWallet, double bidAmount) {
+        String url = "http://10.0.2.2:8000/project/submit_bid.php";
+
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("property_id", property.getPropertyId());
+            requestBody.put("bidder_id", userId);
+            requestBody.put("bidder_wallet", userWallet);
+            requestBody.put("auctioneer_id", property.getAuctioneer_id());
+            requestBody.put("auctioneer_wallet", property.getAuctioneer_wallet());
+            requestBody.put("bid_amount", bidAmount);
+        } catch (JSONException e) {
+            Log.e(TAG, "Error creating request body", e);
+            return;
+        }
+
+        RequestBody formBody = RequestBody.create(
+                MediaType.parse("application/json"), requestBody.toString());
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        Log.d(TAG, "Submitting bid to: " + url);
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e(TAG, "Bid submission failed", e);
+                runOnUiThread(() -> Toast.makeText(PlaceBidActivity.this,
+                        "Failed to submit bid: " + e.getMessage(),
+                        Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try {
+                    String responseBody = response.body() != null ? response.body().string() : "";
+                    Log.d(TAG, "Bid submission response: " + responseBody);
+
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Unexpected response code: " + response.code());
+                    }
+
+                    // Parse the response and update the UI as needed
+                    JSONObject jsonResponse = new JSONObject(responseBody);
+                    String status = jsonResponse.getString("status");
+                    String message = jsonResponse.getString("message");
+
+                    runOnUiThread(() -> {
+                        if (status.equals("success")) {
+                            Toast.makeText(PlaceBidActivity.this, message, Toast.LENGTH_SHORT).show();
+                            // Optionally, you can refresh the property list or update the current bid
+                        } else {
+                            Toast.makeText(PlaceBidActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Error processing bid response", e);
+                    runOnUiThread(() -> Toast.makeText(PlaceBidActivity.this,
+                            "Error processing bid response: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
     }
 }

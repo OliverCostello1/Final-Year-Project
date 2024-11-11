@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
+public class ApprovedUserAdapter extends RecyclerView.Adapter<ApprovedUserAdapter.UserViewHolder> {
 
     private final List<User> userList;
     private final Context context;
@@ -24,7 +24,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         void onDeleteClick(String id, int position);
     }
 
-    public UserAdapter(List<User> userList, Context context, OnDeleteClickListener deleteClickListener) {
+    public ApprovedUserAdapter(List<User> userList, Context context, OnDeleteClickListener deleteClickListener) {
         this.userList = userList;
         this.context = context;
         this.deleteClickListener = deleteClickListener;
@@ -37,7 +37,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         Log.d("UserAdapter", "Creating ViewHolder");
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_users, parent, false);
+                .inflate(R.layout.activity_approved_user, parent, false);
         return new UserViewHolder(view);
     }
 

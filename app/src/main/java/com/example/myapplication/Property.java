@@ -9,15 +9,16 @@ public class Property {
     private final Integer auctioneer_id;
     private final Integer asking_price;
     private final Integer current_bid;
-
+    private final String auctioneer_wallet;
     // Constructor
-    public Property(int propertyId, String eircode, String link, Integer auctioneer_id, Integer asking_price, Integer current_bid) {
+    public Property(int propertyId, String eircode, String link, Integer auctioneer_id, Integer asking_price, Integer current_bid, String auctioneerWallet) {
         this.propertyId = propertyId; // Changed to camelCase
         this.eircode = eircode;
         this.link = link;
         this.auctioneer_id = auctioneer_id;
         this.asking_price= asking_price;
         this.current_bid = current_bid;
+        auctioneer_wallet = auctioneerWallet;
     }
 
     // Getter methods for propertyId, eircode, link
@@ -41,5 +42,8 @@ public class Property {
     }
     public Integer getCurrent_bid() {
         return current_bid;
+    }
+    public String getAuctioneer_wallet() {
+        return auctioneer_wallet;
     }
 }

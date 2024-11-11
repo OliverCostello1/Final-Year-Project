@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,50 +10,55 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import jnr.ffi.annotations.In;
-
 public class BidderActivity extends AppCompatActivity {
     private static final String TAG = "BidderActivity";
-    private Button viewBids;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bidder);
+
+        // Initialize UI components
         TextView registerStatus = findViewById(R.id.register_status);
         TextView unapprovedMessage = findViewById(R.id.unapproved_message);
         Button placeBid = findViewById(R.id.place_bid_id);
-        viewBids = findViewById(R.id.view_bid);
+        Button viewBids = findViewById(R.id.view_bid);
         TextView welcomeTextView = findViewById(R.id.welcome_back);
 
+        // Fetch SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         String status = prefs.getString("user_status", "");
+        String firstName = prefs.getString("first_name", "");
+
+        // Set register status message
         registerStatus.setText(getString(R.string.register_status, status));
-        String first_name = prefs.getString("first_name", "");
+
+        // Handling visibility based on user status
         if ("pending".equals(status)) {
-            unapprovedMessage.setVisibility(TextView.VISIBLE);
+            unapprovedMessage.setVisibility(View.VISIBLE);
+            registerStatus.setVisibility(View.VISIBLE);
+            placeBid.setVisibility(View.GONE);
+            viewBids.setVisibility(View.GONE);
+            welcomeTextView.setVisibility(View.GONE);
         } else if ("approved".equals(status)) {
-            registerStatus.setVisibility(TextView.GONE);
-            placeBid.setVisibility(Button.VISIBLE);
-            viewBids.setVisibility(Button.VISIBLE);
-            welcomeTextView.setVisibility(TextView.VISIBLE);
-            welcomeTextView.setText(getString(R.string.welcome_back_string, first_name));
+            unapprovedMessage.setVisibility(View.GONE);
+            registerStatus.setVisibility(View.GONE);
+            placeBid.setVisibility(View.VISIBLE);
+            viewBids.setVisibility(View.VISIBLE);
+            welcomeTextView.setVisibility(View.VISIBLE);
+            welcomeTextView.setText(getString(R.string.welcome_back_string, firstName));
         }
 
-        // If the place bids button is visible allow user to go to place bids activity
-        if (placeBid.getVisibility() == Button.VISIBLE) {
-           placeBid.setOnClickListener(v -> {
-              Intent intent = new Intent(BidderActivity.this, PlaceBidActivity.class);
-              startActivity(intent);
-           });
-        }
+        // Button to navigate to PlaceBidActivity
+        placeBid.setOnClickListener(v -> {
+            Intent intent = new Intent(BidderActivity.this, PlaceBidActivity.class);
+            startActivity(intent);
+        });
 
-        // If the place bids button is visible, allow user to view their bids.
-
-        if (viewBids.getVisibility() == Button.VISIBLE) {
-            viewBids.setOnClickListener(v -> {
-                Intent intent = new Intent(BidderActivity.this, ViewBidsActivity.class);
-                startActivity(intent);
-            });
-        }
+        // Button to navigate to ViewBidsActivity
+        viewBids.setOnClickListener(v -> {
+            Intent intent = new Intent(BidderActivity.this, ViewBidsActivity.class);
+            startActivity(intent);
+        });
     }
 }

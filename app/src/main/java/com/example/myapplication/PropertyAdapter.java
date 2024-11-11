@@ -1,11 +1,16 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +21,7 @@ import java.util.List;
 public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder> {
     private static final String TAG = "PropertyAdapter";
     private List<Property> properties;
-    private final Context context;
+    private static Context context = null;
 
     public PropertyAdapter(List<Property> properties, Context context) {
         this.properties = new ArrayList<>(properties != null ? properties : new ArrayList<>());
@@ -35,13 +40,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
     @Override
     public void onBindViewHolder(@NonNull PropertyViewHolder holder, int position) {
         Property property = properties.get(position);
-        holder.propertyIdTextView.setText(context.getString(R.string.property_id_label, String.valueOf(property.getPropertyId())));
-        holder.eircodeTextView.setText(context.getString(R.string.eircode_label, property.getEircode()));
-        holder.linkTextView.setText(context.getString(R.string.link_label, property.getLink()));
-        holder.auctioneerIdTextView.setText(context.getString(R.string.auctioneer_id_format, String.valueOf(property.getAuctioneer_id())));
-        holder.askingPriceTextView.setText(context.getString(R.string.asking_price_format, String.valueOf(property.getAsking_price())));
-        holder.currentBidTextView.setText(context.getString(R.string.current_bid_format, String.valueOf(property.getCurrent_bid())));
-        Log.d(TAG, "Bound property at position " + position + ": " + property.getPropertyId());
+        holder.setPropertyData(property);
     }
 
     @Override
@@ -60,6 +59,10 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
         notifyDataSetChanged();
     }
 
+    public Property getPropertyAt(int position) {
+        return properties.get(position);
+    }
+
     public static class PropertyViewHolder extends RecyclerView.ViewHolder {
         public TextView propertyIdTextView;
         public TextView eircodeTextView;
@@ -67,6 +70,10 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
         public TextView auctioneerIdTextView;
         public TextView askingPriceTextView;
         public TextView currentBidTextView;
+        public EditText enterBidView;
+        public Button submitBidButton;
+        private Property property;
+        private SharedPreferences sharedPreferences;
 
         public PropertyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +83,41 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
             auctioneerIdTextView = itemView.findViewById(R.id.auctioneer_id);
             askingPriceTextView = itemView.findViewById(R.id.asking_price);
             currentBidTextView = itemView.findViewById(R.id.current_bid);
+            enterBidView = itemView.findViewById(R.id.enter_bid);
+            submitBidButton = itemView.findViewById(R.id.submit_bid);
+
+            // Get the shared preferences instance
+            sharedPreferences = itemView.getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+
+            // Set the onClick listener for the submit bid button
+            submitBidButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String bidAmount = enterBidView.getText().toString();
+                    if (!TextUtils.isEmpty(bidAmount)) {
+                        String userId = sharedPreferences.getString("user_id", "");
+                        String userWallet = sharedPreferences.getString("wallet_address", "");
+                        if (!userId.isEmpty() && !userWallet.isEmpty()) {
+                            ((PlaceBidActivity) itemView.getContext()).submitBid(
+                                    property, userId, userWallet, Double.parseDouble(bidAmount));
+                        } else {
+                            Toast.makeText(itemView.getContext(), "Please log in to place a bid.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(itemView.getContext(), "Please enter a bid amount.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+        public void setPropertyData(Property property) {
+            this.property = property;
+            propertyIdTextView.setText(context.getString(R.string.property_id_label, String.valueOf(property.getPropertyId())));
+            eircodeTextView.setText(context.getString(R.string.eircode_label, property.getEircode()));
+            linkTextView.setText(context.getString(R.string.link_label, property.getLink()));
+            auctioneerIdTextView.setText(context.getString(R.string.auctioneer_id_format, String.valueOf(property.getAuctioneer_id())));
+            askingPriceTextView.setText(context.getString(R.string.asking_price_format, String.valueOf(property.getAsking_price())));
+            currentBidTextView.setText(context.getString(R.string.current_bid_format, String.valueOf(property.getCurrent_bid())));
         }
     }
 }

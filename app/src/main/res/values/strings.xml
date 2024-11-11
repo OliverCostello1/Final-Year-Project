@@ -61,10 +61,15 @@
     <string name = "all_properties">View all Properties</string>
     <string name = "all_users">View all Users</string>
     <string name = "all_bids">View all Bids</string>
+    <string name = "approve_new_users">Approve new Users</string>
 
     <string name = "register_status"> Register Status: %1$s </string>
     <string name = "place_bid"> Place Bid</string>
     <string name = "view_bids"> View My Bids</string>
     <string name = "welcome_back_string">Welcome Back, %1$s !</string>
     <string name = "pending_approval"> Users Pending Approval cannot place bids. Please come back later.</string>
+
+    <string name = "approve_user">Approve User %1$s</string>
+    <string name = "deny_user">Deny User %1$s </string>
+    <string name="auctioneer_wallet">Auctioneer Wallet</string>
 </resources>

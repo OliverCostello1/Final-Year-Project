@@ -71,9 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                         String role = json.getString("role");// getting the user's role to switch to the correct role
                         String userID = json.getString("id");
                         String first_name = json.getString("first_name");
+                        String wallet_address = json.getString("wallet_address"); // To be used to place bid.
                         Log.d("SERVER RESPONSE: ", responseData);
                         Log.d("LoginActivity", "Role value: " + role + ", Type: " + ((Object) role).getClass().getSimpleName());
-
+                        Log.d("LoginActivity", "Wallet Address:" + wallet_address);
                         if (status.equals("success")) {
                             SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor  = prefs.edit();
@@ -81,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("user_status", user_status);
                             editor.putString("role", role);
                             editor.putString("first_name", first_name);
+                            editor.putString("wallet_address", wallet_address);
                             editor.apply();
 
                             runOnUiThread(() -> {
