@@ -72,4 +72,9 @@
     <string name = "approve_user">Approve User %1$s</string>
     <string name = "deny_user">Deny User %1$s </string>
     <string name="auctioneer_wallet">Auctioneer Wallet</string>
+    <string name="ViewYourBids">View Your Bids %1$s</string>
+    <string name="bid_id">Bid ID: %1$s</string>
+    <string name="your_wallet">Your Wallet Address: %1$s</string>
+    <string name="auctioneeer_id_bid">Auctioneer ID: %1$s</string>
+    <string name="time_submitted">Time Submitted:</string>
 </resources>

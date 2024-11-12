@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
+import org.web3j.abi.datatypes.Int;
+
 public class User {
     private final String wallet_address;
     private final String first_name;
     private final String last_name;
     private final String role;
-    private final String id;
-    public User(String id, String walletAddress, String firstName, String lastName, String role) {
+    private final int id;
+    public User(int id, String walletAddress, String firstName, String lastName, String role) {
         this.id = id;
         this.wallet_address = walletAddress;
         this.first_name = firstName;
@@ -14,7 +16,7 @@ public class User {
         this.role = role;
     }
 
-    public String getID() {
+    public int getID() {
         return id;
     }
 

@@ -98,8 +98,11 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
                         String userId = sharedPreferences.getString("user_id", "");
                         String userWallet = sharedPreferences.getString("wallet_address", "");
                         if (!userId.isEmpty() && !userWallet.isEmpty()) {
+                            Log.d("PropertyAdapter", "Submitting bid with wallet address: " + userWallet);
+
                             ((PlaceBidActivity) itemView.getContext()).submitBid(
                                     property, userId, userWallet, Double.parseDouble(bidAmount));
+
                         } else {
                             Toast.makeText(itemView.getContext(), "Please log in to place a bid.", Toast.LENGTH_SHORT).show();
                         }

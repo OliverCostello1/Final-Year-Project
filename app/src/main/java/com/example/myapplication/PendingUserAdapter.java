@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,13 @@ import java.util.List;
 public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.UserViewHolder> {
     private final List<User> userList;
     private final Context context;
+    private final OnApproveClickListener approveClickListener;
 
-    public PendingUserAdapter(List<User> userList, Context context) {
+    public PendingUserAdapter(List<User> userList, Context context, OnApproveClickListener approveClickListener) {
         this.userList = userList;
         this.context = context;
+        this.approveClickListener = approveClickListener;
     }
-
-
 
     @NonNull
     @Override
@@ -34,15 +33,20 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-
         User user = userList.get(position);
-        holder.userIDTextView.setText(context.getString(R.string.user_id_label, user.getID()));
+        holder.userIDTextView.setText(context.getString(R.string.user_id_label, String.valueOf(user.getID())));
         holder.walletAddressTextView.setText(context.getString(R.string.wallet_address, user.getWalletAddress()));
         holder.firstNameTextView.setText(context.getString(R.string.f_name, user.getFirstName()));
         holder.lastNameTextView.setText(context.getString(R.string.l_name, user.getLastName()));
         holder.roleTextView.setText(context.getString(R.string.role_string, user.getRole()));
-        holder.approveBUtton.setText(context.getString(R.string.approve_user, user.getID()));
+        holder.approveButton.setText(context.getString(R.string.approve_user, String.valueOf(user.getID())));
 
+        // Set click listener for the approve button
+        holder.approveButton.setOnClickListener(v -> {
+            if (approveClickListener != null) {
+                approveClickListener.onApproveClick(user.getID(), position);
+            }
+        });
     }
 
     @Override
@@ -67,7 +71,7 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
         TextView firstNameTextView;
         TextView lastNameTextView;
         TextView roleTextView;
-        Button approveBUtton;
+        Button approveButton;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,11 +80,12 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
             firstNameTextView = itemView.findViewById(R.id.f_name_admin);
             lastNameTextView = itemView.findViewById(R.id.l_name_admin);
             roleTextView = itemView.findViewById(R.id.role_admin);
-            approveBUtton = itemView.findViewById(R.id.approve_user_button);
+            approveButton = itemView.findViewById(R.id.approve_user_button);
         }
     }
 
-    
+    // Interface for approve button click handling
+    public interface OnApproveClickListener {
+        void onApproveClick(int userId, int position);
+    }
 }
-
-

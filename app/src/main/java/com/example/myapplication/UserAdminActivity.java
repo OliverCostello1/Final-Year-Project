@@ -116,7 +116,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject obj = data.getJSONObject(i);
                     User user = new User(
-                            obj.getString("id"),
+                            obj.getInt("id"),
                             obj.getString("wallet_address"),
                             obj.getString("first_name"),
                             obj.getString("last_name"),
