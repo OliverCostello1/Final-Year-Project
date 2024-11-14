@@ -30,6 +30,7 @@ import java.security.Security;
 
 import okhttp3.*;
 
+// ACTIVITY TO REGISTER NEW USER
 
 public class RegisterActivity extends AppCompatActivity {
 

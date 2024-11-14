@@ -30,6 +30,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+// ALLOWS ADMIN TO REGISTER NEW USERS AS APPROVED
 public class PendingUsersActivity extends AppCompatActivity implements PendingUserAdapter.OnApproveClickListener {
     private PendingUserAdapter userAdapter;
     private RecyclerView userRecyclerView;

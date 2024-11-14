@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -158,73 +159,83 @@ public class PlaceBidActivity extends AppCompatActivity {
     }
 
     public void submitBid(Property property, String userId, String userWallet, double bidAmount) {
-        String url = "http://10.0.2.2:8000/project/submit_bid.php";
 
-        JSONObject requestBody = new JSONObject();
-        try {
-            requestBody.put("property_id", property.getPropertyId());
-            requestBody.put("bidder_id", userId);
-            requestBody.put("bidder_wallet", userWallet);
-            requestBody.put("auctioneer_id", property.getAuctioneer_id());
-            requestBody.put("auctioneer_wallet", property.getAuctioneer_wallet());
-            requestBody.put("bid_amount", bidAmount);
-        } catch (JSONException e) {
-            Log.e(TAG, "Error creating request body", e);
-            return;
-        }
+        // This will be used to only allow bidder to submit a bid during business hours (Mon-Fri, 9am-5pm)
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek  = calendar.get(Calendar.DAY_OF_WEEK);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
-        RequestBody formBody = RequestBody.create(
-                MediaType.parse("application/json"), requestBody.toString());
+        //
+        if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY && hourOfDay >=9   && hourOfDay <= 17) {
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(formBody)
-                .addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json")
-                .build();
+            String url = "http://10.0.2.2:8000/project/submit_bid.php";
 
-        Log.d(TAG, "Submitting bid to: " + url);
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, "Bid submission failed", e);
-                runOnUiThread(() -> Toast.makeText(PlaceBidActivity.this,
-                        "Failed to submit bid: " + e.getMessage(),
-                        Toast.LENGTH_SHORT).show());
+            JSONObject requestBody = new JSONObject();
+            try {
+                requestBody.put("property_id", property.getPropertyId());
+                requestBody.put("bidder_id", userId);
+                requestBody.put("bidder_wallet", userWallet);
+                requestBody.put("auctioneer_id", property.getAuctioneer_id());
+                requestBody.put("auctioneer_wallet", property.getAuctioneer_wallet());
+                requestBody.put("bid_amount", bidAmount);
+            } catch (JSONException e) {
+                Log.e(TAG, "Error creating request body", e);
+                return;
             }
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                try {
-                    String responseBody = response.body() != null ? response.body().string() : "";
-                    Log.d(TAG, "Bid submission response: " + responseBody);
+            RequestBody formBody = RequestBody.create(
+                    MediaType.parse("application/json"), requestBody.toString());
 
-                    if (!response.isSuccessful()) {
-                        throw new IOException("Unexpected response code: " + response.code());
-                    }
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(formBody)
+                    .addHeader("Accept", "application/json")
+                    .addHeader("Content-Type", "application/json")
+                    .build();
 
-                    // Parse the response and update the UI as needed
-                    JSONObject jsonResponse = new JSONObject(responseBody);
-                    String status = jsonResponse.getString("status");
-                    String message = jsonResponse.getString("message");
+            Log.d(TAG, "Submitting bid to: " + url);
 
-                    runOnUiThread(() -> {
-                        if (status.equals("success")) {
-                            Toast.makeText(PlaceBidActivity.this, message, Toast.LENGTH_SHORT).show();
-                            // Optionally, you can refresh the property list or update the current bid
-                        } else {
-                            Toast.makeText(PlaceBidActivity.this, message, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                } catch (Exception e) {
-                    Log.e(TAG, "Error processing bid response", e);
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    Log.e(TAG, "Bid submission failed", e);
                     runOnUiThread(() -> Toast.makeText(PlaceBidActivity.this,
-                            "Error processing bid response: " + e.getMessage(),
+                            "Failed to submit bid: " + e.getMessage(),
                             Toast.LENGTH_SHORT).show());
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    try {
+                        String responseBody = response.body() != null ? response.body().string() : "";
+                        Log.d(TAG, "Bid submission response: " + responseBody);
+
+                        if (!response.isSuccessful()) {
+                            throw new IOException("Unexpected response code: " + response.code());
+                        }
+
+                        // Parse the response and update the UI as needed
+                        JSONObject jsonResponse = new JSONObject(responseBody);
+                        String status = jsonResponse.getString("status");
+                        String message = jsonResponse.getString("message");
+
+                        runOnUiThread(() -> {
+                            if (status.equals("success")) {
+                                Toast.makeText(PlaceBidActivity.this, message, Toast.LENGTH_SHORT).show();
+                                // Optionally, you can refresh the property list or update the current bid
+                            } else {
+                                Toast.makeText(PlaceBidActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error processing bid response", e);
+                        runOnUiThread(() -> Toast.makeText(PlaceBidActivity.this,
+                                "Error processing bid response: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show());
+                    }
+                }
+            });
+        }
     }
 }

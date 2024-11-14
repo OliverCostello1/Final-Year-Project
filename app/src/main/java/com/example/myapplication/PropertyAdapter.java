@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+// PROPERTY ADAPTER TO BE USED FOR BIDDER TO PLACE BIDS
 public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder> {
     private static final String TAG = "PropertyAdapter";
     private List<Property> properties;

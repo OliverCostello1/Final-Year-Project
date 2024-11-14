@@ -28,6 +28,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+// ACTIVITY FOR ADMIN USER TO DELETE AUCTIONEER OR BIDDER.
 public class UserAdminActivity extends AppCompatActivity implements ApprovedUserAdapter.OnDeleteClickListener {
     private static final String TAG = "AdminActivity";
     private OkHttpClient client;

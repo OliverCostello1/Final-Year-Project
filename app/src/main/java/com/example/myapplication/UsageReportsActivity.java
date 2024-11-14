@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+// SHOWS USAGE REPORTS OF APP FOR ADMIN USER.
 public class UsageReportsActivity extends AppCompatActivity {
     private TextView userTextView, propertyTextView, bidTextView;
 
