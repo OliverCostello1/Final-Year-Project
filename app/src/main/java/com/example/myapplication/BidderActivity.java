@@ -23,7 +23,7 @@ public class BidderActivity extends AppCompatActivity {
         TextView unapprovedMessage = findViewById(R.id.unapproved_message);
         Button placeBid = findViewById(R.id.place_bid_id);
         Button viewBids = findViewById(R.id.view_bid);
-        TextView welcomeTextView = findViewById(R.id.welcome_back);
+        TextView welcomeTextView = findViewById(R.id.auctioneer_home);
 
         // Fetch SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);

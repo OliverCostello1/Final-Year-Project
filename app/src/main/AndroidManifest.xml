@@ -35,6 +35,8 @@
         <activity android:name=".ViewBidsActivity"/>
         <activity android:name=".PendingUsersActivity"/>
         <activity android:name=".AuctioneerActivity"/>
+        <activity android:name=".AddPropertyActivity"/>
+        <activity android:name=".ApproveBidsActivity"/>
     </application>
 
 </manifest>

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.web3j.abi.datatypes.Int;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,13 +98,15 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
                 public void onClick(View v) {
                     String bidAmount = enterBidView.getText().toString();
                     if (!TextUtils.isEmpty(bidAmount)) {
-                        String userId = sharedPreferences.getString("user_id", "");
+                        // Retrieve user_id as an integer
+                        int userId = sharedPreferences.getInt("user_id", -1); // -1 is the default value if not found
                         String userWallet = sharedPreferences.getString("wallet_address", "");
-                        if (!userId.isEmpty() && !userWallet.isEmpty()) {
+
+                        if (userId != -1 && !userWallet.isEmpty()) {
                             Log.d("PropertyAdapter", "Submitting bid with wallet address: " + userWallet);
 
                             ((PlaceBidActivity) itemView.getContext()).submitBid(
-                                    property, userId, userWallet, Double.parseDouble(bidAmount));
+                                    property, String.valueOf(userId), userWallet, Double.parseDouble(bidAmount));
 
                         } else {
                             Toast.makeText(itemView.getContext(), "Please log in to place a bid.", Toast.LENGTH_SHORT).show();

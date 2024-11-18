@@ -16,6 +16,7 @@ import okhttp3.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.web3j.abi.datatypes.Int;
 
 import java.io.IOException;
 
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         String status = json.getString("status");
                         String user_status = json.getString("user_status");
                         String role = json.getString("role");// getting the user's role to switch to the correct role
-                        String userID = json.getString("id");
+                        int userID = json.getInt("id");
                         String first_name = json.getString("first_name");
                         String wallet_address = json.getString("wallet_address"); // To be used to place bid.
                         Log.d("SERVER RESPONSE: ", responseData);
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (status.equals("success")) {
                             SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor  = prefs.edit();
-                            editor.putString("user_id", userID);
+                            editor.putInt("user_id", userID);
                             editor.putString("user_status", user_status);
                             editor.putString("role", role);
                             editor.putString("first_name", first_name);

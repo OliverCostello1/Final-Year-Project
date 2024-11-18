@@ -236,6 +236,10 @@ public class PlaceBidActivity extends AppCompatActivity {
                     }
                 }
             });
+        }else {
+            runOnUiThread(() -> Toast.makeText(PlaceBidActivity.this,
+                    "Bids can only be submitted between Monday and Friday, 9 AM to 5 PM.",
+                    Toast.LENGTH_SHORT).show());
         }
     }
 }

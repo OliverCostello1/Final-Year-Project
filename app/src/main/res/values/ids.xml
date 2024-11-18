@@ -12,6 +12,11 @@
     <item name="submit_bid" type="id" />
     <item name="user_count" type="id" />
     <item name="usage_report" type="id" />
-    <item name="welcome_back" type="id" />
+    <item name="auctioneer_home" type="id" />
     <item name="pendingRecycler" type="id" />
+    <item name="place_bid" type="id" />
+    <item name="approve_bid" type="id" />
+    <item name="add_new_property" type="id" />
+    <item name="approve_useers_button" type="id" />
+    <item name="view_bids" type="id" />
 </resources>

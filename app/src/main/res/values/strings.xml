@@ -77,4 +77,14 @@
     <string name="your_wallet">Your Wallet Address: %1$s</string>
     <string name="auctioneeer_id_bid">Auctioneer ID: %1$s</string>
     <string name="time_submitted">Time Submitted:</string>
+    <string name="approve_bids">Approve Bids</string>
+    <string name="add_new_property">Add New Property</string>
+    <string name="auctioneer_home">Auctioneer Home</string>
+    <string name="approve">Approve</string>
+    <string name="bidder_wallet">Bidder Wallet</string>
+    <string name="bid_time">Bid Time</string>
+    <string name="bid_amount">Bid Amount</string>
+    <string name="bid_id_label">Bid ID</string>
+    <string name="property_id_text">Property ID</string>
+    <string name="bid_status">Bid Status</string>
 </resources>
