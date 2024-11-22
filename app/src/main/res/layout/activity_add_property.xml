@@ -1,0 +1,36 @@
+<!-- res/layout/activity_add_property.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/eircode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/submit_eircode"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/property_link"
+        android:inputType="textUri" />
+
+    <EditText
+        android:id="@+id/asking_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/asking_price"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_property"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

@@ -19,4 +19,5 @@
     <item name="add_new_property" type="id" />
     <item name="approve_useers_button" type="id" />
     <item name="view_bids" type="id" />
+    <item name="submit_button" type="id" />
 </resources>

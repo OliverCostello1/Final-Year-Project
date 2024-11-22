@@ -34,6 +34,7 @@ public class AuctioneerActivity extends AppCompatActivity {
             Intent intent = new Intent(AuctioneerActivity.this, ViewBidsActivity.class);
             startActivity(intent);
         });
+
     }
 
 

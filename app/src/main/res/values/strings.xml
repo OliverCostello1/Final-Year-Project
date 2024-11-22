@@ -83,10 +83,14 @@
     <string name="approve">Approve</string>
     <string name="bidder_wallet">Bidder Wallet</string>
     <string name="bid_time">Bid Time: %1$s</string>
-    <string name="bid_amount">Bid Amount: %1$f</string>
+    <string name="bid_amount">Bid Amount: %1$.2f</string>
     <string name="bid_id_label">Bid ID: %1$s</string>
     <string name="property_id_text">Property ID: %1$d</string>
     <string name="bid_status">Bid Status: %1$s</string>
     <string name="bids_associated">Bids Associated with Wallet Address: %1$s</string>
     <string name="no_bids_found">No bids found</string>
+    <string name="property_link">Property Link</string>
+    <string name="asking_price">Asking Price</string>
+    <string name="submit_property">Submit Property:</string>
+    <string name ="submit_eircode"> Submit Eircode: </string>
 </resources>

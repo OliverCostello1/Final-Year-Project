@@ -7,11 +7,11 @@ public class Property {
     private final String eircode;
     private final String link;
     private final Integer auctioneer_id;
-    private final Integer asking_price;
+    private final double asking_price;
     private final Integer current_bid;
     private final String auctioneer_wallet;
     // Constructor
-    public Property(int propertyId, String eircode, String link, Integer auctioneer_id, Integer asking_price, Integer current_bid, String auctioneerWallet) {
+    public Property(int propertyId, String eircode, String link, Integer auctioneer_id, double asking_price, Integer current_bid, String auctioneerWallet) {
         this.propertyId = propertyId; // Changed to camelCase
         this.eircode = eircode;
         this.link = link;
@@ -37,7 +37,7 @@ public class Property {
     public Integer getAuctioneer_id() {
         return auctioneer_id;
     }
-    public Integer getAsking_price() {
+    public double getAsking_price() {
         return asking_price;
     }
     public Integer getCurrent_bid() {
