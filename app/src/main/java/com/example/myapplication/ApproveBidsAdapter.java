@@ -25,7 +25,7 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
     @NonNull
     @Override
     public BidViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.bids_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.approve_bids_item, parent, false);
         return new BidViewHolder(view);
     }
 
