@@ -37,6 +37,7 @@
         <activity android:name=".AuctioneerActivity"/>
         <activity android:name=".AddPropertyActivity"/>
         <activity android:name=".ApproveBidsActivity"/>
+        <activity android:name=".ViewProperties"/>
     </application>
 
 </manifest>

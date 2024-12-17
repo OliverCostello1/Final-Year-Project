@@ -3,7 +3,7 @@ package com.example.myapplication;
 import org.web3j.abi.datatypes.Int;
 
 public class Property {
-    private final int propertyId; // Changed to camelCase
+    private final int propertyId;
     private final String eircode;
     private final String link;
     private final Integer auctioneer_id;
@@ -12,19 +12,18 @@ public class Property {
     private final String auctioneer_wallet;
     // Constructor
     public Property(int propertyId, String eircode, String link, Integer auctioneer_id, double asking_price, Integer current_bid, String auctioneerWallet) {
-        this.propertyId = propertyId; // Changed to camelCase
+        this.propertyId = propertyId;
         this.eircode = eircode;
         this.link = link;
         this.auctioneer_id = auctioneer_id;
         this.asking_price= asking_price;
         this.current_bid = current_bid;
-        auctioneer_wallet = auctioneerWallet;
+        this.auctioneer_wallet = auctioneerWallet;
     }
 
     // Getter methods for propertyId, eircode, link
     public int getPropertyId() {
-        return propertyId; // Changed to camelCase
-    }
+        return propertyId; }
 
     public String getEircode() {
         return eircode;
