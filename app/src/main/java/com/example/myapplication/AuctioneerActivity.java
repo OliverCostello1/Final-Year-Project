@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AuctioneerActivity extends AppCompatActivity {
     public Button approve_bid, add_new_property;
-    public Button view_bids;
+    public Button view_bids, logout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +20,9 @@ public class AuctioneerActivity extends AppCompatActivity {
         approve_bid = findViewById(R.id.approve_bid);
         add_new_property =  findViewById(R.id.add_new_property);
         view_bids = findViewById(R.id.view_bids);
+        logout = findViewById(R.id.logout);
+
+
         approve_bid.setOnClickListener(v -> {
            Intent intent = new Intent(AuctioneerActivity.this, ApproveBidsActivity.class );
            startActivity(intent);
@@ -35,6 +38,10 @@ public class AuctioneerActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        logout.setOnClickListener(v -> {
+            Intent intent = new Intent(AuctioneerActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
 

@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,11 @@ public class PendingUsersActivity extends AppCompatActivity implements PendingUs
                 .build();
 
         fetchUsers();
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
     }
 
     private void fetchUsers() {

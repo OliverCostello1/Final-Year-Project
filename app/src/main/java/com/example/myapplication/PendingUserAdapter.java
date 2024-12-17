@@ -29,6 +29,8 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_pending_user, parent, false);
         return new UserViewHolder(view);
+
+
     }
 
     @Override

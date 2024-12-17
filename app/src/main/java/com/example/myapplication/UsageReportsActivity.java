@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -33,6 +34,11 @@ public class UsageReportsActivity extends AppCompatActivity {
 
         String url = "http://10.0.2.2:8000/project/usage_count.php";
         fetchRowCounts(url);
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
     }
     private void fetchRowCounts(String urlString) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();

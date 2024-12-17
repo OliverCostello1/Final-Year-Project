@@ -95,4 +95,6 @@
     <string name ="submit_eircode"> Submit Eircode: </string>
     <string name="auctioneer_wallet_string">Auctioneer Wallet: %1$s</string>
     <string name="property_status_1_s">Property Status: %1$s</string>
+    <string name="return_button">Return</string>
+    <string name="logout">Logout</string>
 </resources>

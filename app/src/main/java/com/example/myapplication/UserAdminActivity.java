@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,12 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
 
         // Fetch users from the database
         fetchUsers();
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
     }
 
     private void fetchUsers() {

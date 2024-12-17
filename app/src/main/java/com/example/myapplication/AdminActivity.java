@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 public class AdminActivity extends AppCompatActivity  {
     private static final String TAG = "AdminActivity";
-    public Button user_management, usage_reports, view_properties, approve_users;
+    public Button user_management, usage_reports, view_properties, approve_users, logout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,6 +18,8 @@ public class AdminActivity extends AppCompatActivity  {
         usage_reports = findViewById(R.id.usage_report);
         view_properties = findViewById(R.id.all_properties);
         approve_users = findViewById(R.id.approve_users);
+        logout = findViewById(R.id.logout_button);
+
         user_management.setOnClickListener(view-> {
             Intent intent = new Intent(AdminActivity.this, UserAdminActivity.class);
             startActivity(intent);
@@ -36,6 +38,11 @@ public class AdminActivity extends AppCompatActivity  {
 
         approve_users.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, PendingUsersActivity.class );
+            startActivity(intent);
+        });
+
+        logout.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminActivity.this, MainActivity.class);
             startActivity(intent);
         });
 

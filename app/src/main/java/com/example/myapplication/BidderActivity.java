@@ -24,7 +24,7 @@ public class BidderActivity extends AppCompatActivity {
         Button placeBid = findViewById(R.id.place_bid_id);
         Button viewBids = findViewById(R.id.view_bid);
         TextView welcomeTextView = findViewById(R.id.auctioneer_home);
-
+        Button logout =  findViewById(R.id.logout_button);
         // Fetch SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         String status = prefs.getString("user_status", "");
@@ -32,6 +32,10 @@ public class BidderActivity extends AppCompatActivity {
 
         // Set register status message
         registerStatus.setText(getString(R.string.register_status, status));
+
+        logout.setOnClickListener(v -> {
+            startActivity(new Intent(BidderActivity.this, MainActivity.class));
+        });
 
         // Handling visibility based on user status
         if ("pending".equals(status)) {
