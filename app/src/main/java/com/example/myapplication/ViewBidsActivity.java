@@ -71,7 +71,7 @@ public class ViewBidsActivity extends AppCompatActivity {
         Log.d("ViewBidsActivity", "Bidder being sent" + bidderId);
         if (bidderId != -1) {
             // API endpoint to fetch bids for the bidder
-            String url = "http://10.0.2.2:8000/project/view_bids.php/?bidder_id=" + bidderId;
+            String url = "http://10.0.2.2/project/view_bids.php/?bidder_id=" + bidderId;
 
             // Create a Volley request to fetch the bids
             RequestQueue requestQueue = Volley.newRequestQueue(this);

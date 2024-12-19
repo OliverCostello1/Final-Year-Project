@@ -91,7 +91,7 @@
     <string name="no_bids_found">No bids found</string>
     <string name="property_link">Property Link</string>
     <string name="asking_price">Asking Price</string>
-    <string name="submit_property">Submit Property:</string>
+    <string name="submit_property">Submit Property</string>
     <string name ="submit_eircode"> Submit Eircode: </string>
     <string name="auctioneer_wallet_string">Auctioneer Wallet: %1$s</string>
     <string name="property_status_1_s">Property Status: %1$s</string>

@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailField, passwordField;
     Button loginButton;
 
-    String loginURL = "http://10.0.2.2:8000/project/login.php";
+    String loginURL = "http://10.0.2.2/project/login.php";
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

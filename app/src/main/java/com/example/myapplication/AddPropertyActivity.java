@@ -47,6 +47,13 @@ public class AddPropertyActivity extends AppCompatActivity {
         Log.d("AddPropertyActivity", "Auctioneer ID: " + auctioneerId);
         Log.d("AddPropertyActivity", "Auctioneer Wallet: " + auctioneerWallet);
 
+        // Lets user return to previous page
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
+
         // Set the button click listener to submit the property details
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,10 +73,12 @@ public class AddPropertyActivity extends AppCompatActivity {
         });
     }
 
+
+
     // Method to send property data to the PHP endpoint
     private void sendPropertyToServer(final String eircode, final String link, final String askingPrice) {
         // URL of your PHP endpoint
-        String url = "http://10.0.2.2:8000/project/add_property.php";
+        String url = "http://10.0.2.2/project/add_property.php";
 
         // Create a new request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);

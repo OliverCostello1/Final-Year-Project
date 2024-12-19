@@ -39,6 +39,7 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
         holder.bidTime.setText("Time: " + bid.getTime_stamp());
         holder.bidderWallet.setText("Bidder Wallet: " + bid.getBidder_wallet());
         holder.bidID.setText("Bid ID: " + bid.getBid_id());
+        holder.bidStatus.setText("Bid Status:" + bid.getBid_status());
         holder.approveButton.setOnClickListener(v -> {
             if (context instanceof ApproveBidsActivity) {
                 ((ApproveBidsActivity) context).approveBid(bid.getBidder_id());

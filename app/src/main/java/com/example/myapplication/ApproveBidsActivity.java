@@ -35,8 +35,8 @@ public class ApproveBidsActivity extends AppCompatActivity {
     private ApproveBidsAdapter adapter;
     private List<Bid> bids;
     private SharedPreferences sharedPreferences;
-    private static final String GET_BIDS_URL = "http://10.0.2.2:8000/project/get_pending_bids.php";
-    private static final String APPROVE_BID_URL = "http://10.0.2.2:8000/project/approve_bids.php";
+    private static final String GET_BIDS_URL = "http://10.0.2.2/project/get_pending_bids.php";
+    private static final String APPROVE_BID_URL = "http://10.0.2.2/project/approve_bids.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

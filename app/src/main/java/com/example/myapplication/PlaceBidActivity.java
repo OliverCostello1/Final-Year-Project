@@ -71,7 +71,7 @@ public class PlaceBidActivity extends AppCompatActivity {
     }
 
     private void fetchProperties() {
-        String url = "http://10.0.2.2:8000/project/get_properties.php";
+        String url = "http://10.0.2.2/project/get_properties.php";
 
         // Build request with headers
         Request request = new Request.Builder()
@@ -175,7 +175,7 @@ public class PlaceBidActivity extends AppCompatActivity {
         //
         if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY && hourOfDay >=9   && hourOfDay <= 17) {
 
-            String url = "http://10.0.2.2:8000/project/submit_bid.php";
+            String url = "http://10.0.2.2/project/submit_bid.php";
 
             JSONObject requestBody = new JSONObject();
             try {

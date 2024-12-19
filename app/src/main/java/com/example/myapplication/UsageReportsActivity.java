@@ -32,7 +32,7 @@ public class UsageReportsActivity extends AppCompatActivity {
         propertyTextView = findViewById(R.id.property_count);
         bidTextView = findViewById(R.id.bid_count);
 
-        String url = "http://10.0.2.2:8000/project/usage_count.php";
+        String url = "http://10.0.2.2/project/usage_count.php";
         fetchRowCounts(url);
 
         Button returnButton = findViewById(R.id.return_button);

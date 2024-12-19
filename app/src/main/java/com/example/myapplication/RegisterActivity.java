@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText emailField, firstNameField, lastNameField, passwordField;
     Spinner roleSpinner;
     Button registerButton;
-    String registerURL = "http://10.0.2.2:8000/project/register.php";
+    String registerURL = "http://10.0.2.2/project/register.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
