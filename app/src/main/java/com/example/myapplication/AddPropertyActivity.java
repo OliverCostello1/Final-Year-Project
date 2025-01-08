@@ -75,10 +75,10 @@ public class AddPropertyActivity extends AppCompatActivity {
 
 
 
-    // Method to send property data to the PHP endpoint
+    // Method to send property data to the PHP endpoint add_property
     private void sendPropertyToServer(final String eircode, final String link, final String askingPrice) {
         // URL of your PHP endpoint
-        String url = "http://10.0.2.2/project/add_property.php";
+        String url = "http://10.0.2.2:8000/project/add_property.php";
 
         // Create a new request queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -90,7 +90,7 @@ public class AddPropertyActivity extends AppCompatActivity {
         params.put("asking_price", askingPrice);
         params.put("auctioneer_id", String.valueOf(auctioneerId));  // Auctioneer ID from SharedPreferences
         params.put("auctioneer_wallet", auctioneerWallet);          // Auctioneer Wallet from SharedPreferences
-        params.put("current_bid", String.valueOf(0));                       // Current bid (can be 0 or empty)
+        params.put("current_bid", String.valueOf(0));                       // Current bid
 
         // Create a new StringRequest for the POST request
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

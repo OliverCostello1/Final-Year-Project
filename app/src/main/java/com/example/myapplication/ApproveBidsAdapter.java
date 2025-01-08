@@ -34,12 +34,12 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
         Bid bid = bidList.get(position);
 
         // Bind data to the views
-        holder.propertyId.setText("Property ID: " + bid.getPropertyID());
-        holder.bidAmount.setText("Bid Amount: €" + bid.getBid_amount());
-        holder.bidTime.setText("Time: " + bid.getTime_stamp());
-        holder.bidderWallet.setText("Bidder Wallet: " + bid.getBidder_wallet());
-        holder.bidID.setText("Bid ID: " + bid.getBid_id());
-        holder.bidStatus.setText("Bid Status:" + bid.getBid_status());
+        holder.propertyId.setText(holder.itemView.getResources().getString(R.string.property_id_format, bid.getPropertyID()));
+        holder.bidAmount.setText(holder.itemView.getResources().getString (R.string.bid_amount , bid.getBid_amount()));
+        holder.bidTime.setText(holder.itemView.getResources().getString(R.string.time,  bid.getTime_stamp()));
+        holder.bidderWallet.setText(holder.itemView.getResources().getString(R.string.bidder_wallet, bid.getBidder_wallet()));
+        holder.bidID.setText(holder.itemView.getResources().getString(R.string.bid_id, bid.getBid_id()));
+        holder.bidStatus.setText(holder.itemView.getResources().getString(R.string.bid_status,  bid.getBid_status()));
         holder.approveButton.setOnClickListener(v -> {
             if (context instanceof ApproveBidsActivity) {
                 ((ApproveBidsActivity) context).approveBid(bid.getBidder_id());

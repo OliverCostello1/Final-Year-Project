@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ApproveBidsActivity">
 
-    <!-- Toolbar or Header -->
     <TextView
         android:id="@+id/approve_bids_title"
         android:layout_width="0dp"
@@ -21,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Instructions (Optional) -->
     <TextView
         android:id="@+id/approve_bids_instructions"
         android:layout_width="0dp"
@@ -44,5 +42,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <Button
+        android:id="@+id/return_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/return_button"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/approve_bids_instructions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

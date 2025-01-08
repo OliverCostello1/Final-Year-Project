@@ -8,6 +8,7 @@ public class User {
     private final String last_name;
     private final String role;
     private final int id;
+
     public User(int id, String walletAddress, String firstName, String lastName, String role) {
         this.id = id;
         this.wallet_address = walletAddress;

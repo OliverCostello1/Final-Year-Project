@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText emailField, firstNameField, lastNameField, passwordField;
     Spinner roleSpinner;
     Button registerButton;
-    String registerURL = "http://10.0.2.2/project/register.php";
+    String registerURL = "http://10.0.2.2:8000/project/register.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,17 +128,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Intent intent;
                     switch (role) {
-                        case "Admin":
-                            Log.d("RegisterActivity", role);
-
-                            intent = new Intent(RegisterActivity.this, AdminActivity.class);
-                            break;
-                        case "Auctioneer":
+                        case "auctioneer":
                             Log.d("RegisterActivity", role);
 
                             intent = new Intent(RegisterActivity.this, AuctioneerActivity.class);
                             break;
-                        case "Bidder":
+                        case "bidder":
                             Log.d("RegisterActivity", "Navigating to BidderActivity");
 
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
@@ -175,14 +170,13 @@ public class RegisterActivity extends AppCompatActivity {
 
             // Generate key pair
             ECKeyPair ecKeyPair = Keys.createEcKeyPair();
-
+            String address = Keys.getAddress(ecKeyPair);
             // Get the Ethereum address directly from the key pair
-            return Keys.getAddress(ecKeyPair);
+            return "0x" + address;
 
         } catch (InvalidAlgorithmParameterException | NoSuchAlgorithmException | NoSuchProviderException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to create Ethereum address: " + e.getMessage());
         }
     }}
-
 

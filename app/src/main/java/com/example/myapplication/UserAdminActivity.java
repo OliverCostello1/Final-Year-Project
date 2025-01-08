@@ -70,7 +70,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
     }
 
     private void fetchUsers() {
-        String url = "http://10.0.2.2/project/get_users.php"; // Update URL as needed
+        String url = "http://10.0.2.2:8000/project/get_users.php"; // Update URL as needed
         Log.d(TAG, "fetchUsers: Sending request to " + url);
         Request request = new Request.Builder()
                 .url(url)
@@ -151,7 +151,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
         Log.d(TAG, "Called deleteUserFromDatabase method");
     }
     private void deleteUserFromDatabase(String userID, int position) {
-        String url = "http://10.0.2.2/project/delete_user.php";
+        String url = "http://10.0.2.2:8000/project/delete_user.php";
         Log.d(TAG, "Attempting to delete user with user id: " + userID);
 
         RequestBody formBody = new FormBody.Builder()

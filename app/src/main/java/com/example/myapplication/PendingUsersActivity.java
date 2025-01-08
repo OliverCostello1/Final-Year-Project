@@ -66,7 +66,7 @@ public class PendingUsersActivity extends AppCompatActivity implements PendingUs
     }
 
     private void fetchUsers() {
-        String url = "http://10.0.2.2/project/get_pending_users.php";
+        String url = "http://10.0.2.2:8000/project/get_pending_users.php";
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Accept", "application/json")
@@ -104,7 +104,7 @@ public class PendingUsersActivity extends AppCompatActivity implements PendingUs
     }
 
     private void approveUser(int userId, int position) {
-        String url = "http://10.0.2.2/project/approve_users.php";
+        String url = "http://10.0.2.2:8000/project/approve_users.php";
         RequestBody formBody = new FormBody.Builder()
                 .add("id", String.valueOf(userId))
                 .build();

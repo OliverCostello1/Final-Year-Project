@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+// Admin user home page
 public class AdminActivity extends AppCompatActivity  {
     private static final String TAG = "AdminActivity";
     public Button user_management, usage_reports, view_properties, approve_users, logout;
@@ -20,6 +22,7 @@ public class AdminActivity extends AppCompatActivity  {
         approve_users = findViewById(R.id.approve_users);
         logout = findViewById(R.id.logout_button);
 
+        // Navigation buttons for admin user
         user_management.setOnClickListener(view-> {
             Intent intent = new Intent(AdminActivity.this, UserAdminActivity.class);
             startActivity(intent);
@@ -47,7 +50,6 @@ public class AdminActivity extends AppCompatActivity  {
         });
 
         };
-        // Initialize RecyclerView
 
 
 }

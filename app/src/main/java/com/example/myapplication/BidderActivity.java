@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 public class BidderActivity extends AppCompatActivity {
     private static final String TAG = "BidderActivity";
@@ -23,8 +25,10 @@ public class BidderActivity extends AppCompatActivity {
         TextView unapprovedMessage = findViewById(R.id.unapproved_message);
         Button placeBid = findViewById(R.id.place_bid_id);
         Button viewBids = findViewById(R.id.view_bid);
-        TextView welcomeTextView = findViewById(R.id.auctioneer_home);
         Button logout =  findViewById(R.id.logout_button);
+        ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout);
+
+
         // Fetch SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         String status = prefs.getString("user_status", "");
@@ -43,16 +47,28 @@ public class BidderActivity extends AppCompatActivity {
             registerStatus.setVisibility(View.VISIBLE);
             placeBid.setVisibility(View.GONE);
             viewBids.setVisibility(View.GONE);
-            welcomeTextView.setVisibility(View.GONE);
         } else if ("approved".equals(status)) {
             unapprovedMessage.setVisibility(View.GONE);
             registerStatus.setVisibility(View.GONE);
             placeBid.setVisibility(View.VISIBLE);
             viewBids.setVisibility(View.VISIBLE);
-            welcomeTextView.setVisibility(View.VISIBLE);
-            welcomeTextView.setText(getString(R.string.welcome_back_string, firstName));
+            unapprovedMessage.setVisibility(View.VISIBLE);
+            unapprovedMessage.setText(getString(R.string.welcome_back_string, firstName));
         }
 
+        // Update constraints upon visibility change for user experience
+        if (placeBid.getVisibility() == View.GONE && viewBids.getVisibility() == View.GONE) {
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout);
+            constraintSet.connect(
+                    R.id.logout_button,
+                    ConstraintSet.TOP,
+                    R.id.unapproved_message,
+                    ConstraintSet.BOTTOM,
+                    32
+            );
+            constraintSet.applyTo(constraintLayout);
+        }
         // Button to navigate to PlaceBidActivity
         placeBid.setOnClickListener(v -> {
             Intent intent = new Intent(BidderActivity.this, PlaceBidActivity.class);

@@ -41,8 +41,8 @@
     <string name="l_name">Last Name: %1$s</string>
     <string name="role_string">Role: %1$s</string>
     <string name="wallet_address">Wallet Address: %1$s</string>
-    <string name="delete_user_text">Delete User with User ID: %1$s</string>
-    <string name ="user_id_label">User ID: %1$s</string>
+    <string name="delete_user_text">Delete User with User ID: %1$d</string>
+    <string name ="user_id_label">User ID: %1$d</string>
     <string name = "property_id_label"> Property ID: %1$s</string>
     <string name = "eircode_label">Eirode: %1$s</string>
     <string name = "link_label">View Link: %1$s</string>
@@ -81,7 +81,7 @@
     <string name="add_new_property">Add New Property</string>
     <string name="auctioneer_home">Auctioneer Home</string>
     <string name="approve">Approve</string>
-    <string name="bidder_wallet">Bidder Wallet</string>
+    <string name="bidder_wallet">Bidder Wallet: %1$s</string>
     <string name="bid_time">Bid Time: %1$s</string>
     <string name="bid_amount">Bid Amount: %1$.2f</string>
     <string name="bid_id_label">Bid ID: %1$s</string>
@@ -97,4 +97,27 @@
     <string name="property_status_1_s">Property Status: %1$s</string>
     <string name="return_button">Return</string>
     <string name="logout">Logout</string>
+    <string name="user_name">User Name</string>
+    <string name="user_email">User Email</string>
+    <string name="usage_details">Usage Details</string>
+    <string name="user_first_name">User First Name</string>
+    <string name="user_last_name">User Last Name</string>
+    <string name = "time">Time: %1$s </string>
+    <string name="highest_bid">Highest bid</string>
+    <string name="bidder_id_of_highest_bid">Bidder ID of highest bid: %1$d</string>
+    <string name="highest_bid_amount">Highest Bid Amount: %1$d</string>
+    <string name="property_with_most_bids">Property with Most Bids</string>
+    <string name="property_id_with_most_bids">Property ID with most Bids: %1$d</string>
+    <string name="bid_count_of_most_popular_property_1_d">Bid Count of Most Popular Property: %1$d</string>
+    <string name="auctioneer_with_the_most_properties">Auctioneer with the Most Properties</string>
+    <string name="auctioneer_id_with_most_properties_1_d">Auctioneer ID with most Properties: %1$d</string>
+    <string name="property_count_for_auctioneer_with_most_properties">Property Count for Auctioneer with most Properties: %1$d</string>
+    <string name="number_of_users_waiting_approval">Number of Users Waiting Approval: %1$d</string>
+    <string name="property_with_highest_asking_price_label">Property With Highest Asking Price</string>
+    <string name="property_id_with_highest_asking_price">Property ID with Highest Asking Price: %1$d</string>
+    <string name="highest_asking_price_for_a_property">Highest Asking Price for a Property: $1%d</string>
+    <string name="bidder_who_has_submitted_most_bids">Bidder With Most Bids Submitted</string>
+    <string name="bidder_id_with_most_bids">Bidder ID with most Bids: %1$d</string>
+    <string name="most_number_of_bids_submitted_by_a_user">Most Number of Bids submitted by a User: %1$d</string>
+    <string name="app_usage_report">App Usage Report</string>
 </resources>

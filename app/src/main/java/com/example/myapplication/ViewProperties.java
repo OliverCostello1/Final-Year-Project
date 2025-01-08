@@ -71,7 +71,7 @@ public class ViewProperties extends AppCompatActivity {
         });
     }
     private void fetchProperties() {
-        String url = "http://10.0.2.2/project/view_properties.php"; // Replace with your actual URL
+        String url = "http://10.0.2.2:8000/project/view_properties.php"; // Replace with your actual URL
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -34,9 +35,10 @@ public class ApproveBidsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ApproveBidsAdapter adapter;
     private List<Bid> bids;
+    private Button return_buton;
     private SharedPreferences sharedPreferences;
-    private static final String GET_BIDS_URL = "http://10.0.2.2/project/get_pending_bids.php";
-    private static final String APPROVE_BID_URL = "http://10.0.2.2/project/approve_bids.php";
+    private static final String GET_BIDS_URL = "http://10.0.2.2:8000/project/get_pending_bids.php";
+    private static final String APPROVE_BID_URL = "http://10.0.2.2:8000/project/approve_bids.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +46,11 @@ public class ApproveBidsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_approve_bids);
 
         recyclerView = findViewById(R.id.activity_approve_bids_recycler);
+        return_buton = findViewById(R.id.return_button);
 
-
+        return_buton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
         if (recyclerView != null) {
             bids = new ArrayList<>();
             adapter  = new ApproveBidsAdapter(bids ,this);
@@ -68,6 +73,8 @@ public class ApproveBidsActivity extends AppCompatActivity {
 
         fetchPendingBids(auctioneerID);
 
+
+
     }
     private void fetchPendingBids(int auctioneerID) {
         String url = GET_BIDS_URL + "?auctioneer_id=" + auctioneerID;
@@ -81,7 +88,7 @@ public class ApproveBidsActivity extends AppCompatActivity {
                             // Log the raw response
                             Log.d("ApproveBidsActivity", "Raw API Response: " + response.toString());
 
-                            // Check if the status is success
+                            // Check if the status is 'success'
                             if (response.getString("status").equals("success")) {
                                 JSONArray bidsArray = response.getJSONArray("bids");
                                 bids.clear();
@@ -102,7 +109,7 @@ public class ApproveBidsActivity extends AppCompatActivity {
                                     ));
                                 }
 
-                                // Log the updated bids list
+                                // Logging the updated bids list for debugging
                                 Log.d("ApproveBidsActivity", "Updated bids list: " + bids.toString());
 
                                 adapter.notifyDataSetChanged();
