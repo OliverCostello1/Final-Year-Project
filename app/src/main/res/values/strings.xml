@@ -120,4 +120,10 @@
     <string name="bidder_id_with_most_bids">Bidder ID with most Bids: %1$d</string>
     <string name="most_number_of_bids_submitted_by_a_user">Most Number of Bids submitted by a User: %1$d</string>
     <string name="app_usage_report">App Usage Report</string>
+    <string name="download_pdf">Download PDF</string>
+    <string name="deploy_contracts">Deploy Contracts</string>
+    <string name="contract_deployment_interval">Contract Deployment Interval</string>
+    <string name = "deploy_contracts_label">Press the button below to deploy contracts for new bids</string>
+    <string name="deploy_contracts_button">Deploy Contracts</string>
+    <string name="deploying_contracts">Deploying Contracts...</string>
 </resources>
