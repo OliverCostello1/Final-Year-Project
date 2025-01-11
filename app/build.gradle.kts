@@ -73,6 +73,9 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+
 
 }
 configurations.all {
