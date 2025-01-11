@@ -143,10 +143,10 @@ public class PlaceBidActivity extends AppCompatActivity {
                     // Sets the current bid to 0 if no bids made yet.
                     int current_bid = obj.optInt("current_bid", 0);
                     Property property = new Property(
-                            obj.getInt("property_id"),
+                            obj.getString("property_id"),
                             obj.getString("eircode"),
                             obj.getString("link"),
-                            obj.getInt("auctioneer_id"),
+                            obj.getString("auctioneer_id"),
                             obj.getInt("asking_price"),
                             current_bid,
                             obj.getString("auctioneer_wallet")

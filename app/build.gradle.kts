@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.com.intellij.ide.plugins.ActionDescriptorName
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 
@@ -57,6 +58,8 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.recyclerview)
     implementation(libs.volley)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -66,6 +69,9 @@ dependencies {
 
     implementation(libs.crypto)
     implementation(libs.contracts)
+    implementation(libs.firebase.database)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
 
 }

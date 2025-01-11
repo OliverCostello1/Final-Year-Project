@@ -9,28 +9,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
 
 public class AddPropertyActivity extends AppCompatActivity {
 
-    private EditText etEircode, etLink, etAskingPrice, etCurrentBid;
+    private EditText etEircode, etLink, etAskingPrice;
     private Button btnSubmit;
 
-    private int auctioneerId;
+    private String auctioneerId;
     private String auctioneerWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
+        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+
 
         // Initialize the views
         etEircode = findViewById(R.id.eircode);
@@ -40,25 +37,19 @@ public class AddPropertyActivity extends AppCompatActivity {
 
         // Retrieve auctioneer ID and wallet from SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        auctioneerId = prefs.getInt("user_id", -1);  // Default value of -1 if not found
+        auctioneerId = prefs.getString("user_id", "");  // Default value of -1 if not found
         auctioneerWallet = prefs.getString("wallet_address", "");  // Default empty string if not found
 
         // Log the auctioneer details for debugging
         Log.d("AddPropertyActivity", "Auctioneer ID: " + auctioneerId);
         Log.d("AddPropertyActivity", "Auctioneer Wallet: " + auctioneerWallet);
 
-        // Lets user return to previous page
-        Button returnButton = findViewById(R.id.return_button);
-        returnButton.setOnClickListener(v -> {
-            getOnBackPressedDispatcher().onBackPressed();
-        });
-
-
         // Set the button click listener to submit the property details
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the values from the input fields
+                Log.d("AddPropertyActivity", "Submit button clicked");
+
                 String eircode = etEircode.getText().toString();
                 String link = etLink.getText().toString();
                 String askingPrice = etAskingPrice.getText().toString();
@@ -66,57 +57,59 @@ public class AddPropertyActivity extends AppCompatActivity {
                 if (eircode.isEmpty() || link.isEmpty() || askingPrice.isEmpty()) {
                     Toast.makeText(AddPropertyActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Send the property data to the server
-                    sendPropertyToServer(eircode, link, askingPrice);
+                    try {
+                        double price = Double.parseDouble(askingPrice);
+                        Log.d("AddPropertyActivity", "Eircode: " + eircode + ", Link: " + link + ", Asking Price: " + price);
+                        addPropertyToFirebase(eircode, link, price);
+                    } catch (NumberFormatException ex) {
+                        Log.e("AddPropertyActivity", "Invalid asking price: " + askingPrice);
+                        Toast.makeText(AddPropertyActivity.this, "Invalid asking price", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+
+
+        // Lets user return to the previous page
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
     }
 
+    // Method to send property data to Firebase Realtime Database
+    private void addPropertyToFirebase(String eircode, String link, double askingPrice) {
+        // Get a reference to the Firebase database
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://fyp-bidder-default-rtdb.firebaseio.com/");
+        DatabaseReference propertiesRef = database.getReference("properties");
 
+        // Create a unique ID for the property
+        String propertyId = propertiesRef.push().getKey();
 
-    // Method to send property data to the PHP endpoint add_property
-    private void sendPropertyToServer(final String eircode, final String link, final String askingPrice) {
-        // URL of your PHP endpoint
-        String url = "http://10.0.2.2:8000/project/add_property.php";
+        if (propertyId != null) {
+            // Create a Property object
+            Property property = new Property(
+                    propertyId, // Use propertyId as a String
+                    eircode,
+                    link,
+                    auctioneerId,
+                    askingPrice,
+                    0, // Current bid is 0 initially
+                    auctioneerWallet
+            );
 
-        // Create a new request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        // Prepare the parameters to be sent in the POST request
-        Map<String, String> params = new HashMap<>();
-        params.put("eircode", eircode);
-        params.put("link", link);
-        params.put("asking_price", askingPrice);
-        params.put("auctioneer_id", String.valueOf(auctioneerId));  // Auctioneer ID from SharedPreferences
-        params.put("auctioneer_wallet", auctioneerWallet);          // Auctioneer Wallet from SharedPreferences
-        params.put("current_bid", String.valueOf(0));                       // Current bid
-
-        // Create a new StringRequest for the POST request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Handle response from the server
-                        Log.d("AddPropertyActivity", "Response: " + response);
+            // Save the property to Firebase
+            propertiesRef.child(propertyId).setValue(property)
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d("AddPropertyActivity", "Property added to Firebase");
                         Toast.makeText(AddPropertyActivity.this, "Property added successfully", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("AddPropertyActivity", "Error: " + error.toString());
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("AddPropertyActivity", "Error adding property: " + e.getMessage());
                         Toast.makeText(AddPropertyActivity.this, "Error adding property", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Return the parameters to be sent in the POST request
-                return params;
-            }
-        };
+                    });
+        } else {
 
-        // Add the request to the request queue
-        requestQueue.add(stringRequest);
+            Toast.makeText(this, "Error generating property ID", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

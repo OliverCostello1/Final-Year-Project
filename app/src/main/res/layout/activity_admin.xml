@@ -12,6 +12,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintTop_toTopOf="parent"
 
         />
@@ -22,6 +24,8 @@
         android:text="@string/select_from_the_following_admin_options"
         app:layout_constraintTop_toBottomOf="@id/admin_options"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginTop="16dp"
 
         />
@@ -34,6 +38,8 @@
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/admin_intro"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginTop="16dp"
     />
     <Button
@@ -44,6 +50,8 @@
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/user_management"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginTop="16dp"
         />
 
@@ -55,6 +63,8 @@
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/usage_report"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginTop="16dp"/>
 
     <Button
@@ -65,7 +75,34 @@
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/all_properties"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginTop="16dp"/>
+
+
+    <Button
+        android:id= "@+id/deploy_contract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "@string/deploy_contracts"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/approve_users"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        />
+
+    <Button
+        android:id="@+id/contract_deployment_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contract_deployment_interval"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deploy_contract"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        />
 
     <Button
         android:id="@+id/logout_button"
@@ -73,7 +110,7 @@
         android:layout_height="wrap_content"
         android:text = "@string/log_out"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/approve_users"
+        app:layout_constraintTop_toBottomOf="@id/contract_deployment_interval"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"/>
 

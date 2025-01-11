@@ -1,28 +1,32 @@
 package com.example.myapplication;
 
-import org.web3j.abi.datatypes.Int;
-
 public class Property {
-    private final int propertyId;
-    private final String eircode;
-    private final String link;
-    private final Integer auctioneer_id;
-    private final double asking_price;
-    private final Integer current_bid;
-    private final String auctioneer_wallet;
-    // Constructor
-    public Property(int propertyId, String eircode, String link, Integer auctioneer_id, double asking_price, Integer current_bid, String auctioneerWallet) {
+    private String propertyId;
+    private String eircode;
+    private String link;
+    private String auctioneer_id;
+    private double asking_price;
+    private double current_bid;
+    private String auctioneer_wallet;
+
+    // Default constructor required for Firebase
+    public Property() {}
+
+    public Property(String propertyId, String eircode, String link, String auctioneerId, double askingPrice, double currentBid, String auctioneerWallet) {
         this.propertyId = propertyId;
         this.eircode = eircode;
         this.link = link;
-        this.auctioneer_id = auctioneer_id;
-        this.asking_price= asking_price;
-        this.current_bid = current_bid;
+        this.auctioneer_id = auctioneerId;
+        this.asking_price = askingPrice;
+        this.current_bid = currentBid;
         this.auctioneer_wallet = auctioneerWallet;
     }
 
+    // Getters and setters if needed
+
+
     // Getter methods for propertyId, eircode, link
-    public int getPropertyId() {
+    public String getPropertyId() {
         return propertyId; }
 
     public String getEircode() {
@@ -33,13 +37,13 @@ public class Property {
         return link;
     }
 
-    public Integer getAuctioneer_id() {
+    public String getAuctioneer_id() {
         return auctioneer_id;
     }
     public double getAsking_price() {
         return asking_price;
     }
-    public Integer getCurrent_bid() {
+    public Double getCurrent_bid() {
         return current_bid;
     }
     public String getAuctioneer_wallet() {

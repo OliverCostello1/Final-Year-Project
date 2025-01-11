@@ -99,10 +99,10 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
                     String bidAmount = enterBidView.getText().toString();
                     if (!TextUtils.isEmpty(bidAmount)) {
                         // Retrieve user_id as an integer
-                        int userId = sharedPreferences.getInt("user_id", -1); // -1 is the default value if not found
+                        String userId = sharedPreferences.getString("user_id", "-1"); // -1 is the default value if not found
                         String userWallet = sharedPreferences.getString("wallet_address", "");
 
-                        if (userId != -1 && !userWallet.isEmpty()) {
+                        if (!userId.isEmpty() && !userWallet.isEmpty()) {
                             Log.d("PropertyAdapter", "Submitting bid with wallet address: " + userWallet);
 
                             ((PlaceBidActivity) itemView.getContext()).submitBid(

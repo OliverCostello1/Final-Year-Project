@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 // Admin user home page
 public class AdminActivity extends AppCompatActivity  {
     private static final String TAG = "AdminActivity";
-    public Button user_management, usage_reports, view_properties, approve_users, logout;
+    public Button user_management, usage_reports, view_properties, approve_users, logout, deploy_contracts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,6 +21,8 @@ public class AdminActivity extends AppCompatActivity  {
         view_properties = findViewById(R.id.all_properties);
         approve_users = findViewById(R.id.approve_users);
         logout = findViewById(R.id.logout_button);
+        deploy_contracts = findViewById(R.id.deploy_contract);
+
 
         // Navigation buttons for admin user
         user_management.setOnClickListener(view-> {
@@ -46,6 +48,10 @@ public class AdminActivity extends AppCompatActivity  {
 
         logout.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+        deploy_contracts.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminActivity.this, DeployContractsActivity.class);
             startActivity(intent);
         });
 

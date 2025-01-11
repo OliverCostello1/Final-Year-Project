@@ -13,31 +13,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Keys;
-import org.web3j.crypto.Wallet;
-import org.web3j.crypto.WalletFile;
-import org.web3j.crypto.WalletUtils;
-import org.web3j.crypto.exception.CipherException;
 
-import java.io.File;
-import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
-
-import okhttp3.*;
-
-// ACTIVITY TO REGISTER NEW USER
 
 public class RegisterActivity extends AppCompatActivity {
 
     EditText emailField, firstNameField, lastNameField, passwordField;
     Spinner roleSpinner;
     Button registerButton;
-    String registerURL = "http://10.0.2.2:8000/project/register.php";
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,9 +59,11 @@ public class RegisterActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roleSpinner.setAdapter(adapter);
+
+        // Initialize Firebase Authentication and Firestore
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
     }
-
-
 
     private void registerUser() {
         String email = emailField.getText().toString();
@@ -89,94 +88,156 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        OkHttpClient client = new OkHttpClient();
-        RequestBody formBody = new FormBody.Builder()
-                .add("email", email)
-                .add("first_name", firstName)
-                .add("last_name", lastName)
-                .add("password", password)
-                .add("role", role)
-                .add("wallet_address", walletAddress)
-                .build();
+        // Register user in Firebase Authentication
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // User is successfully created in Firebase Authentication
+                        FirebaseUser user = mAuth.getCurrentUser();
 
-        Request request = new Request.Builder()
-                .url(registerURL)
-                .post(formBody)
-                .build();
+                        if (user != null) {
+                            // Create Firestore user data
+                            CollectionReference usersRef = db.collection("users");
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> {
-                    Toast.makeText(RegisterActivity.this,
-                            "Network error: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
+                            // Prepare user data for Firestore
+                            userDataToFirestore(usersRef, user.getUid(), email, firstName, lastName, password, role, walletAddress);
+                        }
+                    } else {
+                        // If sign up fails, display a message to the user
+                        Toast.makeText(RegisterActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d(String.valueOf(RegisterActivity.this), task.getException().getMessage());
+                    }
                 });
-            }
+    }
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    runOnUiThread(() -> {
-                        Toast.makeText(RegisterActivity.this,
-                                "Registration successful!",
-                                Toast.LENGTH_SHORT).show();
+    private void userDataToFirestore(CollectionReference usersRef, String userId, String email, String firstName, String lastName, String password, String role, String walletAddress) {
+        // Prepare user data
+        DocumentReference userRef = usersRef.document(userId);
+        Users user = new Users(email, firstName, lastName, password, role, walletAddress);
+        userRef.set(user)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
 
-                        Log.d("RegisterActivity", "Selected Role: " + role);
-                    });
-
+                    // Navigate based on the role
                     Intent intent;
                     switch (role) {
-                        case "auctioneer":
-                            Log.d("RegisterActivity", role);
-
+                        case "Auctioneer":
                             intent = new Intent(RegisterActivity.this, AuctioneerActivity.class);
                             break;
-                        case "bidder":
-                            Log.d("RegisterActivity", "Navigating to BidderActivity");
-
+                        case "Bidder":
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;
-
                         default:
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;
-
                     }
                     intent.putExtra("wallet_address", walletAddress);
                     startActivity(intent);
                     finish();
-                } else {
-                    String errorMessage = response.body() != null ?
-                            response.body().string() :
-                            "Unknown error occurred";
-                    runOnUiThread(() -> {
-                        Toast.makeText(RegisterActivity.this,
-                                "Registration failed: " + errorMessage,
-                                Toast.LENGTH_SHORT).show();
-                    });
-                }
-            }
-        });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(RegisterActivity.this, "Error saving user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(String.valueOf(RegisterActivity.this), e.getMessage());
+                });
     }
 
     private String createEthereumAddress() {
         try {
             // Initialize BouncyCastle
-            if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
-                Security.addProvider(new BouncyCastleProvider());
+            if (Security.getProvider("BC") == null) {
+                Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
             }
 
             // Generate key pair
             ECKeyPair ecKeyPair = Keys.createEcKeyPair();
-            String address = Keys.getAddress(ecKeyPair);
-            // Get the Ethereum address directly from the key pair
-            return "0x" + address;
+            return "0x" + Keys.getAddress(ecKeyPair);
 
-        } catch (InvalidAlgorithmParameterException | NoSuchAlgorithmException | NoSuchProviderException e) {
+        } catch (InvalidAlgorithmParameterException | NoSuchAlgorithmException |
+                 NoSuchProviderException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to create Ethereum address: " + e.getMessage());
         }
-    }}
+    }
 
+    // Users class to store user data
+    static class Users {
+        private String email;
+        private String firstName;
+        private String lastName;
+        private String password;
+        private String role;
+        private String walletAddress;
+        private String userStatus;
+
+        // Required empty constructor for Firebase
+        public Users() {
+        }
+
+        public Users(String email, String firstName, String lastName, String password, String role, String walletAddress) {
+            this.email = email;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.password = password;
+            this.role = role;
+            this.walletAddress = walletAddress;
+            this.userStatus = "pending";
+        }
+
+        // Getters and setters
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getWalletAddress() {
+            return walletAddress;
+        }
+
+        public void setWalletAddress(String walletAddress) {
+            this.walletAddress = walletAddress;
+        }
+
+        public String getUserStatus() {
+            return userStatus;
+        }
+
+        public void setUserStatus(String userStatus) {
+            this.userStatus = userStatus;
+        }
+    }
+}

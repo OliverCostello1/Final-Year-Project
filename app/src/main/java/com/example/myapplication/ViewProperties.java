@@ -90,12 +90,12 @@ public class ViewProperties extends AppCompatActivity {
                                     JSONObject propertyObject = data.getJSONObject(i);
 
                                     // Fetch data from the propertyObject
-                                    int propertyId = propertyObject.getInt("property_id");
+                                    String propertyId = propertyObject.getString("property_id");
                                     String eircode = propertyObject.getString("eircode");
                                     String link = propertyObject.getString("link");
                                     double askingPrice = propertyObject.getDouble("asking_price");
                                     int currentBid = propertyObject.getInt("current_bid");
-                                    int auctioneerId = propertyObject.getInt("auctioneer_id");
+                                    String auctioneerId = propertyObject.getString("auctioneer_id");
                                     String auctioneerWallet = propertyObject.getString("auctioneer_wallet");
 
                                     // Log each property field for debugging
