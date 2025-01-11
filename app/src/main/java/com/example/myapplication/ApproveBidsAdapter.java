@@ -1,4 +1,4 @@
-package com.example.myapplication;
+/*package com.example.myapplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -90,3 +90,4 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
         }
     }
 }
+*/

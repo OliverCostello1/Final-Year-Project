@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddPropertyActivity extends AppCompatActivity {
 
@@ -60,7 +62,7 @@ public class AddPropertyActivity extends AppCompatActivity {
                     try {
                         double price = Double.parseDouble(askingPrice);
                         Log.d("AddPropertyActivity", "Eircode: " + eircode + ", Link: " + link + ", Asking Price: " + price);
-                        addPropertyToFirebase(eircode, link, price);
+                        addPropertyToFirestore(eircode, link, price);
                     } catch (NumberFormatException ex) {
                         Log.e("AddPropertyActivity", "Invalid asking price: " + askingPrice);
                         Toast.makeText(AddPropertyActivity.this, "Invalid asking price", Toast.LENGTH_SHORT).show();
@@ -76,40 +78,34 @@ public class AddPropertyActivity extends AppCompatActivity {
     }
 
     // Method to send property data to Firebase Realtime Database
-    private void addPropertyToFirebase(String eircode, String link, double askingPrice) {
-        // Get a reference to the Firebase database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://fyp-bidder-default-rtdb.firebaseio.com/");
-        DatabaseReference propertiesRef = database.getReference("properties");
+    private void addPropertyToFirestore(String eircode, String link, double askingPrice) {
+        // Get a reference to Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference propertiesRef = db.collection("properties");
 
-        // Create a unique ID for the property
-        String propertyId = propertiesRef.push().getKey();
+        // Create a unique ID for the property using Firestore's auto-ID feature
+        String propertyId = propertiesRef.document().getId();
 
-        if (propertyId != null) {
-            // Create a Property object
-            Property property = new Property(
-                    propertyId, // Use propertyId as a String
-                    eircode,
-                    link,
-                    auctioneerId,
-                    askingPrice,
-                    0, // Current bid is 0 initially
-                    auctioneerWallet
-            );
+        // Create a Property object
+        Property property = new Property(
+                propertyId, // Use propertyId as a String
+                eircode,
+                link,
+                auctioneerId,
+                askingPrice,
+                0, // Current bid is 0 initially
+                auctioneerWallet
+        );
 
-            // Save the property to Firebase
-            propertiesRef.child(propertyId).setValue(property)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.d("AddPropertyActivity", "Property added to Firebase");
-                        Toast.makeText(AddPropertyActivity.this, "Property added successfully", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e("AddPropertyActivity", "Error adding property: " + e.getMessage());
-                        Toast.makeText(AddPropertyActivity.this, "Error adding property", Toast.LENGTH_SHORT).show();
-                    });
-        } else {
-
-            Toast.makeText(this, "Error generating property ID", Toast.LENGTH_SHORT).show();
-        }
-
+        // Save the property to Firestore
+        propertiesRef.document(propertyId).set(property)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("AddPropertyActivity", "Property added to Firestore");
+                    Toast.makeText(AddPropertyActivity.this, "Property added successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("AddPropertyActivity", "Error adding property: " + e.getMessage());
+                    Toast.makeText(AddPropertyActivity.this, "Error adding property", Toast.LENGTH_SHORT).show();
+                });
     }
 }

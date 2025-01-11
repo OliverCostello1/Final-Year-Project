@@ -19,8 +19,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApproveBidsActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+public class ApproveBidsActivity extends AppCompatActivity {}
+   /* private RecyclerView recyclerView;
     private ApproveBidsAdapter adapter;
     private List<Bid> bids;
     private Button return_button;
@@ -52,13 +52,15 @@ public class ApproveBidsActivity extends AppCompatActivity {
         int auctioneerID = sharedPreferences.getInt("user_id", -1);
 
         // Initialize Firestore instance
-        db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();}
+
+}
 
         // Fetch pending bids
-        fetchPendingBids(auctioneerID);
+      /*  fetchPendingBids(auctioneerID);
     }
 
-    private void fetchPendingBids(int auctioneerID) {
+    /*private void fetchPendingBids(int auctioneerID) {
         // Query Firestore for bids with bid_status = "pending"
         db.collection("bids")
                 .whereEqualTo("bid_status", "pending")
@@ -89,7 +91,7 @@ public class ApproveBidsActivity extends AppCompatActivity {
     public void approveBid(int bidId) {
         // Find the bid and update its status
         for (Bid bid : bids) {
-            if (bid.getBid_id() == bidId) {
+            if (bid.getBid_id()== bidId) {
                 // Update the bid status to "approved"
                 db.collection("bids").document(String.valueOf(bidId))
                         .update("bid_status", "approved")
@@ -107,3 +109,4 @@ public class ApproveBidsActivity extends AppCompatActivity {
         }
     }
 }
+*/
