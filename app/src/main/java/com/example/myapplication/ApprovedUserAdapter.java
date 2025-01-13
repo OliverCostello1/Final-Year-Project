@@ -46,17 +46,17 @@ public class ApprovedUserAdapter extends RecyclerView.Adapter<ApprovedUserAdapte
         Log.d("UserAdapter", "Binding ViewHolder at position: " + position);
 
         User user = userList.get(position);
-        holder.userIDTextView.setText(context.getString(R.string.user_id_label, user.getID()));
+        holder.userIDTextView.setText(context.getString(R.string.user_id_label, user.getId()));
         holder.walletAddressTextView.setText(context.getString(R.string.wallet_address, user.getWalletAddress()));
         holder.firstNameTextView.setText(context.getString(R.string.f_name, user.getFirstName()));
         holder.lastNameTextView.setText(context.getString(R.string.l_name, user.getLastName()));
         holder.roleTextView.setText(context.getString(R.string.role_string, user.getRole()));
-        holder.deleteUserButton.setText(context.getString(R.string.delete_user_text, user.getID()));
+        holder.deleteUserButton.setText(context.getString(R.string.delete_user_text, user.getId()));
 
         holder.deleteUserButton.setOnClickListener(v -> {
             if (deleteClickListener != null) {
                 // Call deleteClickListener with the user's ID instead of wallet address
-                deleteClickListener.onDeleteClick(String.valueOf(user.getID()), position);
+                deleteClickListener.onDeleteClick(String.valueOf(user.getId()), position);
             }
         });
     }

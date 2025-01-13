@@ -1,16 +1,24 @@
 package com.example.myapplication;
 
-public class Bid {
-    private final String bid_id;
-    private final String property_id;
-    private final String bidder_id;
-    private final String bidder_wallet;
-    private final String auctioneer_id;
-    private final String auctioneer_wallet;
-    private final String time_stamp;
-    private final Double bid_amount;
-    private String bid_status;
+import com.google.firebase.database.IgnoreExtraProperties;
 
+
+@IgnoreExtraProperties
+public class Bid {
+    private String bid_id;
+    private String property_id;
+    private String bidder_id;
+    private String bidder_wallet;
+    private String auctioneer_id;
+    private String auctioneer_wallet;
+    private String time_stamp;
+    private Double bid_amount;
+    private String bid_status;
+    private String formattedTimeStamp; // Temporary field for formatted timestamp
+
+    // No-argument constructor required for Firestore deserialization
+    public Bid() {
+    }
 
     public Bid(String bidId, String propertyId, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus) {
         bid_id = bidId;
@@ -51,6 +59,14 @@ public class Bid {
         return this.bid_status;
     }
 
+    // Getter and setter for formattedTimeStamp
+    public String getFormattedTimeStamp() {
+        return formattedTimeStamp;
+    }
+
+    public void setFormattedTimeStamp(String formattedTimeStamp) {
+        this.formattedTimeStamp = formattedTimeStamp;
+    }
 
     public void setBidStatus(String bid_status) {
         this.bid_status = bid_status;

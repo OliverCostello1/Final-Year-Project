@@ -42,7 +42,7 @@
         <activity android:name=".AuctioneerActivity"/>
         <activity android:name=".AddPropertyActivity"/>
         <activity android:name=".ApproveBidsActivity"/>
-        <activity android:name=".ViewProperties"/>
+        <activity android:name=".ViewPropertiesActivity"/>
         <activity android:name=".DeployContractsActivity"/>
         <activity android:name=".DeploymentIntervalActivity"/>
     </application>

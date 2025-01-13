@@ -26,6 +26,8 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -111,10 +113,20 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void userDataToFirestore(CollectionReference usersRef, String userId, String email, String firstName, String lastName, String password, String role, String walletAddress) {
-        // Prepare user data
+        // Prepare user data using a Map
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("id", userId);
+        userData.put("wallet_address", walletAddress);
+        userData.put("first_name", firstName);
+        userData.put("last_name", lastName);
+        userData.put("role", role);
+        userData.put("email", email);
+        userData.put("password", password);
+        userData.put("userStatus", "pending");
+
+        // Add user data to Firestore
         DocumentReference userRef = usersRef.document(userId);
-        Users user = new Users(email, firstName, lastName, password, role, walletAddress);
-        userRef.set(user)
+        userRef.set(userData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
 
@@ -140,6 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d(String.valueOf(RegisterActivity.this), e.getMessage());
                 });
     }
+
 
     private String createEthereumAddress() {
         try {

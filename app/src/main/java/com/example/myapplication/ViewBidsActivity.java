@@ -21,8 +21,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.CollectionReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ViewBidsActivity extends AppCompatActivity {
 
@@ -63,6 +66,7 @@ public class ViewBidsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         String bidderId = sharedPreferences.getString("user_id", ""); // Replace "user_id" if your key is different
         Log.d("ViewBidsActivity", "Bidder being sent" + bidderId);
+
         if (!bidderId.isEmpty()){
             // Get Firestore instance
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -82,6 +86,9 @@ public class ViewBidsActivity extends AppCompatActivity {
                         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                             Bid bid = document.toObject(Bid.class); // Assuming Bid class is setup for Firestore
                             if (bid != null) {
+                                // Format the timestamp here before adding to the list
+                                String formattedTimeStamp = formatTimeStamp(bid.getTime_stamp());
+                                bid.setFormattedTimeStamp(formattedTimeStamp); // Set the formatted timestamp in the Bid
                                 bids.add(bid);
                             }
                         }
@@ -110,4 +117,17 @@ public class ViewBidsActivity extends AppCompatActivity {
             Log.e("ViewBidsActivity", "Invalid bidder ID.");
         }
     }
+    private String formatTimeStamp(String timeStamp) {
+        try {
+            // Assuming time_stamp is a Unix timestamp in milliseconds
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            Date date = new Date(Long.parseLong(timeStamp)); // Parse timestamp to Date object
+            return sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Invalid date";
+        }
+    }
+
+
 }

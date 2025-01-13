@@ -4,25 +4,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import okhttp3.*;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.web3j.abi.datatypes.Int;
-
-import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText emailField, passwordField;
@@ -74,9 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else {
                         // Handle login failure
-                        String errorMessage = task.getException() != null ?
-                                task.getException().getMessage() :
-                                "Login failed";
+                        String errorMessage = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Login failed";
                         Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         Log.e("LOGIN_ERROR", "Authentication failed", task.getException());
                     }
@@ -92,15 +82,32 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
 
+                        String firstName = documentSnapshot.getString("first_name");
+                        String role = documentSnapshot.getString("role");
+                        String walletAddress = documentSnapshot.getString("wallet_address");
+                        String email = documentSnapshot.getString("email");
+                        String password = documentSnapshot.getString("password");
+                        String userStatus = documentSnapshot.getString("userStatus");
+
                         editor.putString("user_id", userId);
-                        editor.putString("user_status", documentSnapshot.getString("userStatus"));
-                        editor.putString("role", documentSnapshot.getString("role"));
-                        editor.putString("first_name", documentSnapshot.getString("firstName"));
-                        editor.putString("wallet_address", documentSnapshot.getString("walletAddress"));
+                        editor.putString("user_status", userStatus);
+                        editor.putString("role", role);
+                        editor.putString("first_name", firstName);
+
+                        editor.putString("wallet_address", walletAddress);
+                        editor.putString("email", email);
+                        editor.putString("password", password);
                         editor.apply();
 
-                        String firstName = documentSnapshot.getString("firstName");
-                        String role = documentSnapshot.getString("role");
+                        // Log the user details
+                        Log.d("LoginActivity", "User Details Fetched: " +
+                                "\nUser ID: " + userId +
+                                "\nFirst Name: " + firstName +
+                                "\nRole: " + role +
+                                "\nWallet Address: " + walletAddress +
+                                "\nEmail: " + email +
+                                "\nPassword: " + password +
+                                "\nUser Status: " + userStatus);
 
                         Toast.makeText(LoginActivity.this,
                                 "Welcome Back, " + firstName + "!",
@@ -142,4 +149,5 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 });
     }
+
 }

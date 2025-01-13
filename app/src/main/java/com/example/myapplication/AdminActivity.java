@@ -36,7 +36,7 @@ public class AdminActivity extends AppCompatActivity  {
 
 
         view_properties.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminActivity.this, ViewProperties.class);
+            Intent intent = new Intent(AdminActivity.this, ViewPropertiesActivity.class);
             startActivity(intent);
         });
 

@@ -29,24 +29,22 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_pending_user, parent, false);
         return new UserViewHolder(view);
-
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
-        holder.userIDTextView.setText(context.getString(R.string.user_id_label, String.valueOf(user.getID())));
+        holder.userIDTextView.setText(context.getString(R.string.user_id_label, user.getId()));  // userId is a String
         holder.walletAddressTextView.setText(context.getString(R.string.wallet_address, user.getWalletAddress()));
         holder.firstNameTextView.setText(context.getString(R.string.f_name, user.getFirstName()));
         holder.lastNameTextView.setText(context.getString(R.string.l_name, user.getLastName()));
         holder.roleTextView.setText(context.getString(R.string.role_string, user.getRole()));
-        holder.approveButton.setText(context.getString(R.string.approve_user, String.valueOf(user.getID())));
+        holder.approveButton.setText(context.getString(R.string.approve_user, user.getId()));
 
         // Set click listener for the approve button
         holder.approveButton.setOnClickListener(v -> {
             if (approveClickListener != null) {
-                approveClickListener.onApproveClick(user.getID(), position);
+                approveClickListener.onApproveClick(user.getId(), position);  // pass userId as String
             }
         });
     }
@@ -88,6 +86,6 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
 
     // Interface for approve button click handling
     public interface OnApproveClickListener {
-        void onApproveClick(int userId, int position);
+        void onApproveClick(String userId, int position);  // userId is now a String
     }
 }
