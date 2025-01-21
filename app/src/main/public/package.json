@@ -1,0 +1,16 @@
+{
+  "name": "bid-contract-deployer",
+  "version": "1.0.0",
+  "description": "A module for deploying Ethereum smart contracts.",
+  "type": "module",
+  "main": "deploy.js",
+  "scripts": {
+    "start": "node deploy.js"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "web3": "^1.10.0"
+  }
+}

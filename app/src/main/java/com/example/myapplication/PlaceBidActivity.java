@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,25 +75,22 @@ public class PlaceBidActivity extends AppCompatActivity {
             }
         });
     }
-
     public void submitBid(Property property, String userId, String userWallet, double bidAmount) {
 
         // This will be used to only allow bidder to submit a bid during business hours (Mon-Fri, 9am-5pm)
         Calendar calendar = Calendar.getInstance();
-        int dayOfWeek  = calendar.get(Calendar.DAY_OF_WEEK);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
-        if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY && hourOfDay >=9 && hourOfDay <= 17) {
-            // Generate bid ID
-            String bidId = db.collection("bids").document().getId(); // Automatically generate unique ID
+        if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY && hourOfDay >= 9 && hourOfDay <= 17) {
 
-            // Prepare bid data
+            // Prepare bid data (bidId will be updated later after Firestore document is created)
             Bid bid = new Bid(
-                    bidId,
-                    String.valueOf(property.getPropertyId()),  // Assuming propertyId is string and needs conversion
-                    String.valueOf(userId), // Assuming userId is integer
+                    null,  // Initially set to null, will be updated with Firestore document ID
+                    String.valueOf(property.getPropertyId()),
+                    String.valueOf(userId),
                     userWallet,
-                    String.valueOf(property.getAuctioneer_id()), // Assuming auctioneer_id is integer
+                    String.valueOf(property.getAuctioneer_id()),
                     property.getAuctioneer_wallet(),
                     bidAmount,
                     String.valueOf(System.currentTimeMillis()),  // Use current timestamp
@@ -106,6 +101,12 @@ public class PlaceBidActivity extends AppCompatActivity {
             CollectionReference bidsRef = db.collection("bids");
             bidsRef.add(bid)
                     .addOnSuccessListener(documentReference -> {
+                        // Update the bid object with the Firestore document ID
+                        bid.setBid_id(documentReference.getId());
+
+                        // Optionally, update the bid in Firestore with the correct bidId
+                        documentReference.update("bid_id", bid.getBid_id());
+
                         Toast.makeText(PlaceBidActivity.this, "Bid placed successfully", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Bid placed with ID: " + documentReference.getId());
                     })
@@ -117,4 +118,5 @@ public class PlaceBidActivity extends AppCompatActivity {
             Toast.makeText(PlaceBidActivity.this, "Bids can only be submitted between Monday and Friday, 9 AM to 5 PM.", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

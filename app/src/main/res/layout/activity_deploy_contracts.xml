@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- Status TextView to display deployment status -->
     <TextView
         android:id="@+id/statusTextView"
         android:layout_width="wrap_content"
@@ -15,16 +16,27 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <!-- Deploy Button that triggers the deployment process -->
     <Button
         android:id="@+id/deploy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "@string/deploy_contracts_button"
+        android:text="@string/deploy_contracts_button"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/statusTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <!-- WebView to load and execute the hosted JavaScript -->
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/deploy_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

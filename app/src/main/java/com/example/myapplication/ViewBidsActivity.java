@@ -58,22 +58,37 @@ public class ViewBidsActivity extends AppCompatActivity {
         });
     }
 
+
     private void loadBids() {
         // Show progress bar while loading
         progressBar.setVisibility(View.VISIBLE);
 
-        // Fetch the logged-in user's bidder ID
+        // Fetch the logged-in user's ID (either bidder_id or auctioneer_id)
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        String bidderId = sharedPreferences.getString("user_id", ""); // Replace "user_id" if your key is different
-        Log.d("ViewBidsActivity", "Bidder being sent" + bidderId);
+        String userId = sharedPreferences.getString("user_id", ""); // Replace "user_id" if your key is different
+        Log.d("ViewBidsActivity", "User being sent: " + userId);
 
-        if (!bidderId.isEmpty()){
+        if (!userId.isEmpty()){
             // Get Firestore instance
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             CollectionReference bidsRef = db.collection("bids");
 
-            // Query Firestore for the bids belonging to the logged-in bidder
-            Query query = bidsRef.whereEqualTo("bidder_id", bidderId);
+            // Query Firestore for the bids based on the logged-in user's role (bidder or auctioneer)
+            // Check role (bidder or auctioneer) and fetch relevant bids
+            String role = sharedPreferences.getString("role", ""); // Assume "role" is stored in shared preferences
+            Log.d("ViewBidsActivity", "User Role," + role);
+            Query query;
+            if ("Bidder".equals(role)) {
+                query = bidsRef.whereEqualTo("bidder_id", userId);
+            } else if ("Auctioneer".equals(role)) {
+                query = bidsRef.whereEqualTo("auctioneer_id", userId);
+            } else {
+                // If no role found, don't fetch any bids
+                Log.e("ViewBidsActivity", "Invalid role.");
+                progressBar.setVisibility(View.GONE);
+                noBidsText.setVisibility(View.VISIBLE);
+                return;
+            }
 
             // Fetch the data from Firestore
             query.get().addOnCompleteListener(task -> {
@@ -114,7 +129,7 @@ public class ViewBidsActivity extends AppCompatActivity {
         } else {
             progressBar.setVisibility(View.GONE);
             noBidsText.setVisibility(View.VISIBLE);
-            Log.e("ViewBidsActivity", "Invalid bidder ID.");
+            Log.e("ViewBidsActivity", "Invalid user ID.");
         }
     }
     private String formatTimeStamp(String timeStamp) {

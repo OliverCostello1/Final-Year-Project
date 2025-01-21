@@ -1,0 +1,110 @@
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8em;
+  color: #333;
+  margin-top: 20px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2em;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px 0;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Log container */
+#logContainer {
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* Log message styles */
+#logContainer .log {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#logContainer .success {
+  color: #28a745;
+}
+
+#logContainer .error {
+  color: #dc3545;
+}
+
+/* Contract details display */
+#contractDetails {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#contractDetails h3 {
+  font-size: 1.5em;
+  margin-top: 0;
+}
+
+#contractDetails p {
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  button {
+    font-size: 1em;
+    padding: 12px;
+  }
+
+  #logContainer {
+    max-height: 250px;
+    padding: 10px;
+  }
+
+  #contractDetails {
+    padding: 15px;
+  }
+
+  #contractDetails h3 {
+    font-size: 1.2em;
+  }
+
+  #contractDetails p {
+    font-size: 0.9em;
+  }
+}

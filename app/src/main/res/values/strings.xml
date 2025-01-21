@@ -41,7 +41,7 @@
     <string name="l_name">Last Name: %1$s</string>
     <string name="role_string">Role: %1$s</string>
     <string name="wallet_address">Wallet Address: %1$s</string>
-    <string name="delete_user_text">Delete User with User ID: %1$d</string>
+    <string name="delete_user_text">Delete User with User ID: %1$s</string>
     <string name ="user_id_label">User ID: %1$s</string>
     <string name = "property_id_label"> Property ID: %1$s</string>
     <string name = "eircode_label">Eirode: %1$s</string>

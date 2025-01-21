@@ -40,7 +40,7 @@ public class AddPropertyActivity extends AppCompatActivity {
         // Retrieve auctioneer ID and wallet from SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         auctioneerId = prefs.getString("user_id", "");  // Default value of -1 if not found
-        auctioneerWallet = prefs.getString("wallet_address", "");  // Default empty string if not found
+        auctioneerWallet = prefs.getString("walletAddress", "");  // Default empty string if not found
 
         // Log the auctioneer details for debugging
         Log.d("AddPropertyActivity", "Auctioneer ID: " + auctioneerId);

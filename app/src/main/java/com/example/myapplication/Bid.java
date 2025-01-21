@@ -20,9 +20,9 @@ public class Bid {
     public Bid() {
     }
 
-    public Bid(String bidId, String propertyId, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus) {
+    public Bid(String bidId, String propertyID, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus) {
         bid_id = bidId;
-        property_id = propertyId;
+        property_id = propertyID;
         bidder_id = bidderId;
         bidder_wallet = bidderWallet;
         auctioneer_id = auctioneerId;
@@ -40,6 +40,10 @@ public class Bid {
     public String getBidder_id() {
         return this.bidder_id;
     }
+    public void setBid_id(String bid_id) {
+        this.bid_id = bid_id;
+    }
+
     public String getBidder_wallet() {
         return this.bidder_wallet;
     }

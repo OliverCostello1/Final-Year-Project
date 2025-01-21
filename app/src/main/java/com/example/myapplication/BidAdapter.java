@@ -74,7 +74,7 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
             bidIdText.setText(context.getString(R.string.bid_id, bid.getBid_id()));
             propertyIdText.setText(context.getString(R.string.property_id_text, bid.getPropertyID()));
             bidAmountText.setText(context.getString(R.string.bid_amount, bid.getBid_amount()));
-            bidTimeText.setText(context.getString(R.string.bid_time, bid.getFormattedTimeStamp() ));
+            bidTimeText.setText(context.getString(R.string.bid_time, bid.getTime_stamp() ));
             bidStatusText.setText(context.getString(R.string.bid_status, bid.getBid_status()));
         }
     }
