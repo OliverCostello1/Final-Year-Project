@@ -126,4 +126,15 @@
     <string name = "deploy_contracts_label">Press the button below to deploy contracts for new bids</string>
     <string name="deploy_contracts_button">Deploy Contracts</string>
     <string name="deploying_contracts">Deploying Contracts...</string>
+    <string name="fetching_total_properties">Fetching Total Properties...</string>
+    <string name="fetching_total_users">Fetching Total Users...</string>
+    <string name="fetching_most_bid_on_property">Fetching Most Bid-on Property...</string>
+    <string name="fetching_approved_users">Fetching Approved Users...</string>
+    <string name="fetching_highest_bid">Fetching Highest Bid...</string>
+    <string name="fetching_total_bids">Fetching Total Bids...</string>
+    <string name="no_bids_available">No bids available</string>
+    <string name="total_bids">"Total Bids: "</string>
+    <string name="error_getting_total_bids_count">Error getting total bids count</string>
+    <string name="no_properties_available">No properties available</string>
+    <string name="error_getting_total_properties_count">Error getting total properties count</string>
 </resources>

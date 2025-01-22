@@ -1,293 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/usage_app"
+        android:id="@+id/highestBidTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize = "20sp"
-        android:fontFamily="sans-serif-medium"
-        android:text = "@string/app_usage_report"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp"
-        />
-
-    <!-- User Count !-->
-    <TextView
-        android:id="@id/user_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize = "16sp"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintTop_toBottomOf="@id/usage_app"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:text="@string/fetching_highest_bid"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <TextView
-        android:id="@+id/property_count"
+        android:id="@+id/totalBidsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/fetching_total_bids"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/user_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:layout_below="@id/highestBidTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id="@+id/bid_count"
+        android:id="@+id/totalPropertiesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/fetching_total_properties"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/property_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
+        android:layout_below="@id/totalBidsTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id = "@+id/users_waiting_approval"
+        android:id="@+id/totalUsersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "@string/number_of_users_waiting_approval"
+        android:text="@string/fetching_total_users"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/bid_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp"/>
-
+        android:layout_below="@id/totalPropertiesTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id= "@+id/highest_bid"
+        android:id="@+id/mostBidPropertyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/users_waiting_approval"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text= "@string/highest_bid"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-
-        />
-
-    <TextView
-        android:id="@+id/highest_bidder_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/highest_bid"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text= "@string/bidder_id_of_highest_bid"
+        android:text="@string/fetching_most_bid_on_property"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        />
+        android:layout_below="@id/totalUsersTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id = "@+id/highest_bid_amount"
+        android:id="@+id/approvedUsersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/highest_bidder_id"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text = "@string/highest_bid_amount"
+        android:text="@string/fetching_approved_users"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        android:paddingBottom="8dp"
-
-        />
+        android:layout_below="@id/mostBidPropertyTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
 
-    <TextView
-        android:id = "@+id/most_bid_property_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/property_with_most_bids"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/highest_bid_amount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-    />
-    <TextView
-        android:id = "@+id/most_bid_property_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/property_id_with_most_bids"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/most_bid_property_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-    <TextView
-        android:id = "@+id/most_bid_property_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/bid_count_of_most_popular_property_1_d"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/most_bid_property_id"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp"
-
-        />
-
-    <TextView
-        android:id = "@+id/auctioneer_most_property_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/auctioneer_with_the_most_properties"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/most_bid_property_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-
-    <TextView
-        android:id= "@+id/auctioneer_most_property_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/auctioneer_id_with_most_properties_1_d"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-
-        app:layout_constraintTop_toBottomOf="@id/auctioneer_most_property_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-
-    <TextView
-        android:id= "@+id/auctioneer_most_property_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/property_count_for_auctioneer_with_most_properties"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-
-        app:layout_constraintTop_toBottomOf="@id/auctioneer_most_property_id"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp"
-
-        />
-
-    <TextView
-        android:id="@+id/property_with_highest_asking_price_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/property_with_highest_asking_price_label"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-
-        app:layout_constraintTop_toBottomOf="@id/auctioneer_most_property_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/property_id_asking_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "@string/property_id_with_highest_asking_price"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-        app:layout_constraintTop_toBottomOf="@id/property_with_highest_asking_price_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-
-    <TextView
-        android:id="@+id/property_asking_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "@string/highest_asking_price_for_a_property"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-
-        app:layout_constraintTop_toBottomOf="@id/property_id_asking_price"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp"
-
-        />
-
-    <TextView
-        android:id="@+id/bidder_most_bids_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/bidder_who_has_submitted_most_bids"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintTop_toBottomOf="@id/property_asking_price"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/bidder_id_most_bids"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bidder_id_with_most_bids"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-
-        app:layout_constraintTop_toBottomOf="@id/bidder_most_bids_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/bidder_count_most_bids"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/most_number_of_bids_submitted_by_a_user"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif"
-
-        app:layout_constraintTop_toBottomOf="@id/bidder_id_most_bids"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp"
-
-        />
-
-
-    <Button
-        android:id="@+id/return_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/return_button"
-        app:layout_constraintTop_toBottomOf="@id/bidder_count_most_bids"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-    />
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

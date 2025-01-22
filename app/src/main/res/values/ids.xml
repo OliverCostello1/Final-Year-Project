@@ -21,4 +21,9 @@
     <item name="view_bids" type="id" />
     <item name="submit_button" type="id" />
     <item name="deploy_button" type="id" />
+    <item name="totalUsersTextView" type="id" />
+    <item name="totalPropertiesTextView" type="id" />
+    <item name="totalBidsTextView" type="id" />
+    <item name="highestBidTextView" type="id" />
+    <item name="mostBidPropertyTextView" type="id" />
 </resources>
