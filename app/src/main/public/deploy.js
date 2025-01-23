@@ -420,13 +420,17 @@ export async function processBids() {
     console.log(`Found ${querySnapshot.size} bids to process.`);
     for (const bidDoc of querySnapshot.docs) {
       const bid = bidDoc.data();
+3
+      if (bid.contract_generated) {
+            console.log(`Contract already deployed for Bid ID: ${bid.bid_id}. Skipping .... `);
+            continue;
+      }
 
       // Validate required fields
       if (!bid.bidder_wallet || !bid.auctioneer_wallet || !bid.propertyID || !bid.bid_amount) {
         console.warn(`Bid ${bid.bid_id} is missing required fields. Skipping...`);
         continue;
       }
-
       console.log(`Processing Bid ID: ${bid.bid_id}`);
       console.log("Bid Details:", bid);
 
@@ -476,8 +480,7 @@ export async function processBids() {
 
 
 // Call processBids to process all bids when needed (e.g., when a button is clicked)
-document.getElementById("deployButton").addEventListener("click", processBids);
-
+processBids();
 
 // Execute main function to process bids
 processBids().catch((error) => {
