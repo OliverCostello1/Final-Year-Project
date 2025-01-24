@@ -94,7 +94,8 @@ public class PlaceBidActivity extends AppCompatActivity {
                     property.getAuctioneer_wallet(),
                     bidAmount,
                     String.valueOf(System.currentTimeMillis()),  // Use current timestamp
-                    "pending" // Initially set bid status to "pending"
+                    "pending", // Initially set bid status to "pending"
+                    false // initially set contract_generated = false
             );
 
             // Submit bid to Firestore

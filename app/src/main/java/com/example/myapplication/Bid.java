@@ -6,7 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Bid {
     private String bid_id;
-    private String property_id;
+    private String propertyID;
     private String bidder_id;
     private String bidder_wallet;
     private String auctioneer_id;
@@ -14,15 +14,14 @@ public class Bid {
     private String time_stamp;
     private Double bid_amount;
     private String bid_status;
-    private String formattedTimeStamp; // Temporary field for formatted timestamp
-
+    private boolean contract_generated;
     // No-argument constructor required for Firestore deserialization
     public Bid() {
     }
 
-    public Bid(String bidId, String propertyID, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus) {
+    public Bid(String bidId, String property_id, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus, boolean contractGenerated) {
         bid_id = bidId;
-        property_id = propertyID;
+        propertyID = property_id;
         bidder_id = bidderId;
         bidder_wallet = bidderWallet;
         auctioneer_id = auctioneerId;
@@ -30,12 +29,13 @@ public class Bid {
         time_stamp = timeStamp;
         bid_amount = bidAmount;
         bid_status = bidStatus;
+        contract_generated = contractGenerated;
     }
     public String getBid_id() {
         return this.bid_id;
     }
     public String getPropertyID() {
-        return this.property_id;
+        return this.propertyID;
     }
     public String getBidder_id() {
         return this.bidder_id;
@@ -43,7 +43,7 @@ public class Bid {
     public void setBid_id(String bid_id) {
         this.bid_id = bid_id;
     }
-
+    public void setTime_stamp(String time_stamp) {this.time_stamp = time_stamp;}
     public String getBidder_wallet() {
         return this.bidder_wallet;
     }
@@ -62,17 +62,15 @@ public class Bid {
     public String getBid_status() {
         return this.bid_status;
     }
-
-    // Getter and setter for formattedTimeStamp
-    public String getFormattedTimeStamp() {
-        return formattedTimeStamp;
-    }
-
-    public void setFormattedTimeStamp(String formattedTimeStamp) {
-        this.formattedTimeStamp = formattedTimeStamp;
-    }
-
     public void setBidStatus(String bid_status) {
         this.bid_status = bid_status;
     }
+    public void setContract_generated(boolean contract_generated) {
+        this.contract_generated = contract_generated;
+    }
+    public boolean getContract_generated() {
+        return this.contract_generated;
+    }
+
 }
+

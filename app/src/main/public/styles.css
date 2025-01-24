@@ -63,6 +63,7 @@ button:hover {
   padding: 20px;
   border-radius: 5px;
   box-sizing: border-box;
+  display: none; /* Hide by default */
 }
 
 #contractDetails h3 {
@@ -98,6 +99,7 @@ button:hover {
 
   #contractDetails {
     padding: 15px;
+    display: none; /* Hide by default */
   }
 
   #contractDetails h3 {

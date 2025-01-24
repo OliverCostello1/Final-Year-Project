@@ -35,37 +35,36 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
 
         // Bind data to the views
         holder.propertyId.setText(holder.itemView.getResources().getString(R.string.property_id_format, bid.getPropertyID()));
-        holder.bidAmount.setText(holder.itemView.getResources().getString (R.string.bid_amount , bid.getBid_amount()));
-        holder.bidTime.setText(holder.itemView.getResources().getString(R.string.time,  bid.getTime_stamp()));
+        holder.bidAmount.setText(holder.itemView.getResources().getString(R.string.bid_amount, bid.getBid_amount()));
+        holder.bidTime.setText(holder.itemView.getResources().getString(R.string.time, bid.getTime_stamp()));
         holder.bidderWallet.setText(holder.itemView.getResources().getString(R.string.bidder_wallet, bid.getBidder_wallet()));
         holder.bidID.setText(holder.itemView.getResources().getString(R.string.bid_id, bid.getBid_id()));
-        holder.bidStatus.setText(holder.itemView.getResources().getString(R.string.bid_status,  bid.getBid_status()));
-        holder.approveButton.setOnClickListener(v -> {
-            if (context instanceof ApproveBidsActivity) {
-                ((ApproveBidsActivity) context).approveBid(bid.getBidder_id());
-            }
+        holder.bidStatus.setText(holder.itemView.getResources().getString(R.string.bid_status, bid.getBid_status()));
 
-            if (bid.getBid_status().equals("pending")) {
-                ((ApproveBidsActivity) context).approveBid(bid.getBid_id());
-            } else {
-                Toast.makeText(context, "This bid is already approved", Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
-
-
-        // Prevent approval of already approved bids
-        holder.approveButton.setEnabled(!bid.getBid_status().equals("approved"));
+        // Disable approval if the bid is already approved or denied
+        boolean isBidPending = bid.getBid_status().equals("pending");
+        holder.approveButton.setEnabled(isBidPending);
+        holder.denyButton.setEnabled(isBidPending);
 
         holder.approveButton.setOnClickListener(v -> {
-            if (bid.getBid_status().equals("pending")) {
-                ((ApproveBidsActivity) context).approveBid(bid.getBid_id());
+            if (isBidPending) {
+                if (context instanceof ApproveBidsActivity) {
+                    ((ApproveBidsActivity) context).approveBid(bid.getBid_id());
+                }
             } else {
-                Toast.makeText(context, "This bid is already approved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "This bid is already approved or denied", Toast.LENGTH_SHORT).show();
             }
         });
 
+        holder.denyButton.setOnClickListener(v -> {
+            if (isBidPending) {
+                if (context instanceof ApproveBidsActivity) {
+                    ((ApproveBidsActivity) context).denyBid(bid.getBid_id());
+                }
+            } else {
+                Toast.makeText(context, "This bid is already approved or denied", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -75,7 +74,7 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
 
     static class BidViewHolder extends RecyclerView.ViewHolder {
         TextView propertyId, bidAmount, bidTime, bidderWallet, bidID, bidStatus;
-        Button approveButton;
+        Button approveButton, denyButton;
 
         public BidViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,8 +84,8 @@ public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.
             bidTime = itemView.findViewById(R.id.bid_time_text);
             bidderWallet = itemView.findViewById(R.id.bidder_wallet_text);
             approveButton = itemView.findViewById(R.id.approve_button);
+            denyButton = itemView.findViewById(R.id.deny_button);
             bidStatus = itemView.findViewById(R.id.bid_status);
-
         }
     }
 }

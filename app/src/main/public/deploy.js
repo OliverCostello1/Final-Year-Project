@@ -245,7 +245,7 @@ testConnection();
 // Function to fetch bid data from Firestore
 const fetchBidFromFirestore = async (bidId) => {
   const bidRef = collection(firestore, CONFIG.FIRESTORE_COLLECTION);
-  const q = query(bidRef, where("bid_id", "==", bidId)); // Query by bid_id
+  const q = query(bidRef, where("bid_id", "==", bidId), where("contract_generated", "==",  false)); // Query by bid_id
   const querySnapshot = await getDocs(q);
   if (!querySnapshot.empty) {
     const bidData = querySnapshot.docs[0].data(); // Assuming the bid is in the first document
@@ -290,49 +290,24 @@ const updateBidStatus = async (bidId) => {
 // Event listener for deploy button
 const deployButton = document.getElementById("deployButton");
 
-deployButton.addEventListener("click", async () => {
-  console.log('Deploy button clicked');
-
-  // Example: Specify the bid ID to fetch from Firestore (replace with dynamic value)
-  const bidId = '12345'; // Replace with the actual bid ID you want to fetch
 
 
-try {
-  // Fetch the bid from Firestore
-  const bid = await fetchBidFromFirestore(bidId);
+export function displayLog(message, type = 'log') {
+  const logContainer = document.getElementById('logContainer');
+  const logMessage = document.createElement('div');
+  logMessage.textContent = message;
 
-  // Check if the contract has already been generated (e.g., stored in Firestore)
-  contract_generated = bid.contract_generated || false;  // Default to false if not set
-
-  if (contract_generated) {
-    console.log(`Contract already generated for Bid ID ${bidId}. Skipping deployment.`);
-  } else {
-    // Deploy the contract and get the contract address if not generated
-    const contractAddress = await deployContract(bid);
-
-    // Update the contract_generated status in Firestore
-    await updateContractStatus(bid.bid_id, true); // Update Firestore with contract status
-
-    // Update the bid status after the contract is deployed
-    await updateBidStatus(bid.bid_id);
-
-    // Log the contract deployment success
-    console.log(`Contract deployed for Bid ID ${bid.bid_id}, Contract Address: ${contractAddress}`);
+  if (type === 'error') {
+    logMessage.classList.add('error');
+  } else if (type === 'success') {
+    logMessage.classList.add('success');
   }
-} catch (error) {
-  // Handle errors during contract deployment
-  console.error(`Error processing bid ${bidId}:`, error);
-}
 
-// Additional logic based on contract generation status
-if (contract_generated) {
-  console.log(`Contract already exists for Bid ID ${bidId}.`);
-} else {
-  console.log(`Contract successfully generated for Bid ID ${bidId}.`);
+  logContainer.appendChild(logMessage);
+  logContainer.scrollTop = logContainer.scrollHeight; // Keep the log scrolled to the bottom
 }
 
 
-});
 const deployContract = async (bid) => {
     console.log(`Deploying contract for bid ${bid.bid_id}...`);
     try {
@@ -371,10 +346,14 @@ const deployContract = async (bid) => {
         );
 
         console.log('Contract deployed. Waiting for confirmation...');
+        displayLog('Contract deployed. Waiting for confirmation...');
         await contract.deployTransaction.wait();
         console.log('Contract deployed successfully');
+        displayLog('Contract deployed successfully');
         console.log('Transaction Hash:', contract.deployTransaction.hash);
+        displayLog('Transaction Hash:', contract.deployTransaction.hash);
         console.log('Contract Address:', contract.address);
+        displayLog('Contract Address:', contract.address);
 
         // Store contract details in Firestore
         await storeContractDetails(bid.bid_id, contract.deployTransaction.hash, contract.address);
@@ -410,20 +389,22 @@ export async function processBids() {
 
     // Fetch all bids to process from Firestore
     const bidsCollection = collection(firestore, CONFIG.FIRESTORE_COLLECTION);
-    const querySnapshot = await getDocs(bidsCollection);
+    const q = query(bidsCollection, where("contract_generated", "==", false));
+    const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
       console.log("No bids found to process.");
+      displayLog("No bids found to process");
       return;
     }
 
-    console.log(`Found ${querySnapshot.size} bids to process.`);
     for (const bidDoc of querySnapshot.docs) {
       const bid = bidDoc.data();
-3
+
       if (bid.contract_generated) {
-            console.log(`Contract already deployed for Bid ID: ${bid.bid_id}. Skipping .... `);
-            continue;
+        console.log(`Contract already deployed for Bid ID: ${bid.bid_id}. Skipping....`);
+        displayLog(`Contract already deployed for Bid ID: ${bid.bid_id}. Skipping....`);
+        continue;
       }
 
       // Validate required fields
@@ -432,7 +413,13 @@ export async function processBids() {
         continue;
       }
       console.log(`Processing Bid ID: ${bid.bid_id}`);
+      displayLog(`Processing Bid ID: ${bid.bid_id}`);
       console.log("Bid Details:", bid);
+      displayLog("Bid Details:");
+      displayLog(`Bidder Wallet: ${bid.bidder_wallet}`);
+      displayLog(`Auctioneer Wallet: ${bid.auctioneer_wallet}`);
+      displayLog(`Property ID: ${bid.propertyID}`);
+      displayLog(`Bid Amount: ${bid.bid_amount}`);
 
       try {
         // Deploy the contract with a manual gas limit
@@ -445,9 +432,13 @@ export async function processBids() {
 
         console.log("Deploying contract with the following parameters:");
         console.log("Bidder Wallet:", bidderWallet);
+
         console.log("Auctioneer Wallet:", auctioneerWallet);
+
         console.log("Property ID:", propertyID);
+
         console.log("Bid Amount:", bidAmount.toString());
+
 
         const gasLimit = 1000000; // Set a manual gas limit
         const contract = await contractFactory.deploy(bidderWallet, auctioneerWallet, propertyID, bidAmount, {
@@ -468,21 +459,14 @@ export async function processBids() {
         // Update bid status
         await updateBidStatus(bid.bid_id);
         console.log(`Bid ${bid.bid_id} processed successfully.`);
+
+        return { transactionHash: contract.deployTransaction.hash, contractAddress: contract.address };
       } catch (deploymentError) {
         console.error(`Error deploying contract for Bid ID ${bid.bid_id}:`, deploymentError.message);
+        displayLog(`Error deploying contract for Bid ID ${bid.bid_id}: ${deploymentError.message}`, 'error');
       }
     }
   } catch (error) {
-    console.error("Error during processBids execution:", error.message);
-    throw error;
+    console.error(`Error processing bids: ${error.message}`);
   }
 }
-
-
-// Call processBids to process all bids when needed (e.g., when a button is clicked)
-processBids();
-
-// Execute main function to process bids
-processBids().catch((error) => {
-  console.error('Fatal error:', error);
-});

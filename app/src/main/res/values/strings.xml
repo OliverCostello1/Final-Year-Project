@@ -29,7 +29,7 @@
         <item>Auctioneer</item>
         <item>Admin</item>
     </string-array>
-    <string name="property_id_format">Property ID: %1$d</string>
+    <string name="property_id_format">Property ID: %1$s</string>
     <string name="eircode_format">Eircode: %1$s</string>
     <string name="link_format">Link: %1$s</string>
     <string name = "asking_price_format">Asking Price: %1$s</string>
@@ -77,7 +77,7 @@
     <string name="your_wallet">Your Wallet Address: %s</string>
     <string name="auctioneeer_id_bid">Auctioneer ID: %d</string>
     <string name="time_submitted">Time Submitted:</string>
-    <string name="approve_bids">Approve Bids</string>
+    <string name="approve_bids">Approve / Deny Bids</string>
     <string name="add_new_property">Add New Property</string>
     <string name="auctioneer_home">Auctioneer Home</string>
     <string name="approve">Approve</string>
@@ -137,4 +137,8 @@
     <string name="error_getting_total_bids_count">Error getting total bids count</string>
     <string name="no_properties_available">No properties available</string>
     <string name="error_getting_total_properties_count">Error getting total properties count</string>
+    <string name="withdraw_bids">Withdraw Bids</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="deny">Deny</string>
+    <string name="enter_reason_for_denial">Enter reason for denial</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,14 @@ public class ApproveBidsActivity extends AppCompatActivity {
         String auctioneerID = sharedPreferences.getString("user_id", ""); // Assuming user_id is stored as String
         Log.d("ApproveBidsActivity", "User ID: " + auctioneerID);
         fetchPendingBids(auctioneerID);
+
+
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
     }
 
     private void fetchPendingBids(String auctioneerID) {
@@ -117,4 +126,34 @@ public class ApproveBidsActivity extends AppCompatActivity {
                     Toast.makeText(ApproveBidsActivity.this, "Error approving bid", Toast.LENGTH_SHORT).show();
                 });
     }
+
+    public void denyBid(String bidId) {
+        DocumentReference bidRef = firestore.collection("bids").document(bidId);
+
+        bidRef.update("bid_status", "denied")
+                .addOnSuccessListener(aVoid -> {
+                    // Log the current bids list and compare the bidId
+                    Log.d("ApproveBidsActivity", "Bid denied with ID: " + bidId);
+                    boolean bidFound = false;
+                    for (Bid bid : bids) {
+                        if (bid.getBid_id().equals(bidId)) {
+                            bid.setBidStatus("denied");
+                            bidFound = true;
+                            break;
+                        }
+                    }
+                    if (bidFound) {
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(ApproveBidsActivity.this, "Bid denied successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.e("ApproveBidsActivity", "Denial failed: Bid not found or already denied");
+                        Toast.makeText(ApproveBidsActivity.this, "Bid not found or already denied", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("ApproveBidsActivity", "Error denying bid: " + e.getMessage());
+                    Toast.makeText(ApproveBidsActivity.this, "Error denying bid", Toast.LENGTH_SHORT).show();
+                });
+    }
 }
+

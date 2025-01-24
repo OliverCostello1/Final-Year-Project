@@ -123,6 +123,13 @@ public class RegisterActivity extends AppCompatActivity {
         userData.put("email", email);
         userData.put("password", password);
         userData.put("userStatus", "pending");
+        Log.d("RegisterActivity", userId);
+        Log.d("RegisterActivity", walletAddress);
+        Log.d("RegisterActivity", firstName);
+        Log.d("RegisterActivity", lastName);
+        Log.d("RegisterActivity", role);
+        Log.d("RegisterActivity", email);
+
 
         // Add user data to Firestore
         DocumentReference userRef = usersRef.document(userId);
@@ -139,6 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                         case "Bidder":
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;
+
                         default:
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;

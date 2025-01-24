@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
+
+import com.android.volley.BuildConfig;
 
 public class DeployContractsActivity extends AppCompatActivity {
 
@@ -28,10 +31,15 @@ public class DeployContractsActivity extends AppCompatActivity {
         statusTextView = findViewById(R.id.statusTextView);
         deployButton = findViewById(R.id.deploy_button);
         webView = findViewById(R.id.webview);
+        String webViewVersion = webView.getSettings().getUserAgentString();
+        Log.d("WebView", "User Agent: " + webViewVersion);
 
         // Configure WebView settings
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+        WebView.setWebContentsDebuggingEnabled(true);// Enable debugging for emulator.
+
         webView.setWebViewClient(new WebViewClient());
 
         deployButton.setOnClickListener(v -> {
@@ -42,6 +50,12 @@ public class DeployContractsActivity extends AppCompatActivity {
                 executeDeployScriptInWebView();
             }
         });
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
     }
 
     private void executeDeployScriptInWebView() {
@@ -81,4 +95,5 @@ public class DeployContractsActivity extends AppCompatActivity {
             webView.destroy();
         }
     }
+
 }
