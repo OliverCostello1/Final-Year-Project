@@ -29,6 +29,8 @@ import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
 
+import jnr.a64asm.Register;
+
 public class RegisterActivity extends AppCompatActivity {
 
     EditText emailField, firstNameField, lastNameField, passwordField;
@@ -73,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
         String lastName = lastNameField.getText().toString();
         String password = passwordField.getText().toString();
         String role = roleSpinner.getSelectedItem().toString();
+        Log.d("RegisterActivity", "Selected role: " + role);
 
         // Input validation
         if (email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password.isEmpty()) {
@@ -116,20 +119,16 @@ public class RegisterActivity extends AppCompatActivity {
         // Prepare user data using a Map
         Map<String, Object> userData = new HashMap<>();
         userData.put("id", userId);
-        userData.put("wallet_address", walletAddress);
-        userData.put("first_name", firstName);
-        userData.put("last_name", lastName);
+        userData.put("walletAddress", walletAddress);
+        userData.put("firstName", firstName);
+        userData.put("lastName", lastName);
         userData.put("role", role);
         userData.put("email", email);
         userData.put("password", password);
         userData.put("userStatus", "pending");
-        Log.d("RegisterActivity", userId);
-        Log.d("RegisterActivity", walletAddress);
-        Log.d("RegisterActivity", firstName);
-        Log.d("RegisterActivity", lastName);
-        Log.d("RegisterActivity", role);
-        Log.d("RegisterActivity", email);
+        Log.d("RegisterActivity", "User role: " + role);
 
+        Log.d("RegisterActivity", "Saving user data: " + userData);
 
         // Add user data to Firestore
         DocumentReference userRef = usersRef.document(userId);
@@ -146,12 +145,15 @@ public class RegisterActivity extends AppCompatActivity {
                         case "Bidder":
                             intent = new Intent(RegisterActivity.this, BidderActivity.class);
                             break;
-
-                        default:
-                            intent = new Intent(RegisterActivity.this, BidderActivity.class);
+                        case "Admin":
+                            intent = new Intent(RegisterActivity.this, AdminActivity.class);
                             break;
+                        default:
+                            Log.d("RegisterActivity", "Unexecpted Role:" + role);
+                            intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            break;
+
                     }
-                    intent.putExtra("wallet_address", walletAddress);
                     startActivity(intent);
                     finish();
                 })

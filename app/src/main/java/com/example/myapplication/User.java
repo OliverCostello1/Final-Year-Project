@@ -14,12 +14,13 @@ public class User {
     public User() {
     }
 
-    public User(String id, String walletAddress, String firstName, String lastName, String role) {
+    public User(String id,String firstName, String lastName, String role, String wallet_address) {
         this.id = id;
-        this.wallet_address = walletAddress;
         this.first_name = firstName;
         this.last_name = lastName;
         this.role = role;
+        this.wallet_address = wallet_address;
+
     }
 
     public String getId() {

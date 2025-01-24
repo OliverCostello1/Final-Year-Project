@@ -55,7 +55,9 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
         // Reference to the "users" collection in Firestore
         CollectionReference usersRef = db.collection("users");
 
-        usersRef.get()
+        // Ensure admin user can't be deleted
+        usersRef.whereNotEqualTo("role", "Admin")
+                .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         QuerySnapshot querySnapshot = task.getResult();
@@ -76,6 +78,7 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
                         Toast.makeText(UserAdminActivity.this, "Failed to fetch users", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     @Override

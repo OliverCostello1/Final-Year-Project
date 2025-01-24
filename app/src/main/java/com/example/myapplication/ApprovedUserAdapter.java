@@ -73,8 +73,10 @@ public class ApprovedUserAdapter extends RecyclerView.Adapter<ApprovedUserAdapte
     }
 
     public void removeItem(int position) {
-        userList.remove(position);
-        notifyItemRemoved(position);
+        if (position >=0 && position < userList.size()) {
+            userList.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {

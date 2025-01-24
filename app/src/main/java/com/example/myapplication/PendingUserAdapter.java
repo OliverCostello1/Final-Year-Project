@@ -61,8 +61,10 @@ public class PendingUserAdapter extends RecyclerView.Adapter<PendingUserAdapter.
     }
 
     public void removeItem(int position) {
-        userList.remove(position);
-        notifyDataSetChanged();
+        if (position >=0 && position < userList.size()) {
+            userList.remove(position);
+            notifyDataSetChanged();
+        }
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {

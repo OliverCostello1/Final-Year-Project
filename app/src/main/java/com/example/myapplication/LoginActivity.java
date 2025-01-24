@@ -82,18 +82,18 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
 
-                        String firstName = documentSnapshot.getString("first_name");
+                        String firstName = documentSnapshot.getString("firstName");
                         String role = documentSnapshot.getString("role");
-                        String walletAddress = documentSnapshot.getString("wallet_address");
+                        String walletAddress = documentSnapshot.getString("walletAddress");
                         String email = documentSnapshot.getString("email");
                         String password = documentSnapshot.getString("password");
                         String userStatus = documentSnapshot.getString("userStatus");
-
+                        String last_name = documentSnapshot.getString("lastName");
                         editor.putString("user_id", userId);
                         editor.putString("user_status", userStatus);
                         editor.putString("role", role);
                         editor.putString("first_name", firstName);
-
+                        editor.putString("last_name", last_name);
                         editor.putString("wallet_address", walletAddress);
                         editor.putString("email", email);
                         editor.putString("password", password);
@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                                 "\nRole: " + role +
                                 "\nWallet Address: " + walletAddress +
                                 "\nEmail: " + email +
+                                "\nLast Name: " + last_name +
                                 "\nPassword: " + password +
                                 "\nUser Status: " + userStatus);
 
