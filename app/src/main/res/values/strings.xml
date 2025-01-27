@@ -141,4 +141,10 @@
     <string name="withdraw">Withdraw</string>
     <string name="deny">Deny</string>
     <string name="enter_reason_for_denial">Enter reason for denial</string>
+    <string name="deployed_contracts">Deployed Contracts</string>
+    <string name = "view_contracts">View All Contracts</string>
+    <string name="bid_id_contract">Bid ID:</string>
+    <string name="address">Address:</string>
+    <string name="tx_hash">Tx Hash:</string>
+    <string name="created_at">Created At:</string>
 </resources>

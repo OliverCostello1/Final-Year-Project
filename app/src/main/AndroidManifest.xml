@@ -47,6 +47,7 @@
         <activity android:name=".DeployContractsActivity"/>
         <activity android:name=".DeploymentIntervalActivity"/>
         <activity android:name=".WithdrawBidsActivity"/>
+        <activity android:name=".AdminContractsActivity"/>
     </application>
 
 </manifest>
