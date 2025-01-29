@@ -147,4 +147,5 @@
     <string name="address">Address:</string>
     <string name="tx_hash">Tx Hash:</string>
     <string name="created_at">Created At:</string>
+    <string name="there_are_0_users_currently_waiting_approval">There are 0 users currently waiting approval</string>
 </resources>

@@ -7,10 +7,12 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.web3j.protocol.admin.Admin;
+
 // Admin user home page
 public class AdminActivity extends AppCompatActivity  {
     private static final String TAG = "AdminActivity";
-    public Button user_management, usage_reports, view_properties, view_contracts, approve_users, logout, deploy_contracts;
+    public Button user_management, usage_reports, view_properties, view_contracts, approve_users, logout, deploy_contracts, deployment_interval;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class AdminActivity extends AppCompatActivity  {
         logout = findViewById(R.id.logout_button);
         view_contracts = findViewById(R.id.all_contracts);
         deploy_contracts = findViewById(R.id.deploy_contract);
+        deployment_interval = findViewById(R.id.contract_deployment_interval);
 
 
         // Navigation buttons for admin user
@@ -57,6 +60,11 @@ public class AdminActivity extends AppCompatActivity  {
         });
         deploy_contracts.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, DeployContractsActivity.class);
+            startActivity(intent);
+        });
+
+        deployment_interval.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminActivity.this, IntervalActivity.class);
             startActivity(intent);
         });
 

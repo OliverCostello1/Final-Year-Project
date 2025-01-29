@@ -470,3 +470,4 @@ export async function processBids() {
     console.error(`Error processing bids: ${error.message}`);
   }
 }
+

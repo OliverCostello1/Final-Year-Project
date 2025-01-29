@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import java.util.List;
 public class PendingUsersActivity extends AppCompatActivity implements PendingUserAdapter.OnApproveClickListener {
     private PendingUserAdapter userAdapter;
     private RecyclerView userRecyclerView;
+    private TextView noUsersTextView;
     private FirebaseFirestore db;
 
     @Override
@@ -34,6 +36,7 @@ public class PendingUsersActivity extends AppCompatActivity implements PendingUs
 
         // Initialize RecyclerView
         userRecyclerView = findViewById(R.id.userRecycler);
+        noUsersTextView = findViewById(R.id.no_users_text);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize adapter with an empty list and approve click listener
@@ -75,8 +78,11 @@ public class PendingUsersActivity extends AppCompatActivity implements PendingUs
                         if (users.isEmpty()) {
                             Toast.makeText(PendingUsersActivity.this, "No users available", Toast.LENGTH_SHORT).show();
                             userRecyclerView.setVisibility(View.GONE);
+
                         } else {
                             userAdapter.updateData(users);
+                            noUsersTextView.setVisibility(View.GONE);
+
                             userRecyclerView.setVisibility(View.VISIBLE);
                         }
                     });

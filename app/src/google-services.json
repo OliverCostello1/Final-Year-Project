@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "801916913350",
+    "firebase_url": "https://fyp-bidder-default-rtdb.firebaseio.com",
     "project_id": "fyp-bidder",
     "storage_bucket": "fyp-bidder.firebasestorage.app"
   },
