@@ -148,4 +148,8 @@
     <string name="tx_hash">Tx Hash:</string>
     <string name="created_at">Created At:</string>
     <string name="there_are_0_users_currently_waiting_approval">There are 0 users currently waiting approval</string>
+    <string name="view_details_of_deployed_contracts">View Details of Deployed Contracts</string>
+    <string name="contract_details_will_be_displayed_here">Contract details will be displayed here.</string>
+    <string name="fetch_contract_details">Fetch Contract Details</string>
+    <string name="enter_contract_address">Enter Contract Address</string>
 </resources>

@@ -4,67 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedule Bid Processing</title>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAZx5pfgzczeuHWJSZVmes98jgOSmZCcVQ",
-            authDomain: "fyp-bidder.firebaseapp.com",
-            databaseURL: "https://fyp-bidder-default-rtdb.firebaseio.com",
-            projectId: "fyp-bidder",
-            storageBucket: "fyp-bidder.firebasestorage.app",
-            messagingSenderId: "801916913350",
-            appId: "1:801916913350:web:87294a67b770059efa39c7",
-            measurementId: "G-BJL419PKWN"
-        };
+    <!-- Link to Firebase initialization script -->
+    <script type="module" src="firebase-init.js"></script>
 
-        const app = initializeApp(firebaseConfig);
-    </script>
+    <!-- Link to bid processing script -->
+    <script src="bidProcessing.js"></script>
 
-    <script>
-        function scheduleBidProcessing() {
-            console.log("Button Pressed");
-
-            const frequency = document.getElementById("frequency").value;
-            const dayOfWeek = document.getElementById("dayOfWeek").value;
-
-            // Log the types and values of frequency and dayOfWeek
-            console.log("Type of frequency:", typeof frequency, "Value:", frequency);
-            console.log("Type of dayOfWeek:", typeof dayOfWeek, "Value:", dayOfWeek);
-
-            if (frequency && dayOfWeek) {
-                // Log values before sending
-                console.log("Sending data to Firebase:", { frequency, dayOfWeek });
-
-                // Send POST request to Firebase Function
-                fetch('https://us-central1-fyp-bidder.cloudfunctions.net/updateSchedule', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        frequency: frequency,
-                        dayOfWeek: dayOfWeek
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch(error => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                });
-            } else {
-                alert("Please select both frequency and day.");
-            }
-        }
-    </script>
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="https://fyp-bidder.web.app/selection_styles.css"/>
 </head>
 <body>
 <h1>Set Bid Processing Schedule</h1>
@@ -87,5 +35,8 @@
 </select>
 <br>
 <button onclick="scheduleBidProcessing()">Set Schedule</button>
+
+<!-- Container for displaying messages -->
+<div id="message-container" style="display:none; margin-top: 20px;"></div>
 </body>
 </html>

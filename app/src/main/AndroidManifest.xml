@@ -49,6 +49,7 @@
         <activity android:name=".WithdrawBidsActivity"/>
         <activity android:name=".AdminContractsActivity"/>
         <activity android:name=".IntervalActivity"/>
+        <activity android:name=".ContractDetailsActivity"/>
     </application>
 
 </manifest>

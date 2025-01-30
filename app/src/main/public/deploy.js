@@ -319,7 +319,7 @@ const deployContract = async (bid) => {
         const bidderWallet = bid.bidder_wallet.trim();
         const auctioneerWallet = bid.auctioneer_wallet.trim();
         const propertyID = bid.propertyID.trim();
-        const bidAmount = ethers.BigNumber.from(bid.bid_amount);
+        const bidAmount = bid.bid_amount;
 
         console.log('Deploying contract with the following values:');
         console.log('Bidder Wallet:', bidderWallet);

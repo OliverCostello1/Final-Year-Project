@@ -12,7 +12,7 @@ import org.web3j.protocol.admin.Admin;
 // Admin user home page
 public class AdminActivity extends AppCompatActivity  {
     private static final String TAG = "AdminActivity";
-    public Button user_management, usage_reports, view_properties, view_contracts, approve_users, logout, deploy_contracts, deployment_interval;
+    public Button user_management, usage_reports, view_properties, view_contracts, approve_users, logout, deploy_contracts, deployment_interval, contract_details;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class AdminActivity extends AppCompatActivity  {
         view_contracts = findViewById(R.id.all_contracts);
         deploy_contracts = findViewById(R.id.deploy_contract);
         deployment_interval = findViewById(R.id.contract_deployment_interval);
+        contract_details = findViewById(R.id.contract_details);
 
 
         // Navigation buttons for admin user
@@ -68,6 +69,10 @@ public class AdminActivity extends AppCompatActivity  {
             startActivity(intent);
         });
 
+        contract_details.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminActivity.this, ContractDetailsActivity.class);
+            startActivity(intent);
+        });
         };
 
 

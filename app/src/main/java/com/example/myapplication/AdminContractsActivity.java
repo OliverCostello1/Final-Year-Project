@@ -28,7 +28,7 @@ public class AdminContractsActivity extends AppCompatActivity {
 
         contractsRecyclerView = findViewById(R.id.contractsRecyclerView);
         contractsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ContractAdapter(contractList);
+        adapter = new ContractAdapter(this, contractList);
         contractsRecyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
