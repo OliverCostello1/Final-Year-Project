@@ -75,6 +75,7 @@ public class PlaceBidActivity extends AppCompatActivity {
             }
         });
     }
+
     public void submitBid(Property property, String userId, String userWallet, double bidAmount) {
 
         // This will be used to only allow bidder to submit a bid during business hours (Mon-Fri, 9am-5pm)
@@ -108,6 +109,9 @@ public class PlaceBidActivity extends AppCompatActivity {
                         // Optionally, update the bid in Firestore with the correct bidId
                         documentReference.update("bid_id", bid.getBid_id());
 
+                        // Update the current bid for the property with the new bid amount
+                        updatePropertyWithNewBid(property, bidAmount);
+
                         Toast.makeText(PlaceBidActivity.this, "Bid placed successfully", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Bid placed with ID: " + documentReference.getId());
                     })
@@ -120,4 +124,30 @@ public class PlaceBidActivity extends AppCompatActivity {
         }
     }
 
+
+    private void updatePropertyWithNewBid(Property property, double newBidAmount) {
+        // Fetch the current property document
+        db.collection("properties")
+                .document(String.valueOf(property.getPropertyId()))
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Update the property with the new bid amount
+                        documentSnapshot.getReference().update("current_bid", newBidAmount)
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d(TAG, "Property updated with new bid");
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Error updating property with new bid", e);
+                                });
+                    } else {
+                        Log.e(TAG, "Property not found");
+                    }
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error fetching property document", e));
+    }
+
 }
+
+

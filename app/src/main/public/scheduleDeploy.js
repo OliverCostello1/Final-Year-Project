@@ -83,6 +83,3 @@ function scheduleDeployScript(time) {
     console.error("Scheduled time is in the past!");
   }
 }
-
-// Sample of how to schedule the deploy (this can be tied to the user's UI input)
-scheduleDeployScript("2025-01-30T14:00:00"); // Replace with the actual scheduled time

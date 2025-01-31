@@ -102,8 +102,8 @@ public class ContractDetailsActivity extends AppCompatActivity {
                         .format(new java.util.Date(timestamp.longValue() * 1000));
 
                 runOnUiThread(() -> {
-                    String details = "Bidder: " + bidderWallet + "\n" +
-                            "Auctioneer: " + auctioneerWallet + "\n" +
+                    String details = "Bidder Wallet: " + bidderWallet + "\n" +
+                            "Auctioneer Wallet: " + auctioneerWallet + "\n" +
                             "Property ID: " + propertyId + "\n" +
                             "Bid Amount: " + formattedBidAmount + "\n" +  // Displaying as a regular number
                             "Timestamp: " + formattedTimestamp;

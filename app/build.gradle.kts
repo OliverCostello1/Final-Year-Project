@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.core.v494)
     implementation(libs.bcprov.jdk18on)
-
+    implementation(libs.androidsvg.aar)
     implementation(libs.crypto)
     implementation(libs.contracts)
     implementation(libs.firebase.database)

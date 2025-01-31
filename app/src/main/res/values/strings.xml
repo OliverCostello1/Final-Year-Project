@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="web3_auctioneer">Welcome to Web3 Auctioneer</string>
+    <string name="secure_bid">Welcome to SecureBid!</string>
     <string name="usr_login">User Login</string>
     <string name="register">Register</string>
     <string name="enter_your_details_to_register">Enter Your Details To Register</string>
@@ -126,12 +126,12 @@
     <string name = "deploy_contracts_label">Press the button below to deploy contracts for new bids</string>
     <string name="deploy_contracts_button">Deploy Contracts</string>
     <string name="deploying_contracts">Deploying Contracts...</string>
-    <string name="fetching_total_properties">Fetching Total Properties...</string>
+    <string name="fetching_total_properties">Fetching Total Properties…</string>
     <string name="fetching_total_users">Fetching Total Users...</string>
-    <string name="fetching_most_bid_on_property">Fetching Most Bid-on Property...</string>
+    <string name="fetching_most_bid_on_property">Fetching Most Bid-on Property…</string>
     <string name="fetching_approved_users">Fetching Approved Users...</string>
-    <string name="fetching_highest_bid">Fetching Highest Bid...</string>
-    <string name="fetching_total_bids">Fetching Total Bids...</string>
+    <string name="fetching_highest_bid">Fetching Highest Bid…</string>
+    <string name="fetching_total_bids">Fetching Total Bids…</string>
     <string name="no_bids_available">No bids available</string>
     <string name="total_bids">"Total Bids: "</string>
     <string name="error_getting_total_bids_count">Error getting total bids count</string>
@@ -149,7 +149,7 @@
     <string name="created_at">Created At:</string>
     <string name="there_are_0_users_currently_waiting_approval">There are 0 users currently waiting approval</string>
     <string name="view_details_of_deployed_contracts">View Details of Deployed Contracts</string>
-    <string name="contract_details_will_be_displayed_here">Contract details will be displayed here.</string>
+    <string name="contract_details_will_be_displayed_here">Contract details will be displayed here.\nYou can get contract address from public Ethereum network or "\u0022View All Contracts\u0022" page.</string>
     <string name="fetch_contract_details">Fetch Contract Details</string>
     <string name="enter_contract_address">Enter Contract Address</string>
 </resources>
