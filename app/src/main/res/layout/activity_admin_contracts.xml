@@ -2,12 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/gradient_bg"
+    >
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="@string/deployed_contracts"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -24,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/return_button"
+        android:backgroundTint="@color/primary_button_color"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>

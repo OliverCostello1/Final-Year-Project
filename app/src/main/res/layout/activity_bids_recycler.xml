@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/primary_button_color"
     tools:context=".AdminActivity">
 
     <TextView
@@ -26,6 +27,7 @@
         android:padding="8dp"
         android:clipToPadding="false"
         android:visibility="visible"
+        android:background="@color/white"
         />
 
 

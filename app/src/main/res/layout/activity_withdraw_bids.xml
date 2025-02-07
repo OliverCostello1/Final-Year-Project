@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@drawable/gradient_bg">
 
     <!-- ProgressBar for loading indication -->
     <ProgressBar
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="No bids available to withdraw."
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:visibility="gone"
         android:layout_marginTop="16dp" />

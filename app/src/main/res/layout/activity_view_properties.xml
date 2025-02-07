@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewPropertiesActivity">
+    tools:context=".ViewPropertiesActivity"
+    android:background="@drawable/gradient_bg"
+    >
 
     <!-- RecyclerView to display property items -->
     <androidx.recyclerview.widget.RecyclerView
@@ -24,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/return_button"
+        android:backgroundTint="@color/primary_button_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

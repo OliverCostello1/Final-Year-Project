@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    >
 
     <TextView
         android:id="@+id/highestBidTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="@string/fetching_highest_bid"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"
@@ -17,6 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fetching_total_bids"
+        android:textColor="@color/white"
+
         android:textSize="16sp"
         android:layout_below="@id/highestBidTextView"
         android:layout_centerHorizontal="true"
@@ -26,6 +31,7 @@
         android:id="@+id/totalPropertiesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="@string/fetching_total_properties"
         android:textSize="16sp"
         android:layout_below="@id/totalBidsTextView"
@@ -37,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fetching_total_users"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_below="@id/totalPropertiesTextView"
         android:layout_centerHorizontal="true"
@@ -47,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fetching_most_bid_on_property"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_below="@id/totalUsersTextView"
         android:layout_centerHorizontal="true"
@@ -57,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fetching_approved_users"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_below="@id/mostBidPropertyTextView"
         android:layout_centerHorizontal="true"

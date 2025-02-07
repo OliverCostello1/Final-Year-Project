@@ -5,13 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@android:color/white">
+    android:background="@drawable/gradient_bg"
+    >
 
     <EditText
         android:id="@+id/eircode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/submit_eircode"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
+
         android:inputType="text" />
 
     <EditText
@@ -19,6 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/property_link"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
+
         android:inputType="textUri" />
 
     <EditText
@@ -26,14 +33,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/asking_price"
-        android:inputType="numberDecimal" />
+        android:textColorHint="@color/white"
+        android:inputType="numberDecimal"
+        android:backgroundTint="@color/white"
+        />
 
     <Button
         android:id="@id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submit_property"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_button_color"
+
+        />
 
 
     <Button
@@ -45,5 +58,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primary_button_color"
+
+        />
 </LinearLayout>
