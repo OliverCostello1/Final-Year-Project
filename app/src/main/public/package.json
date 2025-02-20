@@ -2,7 +2,7 @@
   "name": "firebase-deploy-function",
   "version": "1.0.0",
   "description": "Cloud Function to handle deployment scheduling",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "lint": "eslint .",
     "serve": "firebase emulators:start",

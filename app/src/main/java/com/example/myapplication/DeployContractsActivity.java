@@ -60,7 +60,7 @@ public class DeployContractsActivity extends AppCompatActivity {
 
     private void executeDeployScriptInWebView() {
         // Load the hosted JavaScript file into the WebView
-        webView.loadUrl("https://fyp-bidder.web.app/index.html");
+        webView.loadUrl("https://fyp-bidder.web.app/deploy.html");
 
         // Optionally handle WebView load events or errors
         webView.setWebViewClient(new WebViewClient() {

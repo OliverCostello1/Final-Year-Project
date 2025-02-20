@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_bg">
 
+
+    <TextView
+        android:id="@+id/usageIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/app_usage_reports_and_data_analysis"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
     <TextView
         android:id="@+id/highestBidTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="@string/fetching_highest_bid"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:textSize="16sp"
+
+        app:layout_constraintTop_toBottomOf="@id/usageIntro"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/totalBidsTextView"
@@ -24,7 +41,8 @@
 
         android:textSize="16sp"
         android:layout_below="@id/highestBidTextView"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/highestBidTextView"
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -35,7 +53,9 @@
         android:text="@string/fetching_total_properties"
         android:textSize="16sp"
         android:layout_below="@id/totalBidsTextView"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalBidsTextView"
+
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -46,7 +66,9 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_below="@id/totalPropertiesTextView"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalPropertiesTextView"
+
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -56,8 +78,10 @@
         android:text="@string/fetching_most_bid_on_property"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalUsersTextView"
+
         android:layout_below="@id/totalUsersTextView"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -68,8 +92,37 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_below="@id/mostBidPropertyTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mostBidPropertyTextView"
+
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
+    <TextView
+        android:id="@+id/walletStatsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/approvedUsersTextView"
+        android:layout_marginTop="10dp"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/return_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/return_button"
+        android:backgroundTint="@color/primary_button_color"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/walletStatsTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

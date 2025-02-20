@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +38,12 @@ public class UsageReportsActivity extends AppCompatActivity {
         getTotalUsersCount();
         getMostBidProperty();
         getApprovedUsersCount();
+        getFrequentWalletPairs();
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
     }
     private void getHighestBid() {
         db.collection("bids")
@@ -54,16 +61,14 @@ public class UsageReportsActivity extends AppCompatActivity {
                                 if (highestBid != null) {
                                     // Check if bid is 0 and handle separately, if needed
                                     if (highestBid == 0) {
-                                        highestBidTextView.setText("Highest Bid: 0 (Minimum bid placed)");
+                                        highestBidTextView.setText("Highest Bid: €0 (Minimum bid placed)");
                                     } else {
-                                        highestBidTextView.setText("Highest Bid: " + highestBid);
+                                        highestBidTextView.setText("Highest Bid: €" + highestBid);
                                     }
                                 } else {
                                     highestBidTextView.setText("Error: No valid bid amount found");
                                 }
                             }
-                        } else {
-                            highestBidTextView.setText("No bids available");
                         }
                     } else {
                         highestBidTextView.setText("Error getting the highest bid");
@@ -137,7 +142,7 @@ public class UsageReportsActivity extends AppCompatActivity {
 
                             // Iterate over all the bids and count the property_id occurrences
                             for (QueryDocumentSnapshot document : documentSnapshots) {
-                                String propertyId = document.getString("property_id");
+                                String propertyId = document.getString("propertyID");
                                 if (propertyId != null) {
                                     propertyBidCounts.put(propertyId, propertyBidCounts.getOrDefault(propertyId, 0) + 1);
                                 }
@@ -156,9 +161,9 @@ public class UsageReportsActivity extends AppCompatActivity {
                             // Display the most bid-on property
                             if (mostBidPropertyId != null) {
                                 mostBidPropertyTextView.setText("Most Bid-on Property ID: " + mostBidPropertyId);
-                            } else {
+                            } /*else {
                                 mostBidPropertyTextView.setText("No bids available");
-                            }
+                            }*/
                         } else {
                             mostBidPropertyTextView.setText("Error getting most bid-on property");
                         }
@@ -183,5 +188,46 @@ public class UsageReportsActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void getFrequentWalletPairs() {
+        db.collection("bids")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot documentSnapshots = task.getResult();
+                        if (documentSnapshots != null) {
+                            Map<String, Integer> walletPairCounts = new HashMap<>();
+
+                            for (QueryDocumentSnapshot document : documentSnapshots) {
+                                String auctioneerWallet = document.getString("auctioneer_wallet");
+                                String bidderWallet = document.getString("bidder_wallet");
+
+                                if (auctioneerWallet != null && bidderWallet != null) {
+                                    String pairKey = auctioneerWallet + " | " + bidderWallet;
+                                    walletPairCounts.put(pairKey, walletPairCounts.getOrDefault(pairKey, 0) + 1);
+                                }
+                            }
+
+                            // Filter pairs that appear more than 5 times
+                            StringBuilder result = new StringBuilder("Wallet pairs appearing in more than 5 bids:\n");
+                            for (Map.Entry<String, Integer> entry : walletPairCounts.entrySet()) {
+                                if (entry.getValue() > 5) {
+                                    result.append(entry.getKey()).append(": ").append(entry.getValue()).append(" bids\n");
+                                }
+                                if (entry.getValue() == null){
+                                    result.append("0");
+                                }
+                            }
+
+                            // Display results in a TextView
+                            runOnUiThread(() -> {
+                                TextView walletPairStatsTextView = findViewById(R.id.walletStatsTextView); // Add this in your XML
+                                walletPairStatsTextView.setText(result.toString());
+                            });
+                        }
+                    }
+                });
+    }
+
 
 }

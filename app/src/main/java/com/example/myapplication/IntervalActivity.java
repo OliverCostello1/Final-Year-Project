@@ -1,12 +1,16 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
@@ -19,6 +23,8 @@ public class IntervalActivity extends AppCompatActivity {
 
     private WebView webView;
     private static final String TAG = "IntervalActivity";
+
+
 
     // JavaScript interface class
     private class WebAppInterface {
@@ -41,6 +47,11 @@ public class IntervalActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         setupWebView();
         loadWebPage();
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
     }
 
     private void setupWebView() {
