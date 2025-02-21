@@ -2,9 +2,11 @@ package com.example.myapplication;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -119,21 +121,47 @@ public class WithdrawBidsActivity extends AppCompatActivity {
     }
 
     private void withdrawBid(String bidId) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference bidsRef = db.collection("bids");
+        // Create an AlertDialog with an input field for the description
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Withdraw Bid");
 
-        // Update the bid's status to 'withdrawn' and set 'contract_generated' to false
-        bidsRef.document(bidId)
-                .update("bid_status", "withdrawn", "contract_generated", false)
-                .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "Bid withdrawn successfully: " + bidId);
-                    Toast.makeText(this, "Bid withdrawn successfully.", Toast.LENGTH_SHORT).show();
-                    // Refresh the list after withdrawal
-                    loadBids();
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error withdrawing bid: " + e.getMessage());
-                    Toast.makeText(this, "Failed to withdraw bid.", Toast.LENGTH_SHORT).show();
-                });
+        // Create an EditText input field
+        final EditText input = new EditText(this);
+        input.setHint("Enter reason for withdrawal (optional)");
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("Withdraw", (dialog, which) -> {
+            String description = input.getText().toString().trim(); // Get user input
+            if (description.isEmpty()) {
+                description = ""; // Default to empty string if no input
+            }
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference bidsRef = db.collection("bids");
+
+            // Update the bid's status and add the description
+            Map<String, Object> updateData = new HashMap<>();
+            updateData.put("bid_status", "withdrawn");
+            updateData.put("contract_generated", false);
+            updateData.put("bid_description", description);
+
+            bidsRef.document(bidId)
+                    .update(updateData)
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d(TAG, "Bid withdrawn successfully: " + bidId);
+                        Toast.makeText(this, "Bid withdrawn successfully.", Toast.LENGTH_SHORT).show();
+                        loadBids(); // Refresh the list
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Error withdrawing bid: " + e.getMessage());
+                        Toast.makeText(this, "Failed to withdraw bid.", Toast.LENGTH_SHORT).show();
+                    });
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
+
 }

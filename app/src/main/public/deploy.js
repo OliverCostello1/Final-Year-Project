@@ -320,12 +320,14 @@ const deployContract = async (bid) => {
         const auctioneerWallet = bid.auctioneer_wallet.trim();
         const propertyID = bid.propertyID.trim();
         const bidAmount = bid.bid_amount;
+        const bidStatus = bid.bid_status;
 
         console.log('Deploying contract with the following values:');
         console.log('Bidder Wallet:', bidderWallet);
         console.log('Auctioneer Wallet:', auctioneerWallet);
         console.log('Property ID:', propertyID);
         console.log('Bid Amount (Hex):', bidAmount.toString());
+        console.log('Bid Status: ', bidStatus)
 
         const contractFactory = new ethers.ContractFactory(contractArtifacts.abi, contractArtifacts.bytecode, wallet);
 

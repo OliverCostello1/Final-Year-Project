@@ -96,7 +96,8 @@ public class PlaceBidActivity extends AppCompatActivity {
                     bidAmount,
                     String.valueOf(System.currentTimeMillis()),  // Use current timestamp
                     "pending", // Initially set bid status to "pending"
-                    false // initially set contract_generated = false
+                    false, // initially set contract_generated = false
+                    "" // Default description to empty string
             );
 
             // Submit bid to Firestore
@@ -124,7 +125,6 @@ public class PlaceBidActivity extends AppCompatActivity {
         }
     }
 
-
     private void updatePropertyWithNewBid(Property property, double newBidAmount) {
         // Fetch the current property document
         db.collection("properties")
@@ -147,7 +147,4 @@ public class PlaceBidActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Log.e(TAG, "Error fetching property document", e));
     }
-
 }
-
-

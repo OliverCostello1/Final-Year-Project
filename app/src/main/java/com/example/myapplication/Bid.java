@@ -14,12 +14,13 @@ public class Bid {
     private String time_stamp;
     private Double bid_amount;
     private String bid_status;
+    private String bid_description;
     private boolean contract_generated;
     // No-argument constructor required for Firestore deserialization
     public Bid() {
     }
 
-    public Bid(String bidId, String property_id, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus, boolean contractGenerated) {
+    public Bid(String bidId, String property_id, String bidderId, String bidderWallet, String auctioneerId, String auctioneerWallet, Double bidAmount, String timeStamp, String bidStatus, boolean contractGenerated, String description) {
         bid_id = bidId;
         propertyID = property_id;
         bidder_id = bidderId;
@@ -29,6 +30,7 @@ public class Bid {
         time_stamp = timeStamp;
         bid_amount = bidAmount;
         bid_status = bidStatus;
+        bid_description = description;
         contract_generated = contractGenerated;
     }
     public String getBid_id() {
@@ -62,6 +64,8 @@ public class Bid {
     public String getBid_status() {
         return this.bid_status;
     }
+    public String getBid_description() {return this.bid_description;}
+    public void setBid_description(String description) {this.bid_description = description;}
     public void setBidStatus(String bid_status) {
         this.bid_status = bid_status;
     }

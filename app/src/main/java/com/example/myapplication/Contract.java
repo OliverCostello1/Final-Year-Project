@@ -4,7 +4,8 @@ public class Contract {
     private String bidId;
     private String contractAddress;
     private String transactionHash;
-    private String createdAt; // Store as a formatted string
+    private String createdAt;
+    // Store as a formatted string
 
     public Contract() {
         // Empty constructor for Firestore
@@ -15,6 +16,7 @@ public class Contract {
         this.contractAddress = contractAddress;
         this.transactionHash = transactionHash;
         this.createdAt = createdAt;
+
     }
 
     public String getBidId() {
