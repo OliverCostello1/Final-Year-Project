@@ -69,6 +69,16 @@
             android:textSize="14sp"
             android:layout_marginTop="14sp"/>
 
+        <TextView
+            android:id="@+id/bid_description_label"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+
+            android:layout_height="wrap_content"
+            android:text="@string/bid_description"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+
         <Button
             android:id="@+id/withdraw_bids"
             android:layout_width="wrap_content"

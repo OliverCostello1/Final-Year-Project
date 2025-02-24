@@ -78,7 +78,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.google.firebase.functions) // Firebase Functions library
 
-
+    implementation(libs.security.crypto)
 }
 configurations.all {
     exclude(group = "org.bouncycastle", module = "bcprov-jdk15on")

@@ -67,7 +67,9 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
         private final TextView bidAmountText;
         private final TextView bidTimeText;
         private final TextView bidStatusText;
+        private final TextView bid_description;
         private final Button withdrawButton;
+
 
         public BidViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +79,7 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
             bidTimeText = itemView.findViewById(R.id.bid_time_label);
             bidStatusText = itemView.findViewById(R.id.bid_status_label);
             withdrawButton = itemView.findViewById(R.id.withdraw_bids);
+            bid_description = itemView.findViewById(R.id.bid_description_label);
         }
 
         public void bind(Bid bid) {
@@ -85,7 +88,7 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
             bidAmountText.setText(context.getString(R.string.bid_amount, bid.getBid_amount()));
             bidTimeText.setText(context.getString(R.string.bid_time, bid.getTime_stamp()));
             bidStatusText.setText(context.getString(R.string.bid_status, bid.getBid_status()));
-
+            bid_description.setText(context.getString(R.string.bid_description, bid.getBid_description()));
             if (listener != null) {
                 // Show withdraw button only if a listener is provided
                 withdrawButton.setVisibility(View.VISIBLE);
