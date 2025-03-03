@@ -1,0 +1,218 @@
+[
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_property_item2.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/property_item2.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_main.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_bidder.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_bidder.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_add_property.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_add_property.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_user_item.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/user_item.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_approve_bids_recycler.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_approve_bids_recycler.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_rounded_button_secondary.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/rounded_button_secondary.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_property.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_property.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_orange_to_red.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/orange_to_red.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_edit_text_background.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/edit_text_background.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_withdraw_bids.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_withdraw_bids.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_contract_details.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_contract_details.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_deploy_contracts.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_deploy_contracts.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_view_bids.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_view_bids.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_deployment_interval.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_deployment_interval.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_approve_bids.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_approve_bids.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/xml_backup_rules.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_property_item.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/property_item.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_bids_recycler.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_bids_recycler.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_admin_contracts.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_admin_contracts.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_auctioneers.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_auctioneers.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/xml_network_security_config.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_place_bid.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_place_bid.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_bids_item.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/bids_item.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_contract_item.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/contract_item.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_approve_bids_item.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/approve_bids_item.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_pending_user.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_pending_user.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_approved_user.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_approved_user.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_register.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_admin.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_admin.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_login.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_button_selector.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/button_selector.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_view_properties.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_view_properties.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-47:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/raw_logo.svg.flat",
+        "source": "com.example.myapplication.app-main-47:/raw/logo.svg"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_gradient_bg.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/gradient_bg.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_intervals.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_intervals.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_rounded_button.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/rounded_button.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_user_recycler.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_user_recycler.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_activity_usage.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/activity_usage.xml"
+    }
+]

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="firebase_database_url" translatable="false">https://fyp-bidder-default-rtdb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">801916913350</string>
+    <string name="google_api_key" translatable="false">AIzaSyDk6riAb_g9VOLrHSzzs9ZyG8zoB-u2-iM</string>
+    <string name="google_app_id" translatable="false">1:801916913350:android:d3e490097470ae42fa39c7</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDk6riAb_g9VOLrHSzzs9ZyG8zoB-u2-iM</string>
+    <string name="google_storage_bucket" translatable="false">fyp-bidder.firebasestorage.app</string>
+    <string name="project_id" translatable="false">fyp-bidder</string>
+</resources>

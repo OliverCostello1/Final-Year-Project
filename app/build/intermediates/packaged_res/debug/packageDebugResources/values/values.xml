@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="role_array">
+        <item>Bidder</item>
+        <item>Auctioneer</item>
+        <item>Admin</item>
+    </string-array>
+    <color name="black">#FF000000</color>
+    <color name="primary_button_color">#A5D6A7</color>
+    <color name="test_color">#FF5722</color>
+    <color name="white">#FFFFFFFF</color>
+    <item name="add_new_property" type="id"/>
+    <item name="approve_bid" type="id"/>
+    <item name="approve_useers_button" type="id"/>
+    <item name="asking_price" type="id"/>
+    <item name="auctioneer_home" type="id"/>
+    <item name="auctioneer_id" type="id"/>
+    <item name="current_bid" type="id"/>
+    <item name="delete_user_button" type="id"/>
+    <item name="deploy_button" type="id"/>
+    <item name="f_name_admin" type="id"/>
+    <item name="highestBidTextView" type="id"/>
+    <item name="l_name_admin" type="id"/>
+    <item name="mostBidPropertyTextView" type="id"/>
+    <item name="pendingRecycler" type="id"/>
+    <item name="place_bid" type="id"/>
+    <item name="role_admin" type="id"/>
+    <item name="submit_bid" type="id"/>
+    <item name="submit_button" type="id"/>
+    <item name="totalBidsTextView" type="id"/>
+    <item name="totalPropertiesTextView" type="id"/>
+    <item name="totalUsersTextView" type="id"/>
+    <item name="usage_report" type="id"/>
+    <item name="user_count" type="id"/>
+    <item name="view_bids" type="id"/>
+    <item name="walletAddress" type="id"/>
+    <item name="wallet_address_admin" type="id"/>
+    <string name="ViewYourBids">View Your Bids %1$s</string>
+    <string name="add_new_property">Add New Property</string>
+    <string name="address">Address:</string>
+    <string name="admin_options">Admin User Options</string>
+    <string name="admin_user_management">Admin User Management</string>
+    <string name="all_bids">View all Bids</string>
+    <string name="all_properties">View all Properties</string>
+    <string name="all_users">View all Users</string>
+    <string name="app_name">My Application</string>
+    <string name="app_usage_report">App Usage Report</string>
+    <string name="app_usage_reports_and_data_analysis">App Usage Reports And Data Analysis</string>
+    <string name="approve">Approve</string>
+    <string name="approve_bids">Approve / Deny Bids</string>
+    <string name="approve_new_users">Approve new Users</string>
+    <string name="approve_user">Approve User %1$s</string>
+    <string name="asking_price">Asking Price</string>
+    <string name="asking_price_format">Asking Price: %1$s</string>
+    <string name="auctioneeer_id_bid">Auctioneer ID: %d</string>
+    <string name="auctioneer_home">Auctioneer Home</string>
+    <string name="auctioneer_id_format">Auctioneer ID: %1$s</string>
+    <string name="auctioneer_id_with_most_properties_1_d">Auctioneer ID with most Properties: %1$s</string>
+    <string name="auctioneer_wallet">Auctioneer Wallet</string>
+    <string name="auctioneer_wallet_string">Auctioneer Wallet: %1$s</string>
+    <string name="auctioneer_with_the_most_properties">Auctioneer with the Most Properties</string>
+    <string name="bid_amount">Bid Amount: %1$.2f</string>
+    <string name="bid_count_label">Bid Count: %1$d</string>
+    <string name="bid_count_of_most_popular_property_1_d">Bid Count of Most Popular Property: %1$d</string>
+    <string name="bid_description">Bid Description: %1$s</string>
+    <string name="bid_id">Bid ID: %s</string>
+    <string name="bid_id_contract">Bid ID:</string>
+    <string name="bid_id_label">Bid ID: %1$s</string>
+    <string name="bid_status">Bid Status: %1$s</string>
+    <string name="bid_time">Bid Time: %1$s</string>
+    <string name="bidder1">Bidder Home Page</string>
+    <string name="bidder_id_of_highest_bid">Bidder ID of highest bid: %1$d</string>
+    <string name="bidder_id_with_most_bids">Bidder ID with most Bids: %1sd</string>
+    <string name="bidder_or_auctioneer">Bidder or Auctioneer</string>
+    <string name="bidder_wallet">Bidder Wallet: %1$s</string>
+    <string name="bidder_who_has_submitted_most_bids">Bidder With Most Bids Submitted</string>
+    <string name="bidding_system">The Bidding System is only Open Monday - Friday 9am-5pm.</string>
+    <string name="bids_associated">Bids Associated with Wallet Address: %1$s</string>
+    <string name="contract_deployment_interval">Contract Deployment Interval</string>
+    <string name="contract_details_will_be_displayed_here">Contract details will be displayed here.\nYou can get contract address from public Ethereum network or "\u0022View All Contracts\u0022" page.</string>
+    <string name="created_at">Created At:</string>
+    <string name="current_bid_format">Current Bid: %1$s</string>
+    <string name="delete_user_text">Delete User with User ID: %1$s</string>
+    <string name="deny">Deny</string>
+    <string name="deny_user">Deny User %1$s </string>
+    <string name="deploy_contracts">Deploy Contracts</string>
+    <string name="deploy_contracts_button">Deploy Contracts</string>
+    <string name="deploy_contracts_label">Press the button below to deploy contracts for new bids</string>
+    <string name="deployed_contracts">Deployed Contracts</string>
+    <string name="deploying_contracts">Deploying Contracts...</string>
+    <string name="download_pdf">Download PDF</string>
+    <string name="eircode">Eircode:</string>
+    <string name="eircode_format">Eircode: %1$s</string>
+    <string name="eircode_label">Eirode: %1$s</string>
+    <string name="email">Email Address</string>
+    <string name="enter_bid">Enter Bid</string>
+    <string name="enter_contract_address">Enter Contract Address</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_reason_for_denial">Enter reason for denial</string>
+    <string name="enter_your_details_to_regiser"/>
+    <string name="enter_your_details_to_register">Enter Your Details To Register</string>
+    <string name="error_fetching_data"> Error Fetching Data</string>
+    <string name="error_getting_total_bids_count">Error getting total bids count</string>
+    <string name="error_getting_total_properties_count">Error getting total properties count</string>
+    <string name="f_name">First Name: %1$s</string>
+    <string name="fetch_contract_details">Fetch Contract Details</string>
+    <string name="fetching_approved_users">Fetching Approved Users...</string>
+    <string name="fetching_highest_bid">Fetching Highest Bid…</string>
+    <string name="fetching_most_bid_on_property">Fetching Most Bid-on Property…</string>
+    <string name="fetching_total_bids">Fetching Total Bids…</string>
+    <string name="fetching_total_properties">Fetching Total Properties…</string>
+    <string name="fetching_total_users">Fetching Total Users...</string>
+    <string name="firebase_database_url" translatable="false">https://fyp-bidder-default-rtdb.firebaseio.com</string>
+    <string name="first_name">First Name</string>
+    <string name="gcm_defaultSenderId" translatable="false">801916913350</string>
+    <string name="google_api_key" translatable="false">AIzaSyDk6riAb_g9VOLrHSzzs9ZyG8zoB-u2-iM</string>
+    <string name="google_app_id" translatable="false">1:801916913350:android:d3e490097470ae42fa39c7</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDk6riAb_g9VOLrHSzzs9ZyG8zoB-u2-iM</string>
+    <string name="google_storage_bucket" translatable="false">fyp-bidder.firebasestorage.app</string>
+    <string name="highest_asking_price_for_a_property">Highest Asking Price for a Property: $1%d</string>
+    <string name="highest_bid">Highest bid</string>
+    <string name="highest_bid_amount">Highest Bid Amount: %1$d</string>
+    <string name="house_address">House Address</string>
+    <string name="l_name">Last Name: %1$s</string>
+    <string name="last_name">Last Name</string>
+    <string name="link">Link:</string>
+    <string name="link_format">Link: %1$s</string>
+    <string name="link_label">View Link: %1$s</string>
+    <string name="log_out">Log out</string>
+    <string name="login">Login</string>
+    <string name="login_page">Login Page</string>
+    <string name="logout">Logout</string>
+    <string name="most_number_of_bids_submitted_by_a_user">Most Number of Bids submitted by a User: %1$d</string>
+    <string name="no_bids_available">No bids available</string>
+    <string name="no_bids_found">No bids found</string>
+    <string name="no_properties_available">No properties available</string>
+    <string name="number_of_users_waiting_approval">Number of Users Waiting Approval: %1$d</string>
+    <string name="password">Password</string>
+    <string name="pending_approval"> Users Pending Approval cannot place bids. Please come back later.</string>
+    <string name="place_bid"> Place Bid</string>
+    <string name="project_id" translatable="false">fyp-bidder</string>
+    <string name="property_count_for_auctioneer_with_most_properties">Property Count for Auctioneer with most Properties: %1$d</string>
+    <string name="property_count_label">Property Count: %1$d</string>
+    <string name="property_id">Property ID:</string>
+    <string name="property_id_format">Property ID: %1$s</string>
+    <string name="property_id_label"> Property ID: %1$s</string>
+    <string name="property_id_text">Property ID: %1$s</string>
+    <string name="property_id_with_highest_asking_price">Property ID with Highest Asking Price: %1$s</string>
+    <string name="property_id_with_most_bids">Property ID with most Bids: %1$s</string>
+    <string name="property_link">Property Link</string>
+    <string name="property_listing">Property Listing:</string>
+    <string name="property_status_1_s">Property Status: %1$s</string>
+    <string name="property_with_highest_asking_price_label">Property With Highest Asking Price</string>
+    <string name="property_with_most_bids">Property with Most Bids</string>
+    <string name="register">Register</string>
+    <string name="register_status"> Register Status: %1$s </string>
+    <string name="register_string">Register</string>
+    <string name="return_button">Return</string>
+    <string name="return_home">Return Home</string>
+    <string name="role">Role</string>
+    <string name="role_string">Role: %1$s</string>
+    <string name="secure_bid">Welcome to SecureBid!</string>
+    <string name="select_from_the_following_admin_options">Select From The Following Admin Options</string>
+    <string name="set_the_contract_deployment_schedule">Set the Contract Deployment Schedule</string>
+    <string name="submit_bid">Submit Bid</string>
+    <string name="submit_eircode"> Submit Eircode: </string>
+    <string name="submit_property">Submit Property</string>
+    <string name="there_are_0_users_currently_waiting_approval">There are 0 users currently waiting approval</string>
+    <string name="time">Time: %1$s </string>
+    <string name="time_submitted">Time Submitted:</string>
+    <string name="total_bids">"Total Bids: "</string>
+    <string name="tx_hash">Tx Hash:</string>
+    <string name="usage_details">Usage Details</string>
+    <string name="user_count_label"> User Count: %1$d</string>
+    <string name="user_email">User Email</string>
+    <string name="user_first_name">User First Name</string>
+    <string name="user_id_label">User ID: %1$s</string>
+    <string name="user_last_name">User Last Name</string>
+    <string name="user_management">User Management</string>
+    <string name="user_name">User Name</string>
+    <string name="usr_login">User Login</string>
+    <string name="view_app_usage_reports">View App Usage Reports</string>
+    <string name="view_bids"> View My Bids</string>
+    <string name="view_contracts">View All Contracts</string>
+    <string name="view_details_of_deployed_contracts">View Details of Deployed Contracts</string>
+    <string name="wallet_address">Wallet Address: %1$s</string>
+    <string name="welcome_back_string">Welcome Back, %1$s !</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="withdraw_bids">Withdraw Bids</string>
+    <string name="your_wallet">Your Wallet Address: %s</string>
+    <style name="Base.Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="android:buttonStyle">@style/CustomButton</item>
+    </style>
+    <style name="ButtonShape" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30%</item>
+    </style>
+    <style name="CustomButton" parent="Widget.MaterialComponents.Button">
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
+        <item name="background">@drawable/orange_to_red</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+</resources>

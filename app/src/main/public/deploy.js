@@ -293,91 +293,79 @@ const deployContract = async (bid) => {
 
 
 
-export async function processBids() {
+export async function processBids(bid) {
   try {
     if (!wallet || !provider) {
       console.error("❌ Wallet or provider is not initialized. Call initializeProvider() first.");
-      return;
+      throw new Error("Wallet or provider not initialized");
     }
 
-    console.log("🚀 Starting contract deployment...");
+    console.log("🚀 Starting contract deployment for Bid ID:", bid.bid_id);
 
-    // Fetch bids from Firestore
-    const bidsCollection = collection(firestore, CONFIG.FIRESTORE_COLLECTION);
-    const q = query(bidsCollection, where("contract_generated", "==", false));
-    const querySnapshot = await getDocs(q);
-
-    if (querySnapshot.empty) {
-      console.log("📭 No bids found to process.");
-      displayLog("No bids found to process");
-      return;
+    // Validate essential fields
+    if (!bid.bidder_wallet || !bid.auctioneer_wallet || !bid.propertyID || !bid.bid_amount) {
+      console.warn(`❗ Bid ${bid.bid_id} is missing required fields. Skipping...`);
+      throw new Error(`Bid ${bid.bid_id} is missing required fields`);
     }
 
-    for (const bidDoc of querySnapshot.docs) {
-      const bid = bidDoc.data();
-
-      if (bid.contract_generated) {
-        console.log(`⚠️ Contract already deployed for Bid ID: ${bid.bid_id}. Skipping...`);
-        continue;
-      }
-
-      // Validate essential fields
-      if (!bid.bidder_wallet || !bid.auctioneer_wallet || !bid.propertyID || !bid.bid_amount) {
-        console.warn(`❗ Bid ${bid.bid_id} is missing required fields. Skipping...`);
-        continue;
-      }
-
-
-      try {
-        // Deploy the contract using the global wallet
-        const contractFactory = new ethers.ContractFactory(CONTRACT_ARTIFACTS.abi, CONTRACT_ARTIFACTS.bytecode, wallet);
-
-        const gasLimit = 10000000; // Manual gas limit
-        const contract = await contractFactory.deploy(
-          bid.bidder_wallet.trim(),
-          bid.auctioneer_wallet.trim(),
-          bid.propertyID.trim(),
-          bid.bid_amount,
-          bid.bid_status,
-          { gasLimit }
-        );
-
-        console.log("⏳ Contract deployed. Waiting for confirmation...");
-
-        console.log(`🛠️ Processing Bid ID: ${bid.bid_id}`, bid);
-        const timeout = setTimeout(() => {
-            console.error("❌ Transaction confirmation timeout");
-        }, 60000); // 1 minute timeout
-        // Ensure deployment transaction is valid before proceeding
-
-        if (!contract || !contract.deployTransaction) {
-          console.error(`❌ Deployment failed for Bid ID: ${bid.bid_id}`);
-          continue; // Skip to the next bid if deployment fails
-        }
-
-        // Wait for deployment confirmation
-        await contract.deployTransaction.wait();
-        clearTimeout(timeout);
-        console.log("Contract successfully deployed!");
-        console.log("Transaction Hash:", contract.deployTransaction.hash);
-        console.log("Contract Address:", contract.address);
-
-        // Store contract details and update bid status
-        console.log(bid.bid_id, contract.deployTransaction.hash, contract.address)
-        await storeContractDetails(bid.bid_id, contract.deployTransaction.hash, contract.address);
-        await updateBidStatus(bid.bid_id);
-
-        console.log(`✅ Bid ${bid.bid_id} processed successfully.`);
-
-      } catch (deploymentError) {
-        console.error(`❌ Error deploying contract for Bid ID ${bid.bid_id}:`, deploymentError);
-      }
+    if (bid.contract_generated) {
+      console.log(`⚠️ Contract already deployed for Bid ID: ${bid.bid_id}. Skipping...`);
+      throw new Error(`Contract already deployed for Bid ID: ${bid.bid_id}`);
     }
+
+    // Deploy the contract using the global wallet
+    const contractFactory = new ethers.ContractFactory(CONTRACT_ARTIFACTS.abi, CONTRACT_ARTIFACTS.bytecode, wallet);
+
+    const gasLimit = 10000000; // Manual gas limit
+    const contract = await contractFactory.deploy(
+      bid.bidder_wallet.trim(),
+      bid.auctioneer_wallet.trim(),
+      bid.propertyID.trim(),
+      bid.bid_amount,
+      bid.bid_status,
+      { gasLimit }
+    );
+
+    console.log("⏳ Contract deployed. Waiting for confirmation...");
+
+    console.log(`🛠️ Processing Bid ID: ${bid.bid_id}`, bid);
+
+    // Set a timeout for transaction confirmation
+    const timeout = setTimeout(() => {
+      console.error("❌ Transaction confirmation timeout");
+      throw new Error("Transaction confirmation timeout");
+    }, 60000); // 1 minute timeout
+
+    // Ensure deployment transaction is valid
+    if (!contract || !contract.deployTransaction) {
+      console.error(`❌ Deployment failed for Bid ID: ${bid.bid_id}`);
+      throw new Error(`Deployment failed for Bid ID: ${bid.bid_id}`);
+    }
+
+    // Wait for deployment confirmation
+    const receipt = await contract.deployTransaction.wait();
+    clearTimeout(timeout);
+
+    console.log("✅ Contract successfully deployed!");
+    console.log("Transaction Hash:", contract.deployTransaction.hash);
+    console.log("Contract Address:", contract.address);
+
+    // Store contract details and update bid status
+    await storeContractDetails(bid.bid_id, contract.deployTransaction.hash, contract.address);
+    await updateBidStatus(bid.bid_id);
+
+    console.log(`✅ Bid ${bid.bid_id} processed successfully.`);
+
+    // Return the transaction hash and contract address
+    return {
+      transactionHash: contract.deployTransaction.hash,
+      contractAddress: contract.address
+    };
+
   } catch (error) {
-    console.error(`❌ Error processing bids: ${error.message}`);
+    console.error(`❌ Error processing bid ${bid.bid_id}:`, error);
+    throw error; // Re-throw the error to be caught by the caller
   }
-
-  return {transaction_hash, contractAddress};
 }
 
 
