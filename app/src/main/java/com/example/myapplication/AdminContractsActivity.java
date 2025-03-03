@@ -53,7 +53,6 @@ public class AdminContractsActivity extends AppCompatActivity {
                         String contractAddress = snapshot.getString("contract_address");
                         String transactionHash = snapshot.getString("transaction_hash");
                         String createdAt = snapshot.getTimestamp("created_at").toDate().toString();
-
                         contractList.add(new Contract(bidId, contractAddress, transactionHash, createdAt));
                     }
                     adapter.notifyDataSetChanged(); // Notify adapter about the data change

@@ -16,7 +16,6 @@ public class Contract {
         this.contractAddress = contractAddress;
         this.transactionHash = transactionHash;
         this.createdAt = createdAt;
-
     }
 
     public String getBidId() {
@@ -34,4 +33,6 @@ public class Contract {
     public String getCreatedAt() {
         return createdAt;
     }
+
+
 }

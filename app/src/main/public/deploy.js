@@ -231,7 +231,6 @@ const updateBidStatus = async (bidId) => {
 const deployButton = document.getElementById("deployButton");
 
 
-
 const deployContract = async (bid) => {
     console.log(`Deploying contract for bid ${bid.bid_id}...`);
     try {
@@ -243,67 +242,53 @@ const deployContract = async (bid) => {
         const bidderWallet = bid.bidder_wallet.trim();
         const auctioneerWallet = bid.auctioneer_wallet.trim();
         const propertyID = bid.propertyID.trim();
-        const bidAmount = bid.bid_amount;
-        const bidStatus = bid.bid_status;
+        const bidAmount = ethers.BigNumber.from(bid.bid_amount); // Ensure BigNumber
+        const bidStatus = bid.bid_status || "pending"; // Default if missing
 
-        console.log('Deploying contract with the following values:');
-        console.log('Bidder Wallet:', bidderWallet);
-        console.log('Auctioneer Wallet:', auctioneerWallet);
-        console.log('Property ID:', propertyID);
-        console.log('Bid Amount (Hex):', bidAmount.toString());
-        console.log('Bid Status: ', bidStatus)
-        if (!CONTRACT_ARTIFACTS || !CONTRACT_ARTIFACTS.abi) {
-          throw new Error("CONTRACT_ARTIFACTS is not loaded correctly.");
-        } else {
-            console.log("Contract artifacts", CONTRACT_ARTIFACTS)
+        console.log('Deploying with:', { bidderWallet, auctioneerWallet, propertyID, bidAmount: bidAmount.toString(), bidStatus });
+
+        if (!CONTRACT_ARTIFACTS || !CONTRACT_ARTIFACTS.abi || !CONTRACT_ARTIFACTS.bytecode) {
+            throw new Error("CONTRACT_ARTIFACTS is not loaded correctly.");
         }
 
         const contractFactory = new ethers.ContractFactory(CONTRACT_ARTIFACTS.abi, CONTRACT_ARTIFACTS.bytecode, wallet);
 
-        // Adjust gas parameters based on network (example using EIP-1559)
-        const gasPrice = await provider.getGasPrice(); // Fetching current gas price from network
-        const maxPriorityFeePerGas = ethers.BigNumber.from("1000000000000"); // 1 Gwei
-        const maxFeePerGas = ethers.BigNumber.from("2000000000000"); // 1.5 Gwei
+        // Gas settings
+        const gasLimit = ethers.BigNumber.from(10000000); // Start with 3M, adjust based on usage
+        const maxPriorityFeePerGas = ethers.utils.parseUnits("1", "gwei");
+        const maxFeePerGas = ethers.utils.parseUnits("2", "gwei");
 
-        const gasLimit = ethers.BigNumber.from(6000000); // Estimate or set a fixed gas limit
+        // Simulate first
+        const deployTx = contractFactory.getDeployTransaction(bidderWallet, auctioneerWallet, propertyID, bidAmount, bidStatus);
+        await provider.call(deployTx); // Throws if it reverts
 
+        // Deploy
         const contract = await contractFactory.deploy(
-            bidderWallet, auctioneerWallet, propertyID, bidAmount,
-            {
-                gasLimit: gasLimit,
-                maxPriorityFeePerGas: maxPriorityFeePerGas,
-                maxFeePerGas: maxFeePerGas
-            }
+            bidderWallet, auctioneerWallet, propertyID, bidAmount, bidStatus,
+            { gasLimit, maxPriorityFeePerGas, maxFeePerGas }
         );
 
-        console.log('Contract deployed. Waiting for confirmation...');
+        console.log('Waiting for confirmation...');
         displayLog('Contract deployed. Waiting for confirmation...');
-        await contract.deployTransaction.wait();
+        const tx = await contract.deployTransaction.wait();
+
         console.log('Contract deployed successfully');
-        displayLog('Contract deployed successfully');
-        console.log('Transaction Hash:', contract.deployTransaction.hash);
-        displayLog('Transaction Hash:', contract.deployTransaction.hash);
+        console.log('Transaction Hash:', tx.transactionHash);
         console.log('Contract Address:', contract.address);
-        displayLog('Contract Address:', contract.address);
+        console.log('Gas Used:', tx.gasUsed.toString());
+        displayLog('Contract deployed successfully', { txHash: tx.transactionHash, address: contract.address });
 
-        if (contract.deployTransaction && contract.deployTransaction.hash && contract.address) {
-            // Store contract details in Firestore
-            storeContractDetails(bid.bid_id, contract.deployTransaction.hash, contract.address);
-
-            // Update bid status after deployment
-            await updateBidStatus(bid.bid_id);
-            console.log(`Bid ID ${bid.bid_id} status updated`);
-        } else {
-            console.error(`Contract details not available for Bid ID ${bid.bid_id}.`);
-        }
-
+        // Store and update
+        await storeContractDetails(bid.bid_id, tx.transactionHash, contract.address);
+        await updateBidStatus(bid.bid_id);
+        console.log(`Bid ID ${bid.bid_id} status updated`);
 
     } catch (error) {
-        console.error(`Error deploying contract for Bid ID ${bid.bid_id}:`, error.message);
+        console.error(`Error deploying contract for Bid ID ${bid.bid_id}:`, error.reason || error.message);
+        throw error; // Re-throw for upstream handling if needed
     }
-
-
 };
+
 
 
 
@@ -342,24 +327,29 @@ export async function processBids() {
         continue;
       }
 
-      console.log(`🛠️ Processing Bid ID: ${bid.bid_id}`, bid);
 
       try {
         // Deploy the contract using the global wallet
         const contractFactory = new ethers.ContractFactory(CONTRACT_ARTIFACTS.abi, CONTRACT_ARTIFACTS.bytecode, wallet);
 
-        const gasLimit = 1000000; // Manual gas limit
+        const gasLimit = 10000000; // Manual gas limit
         const contract = await contractFactory.deploy(
           bid.bidder_wallet.trim(),
           bid.auctioneer_wallet.trim(),
           bid.propertyID.trim(),
           bid.bid_amount,
+          bid.bid_status,
           { gasLimit }
         );
 
         console.log("⏳ Contract deployed. Waiting for confirmation...");
 
+        console.log(`🛠️ Processing Bid ID: ${bid.bid_id}`, bid);
+        const timeout = setTimeout(() => {
+            console.error("❌ Transaction confirmation timeout");
+        }, 60000); // 1 minute timeout
         // Ensure deployment transaction is valid before proceeding
+
         if (!contract || !contract.deployTransaction) {
           console.error(`❌ Deployment failed for Bid ID: ${bid.bid_id}`);
           continue; // Skip to the next bid if deployment fails
@@ -367,6 +357,7 @@ export async function processBids() {
 
         // Wait for deployment confirmation
         await contract.deployTransaction.wait();
+        clearTimeout(timeout);
         console.log("Contract successfully deployed!");
         console.log("Transaction Hash:", contract.deployTransaction.hash);
         console.log("Contract Address:", contract.address);

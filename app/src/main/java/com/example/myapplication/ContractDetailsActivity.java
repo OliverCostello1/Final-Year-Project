@@ -38,7 +38,7 @@ public class ContractDetailsActivity extends AppCompatActivity {
     private Button buttonFetchDetails;
     private TextView textViewDetails;
     private Web3j web3j;
-    private static final String INFURA_URL = "https://holesky.infura.io/v3/0a36529195e040c99d49343061af9b0f";
+    private static final String INFURA_URL = "https://eth-holesky.g.alchemy.com/v2/An5iKenDTdaT0n6nzUndb2Ps4Dm2P3Z4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +78,9 @@ public class ContractDetailsActivity extends AppCompatActivity {
                                 new org.web3j.abi.TypeReference<Address>() {},
                                 new org.web3j.abi.TypeReference<Utf8String>() {},
                                 new org.web3j.abi.TypeReference<Uint256>() {},
-                                new org.web3j.abi.TypeReference<Uint256>() {}
-                        )
+                                new org.web3j.abi.TypeReference<Uint256>() {},
+                                new org.web3j.abi.TypeReference<Utf8String>() {}
+                                )
                 );
 
                 String encodedFunction = FunctionEncoder.encode(function);
@@ -94,7 +95,7 @@ public class ContractDetailsActivity extends AppCompatActivity {
                 String propertyId = decoded.get(2).getValue().toString();
                 BigInteger bidAmount = (BigInteger) decoded.get(3).getValue();
                 BigInteger timestamp = (BigInteger) decoded.get(4).getValue();
-
+                String status = decoded.get(5).getValue().toString();
                 // Directly use the bidAmount as it is without converting to Ether
                 String formattedBidAmount = bidAmount.toString();  // Regular number, no conversion to ETH
 
@@ -106,7 +107,8 @@ public class ContractDetailsActivity extends AppCompatActivity {
                             "Auctioneer Wallet: " + auctioneerWallet + "\n" +
                             "Property ID: " + propertyId + "\n" +
                             "Bid Amount: " + formattedBidAmount + "\n" +  // Displaying as a regular number
-                            "Timestamp: " + formattedTimestamp;
+                            "Timestamp: " + formattedTimestamp + "\n" +
+                            "Status: " + status;
                     textViewDetails.setText(details);
                 });
 
