@@ -33,8 +33,8 @@ public class BidderActivity extends AppCompatActivity {
 
         // Fetch SharedPreferences
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        String status = prefs.getString("user_status", "");
-        String firstName = prefs.getString("first_name", "");
+        String status = prefs.getString("userStatus", "");
+        String firstName = prefs.getString("firstName", "");
         Log.d("BidderActivity"+ "first name: " , firstName);
         // Set register status message
         registerStatus.setText(getString(R.string.register_status, status));

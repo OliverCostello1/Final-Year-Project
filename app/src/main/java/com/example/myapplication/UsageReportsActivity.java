@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -195,9 +196,10 @@ public class UsageReportsActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         QuerySnapshot documentSnapshots = task.getResult();
-                        if (documentSnapshots != null) {
+                        if (documentSnapshots != null && !documentSnapshots.isEmpty()) {
                             Map<String, Integer> walletPairCounts = new HashMap<>();
 
+                            // Count occurrences of wallet pairs
                             for (QueryDocumentSnapshot document : documentSnapshots) {
                                 String auctioneerWallet = document.getString("auctioneer_wallet");
                                 String bidderWallet = document.getString("bidder_wallet");
@@ -208,23 +210,54 @@ public class UsageReportsActivity extends AppCompatActivity {
                                 }
                             }
 
-                            // Filter pairs that appear more than 5 times
+                            // Build result string for pairs appearing more than 5 times
                             StringBuilder result = new StringBuilder("Wallet pairs appearing in more than 5 bids:\n");
+                            boolean hasFrequentPairs = false;
+
                             for (Map.Entry<String, Integer> entry : walletPairCounts.entrySet()) {
                                 if (entry.getValue() > 5) {
-                                    result.append(entry.getKey()).append(": ").append(entry.getValue()).append(" bids\n");
-                                }
-                                if (entry.getValue() == null){
-                                    result.append("0");
+                                    result.append("• ")
+                                            .append(entry.getKey())
+                                            .append(": ")
+                                            .append(entry.getValue())
+                                            .append(" bids\n");
+                                    hasFrequentPairs = true;
                                 }
                             }
 
-                            // Display results in a TextView
+                            if (!hasFrequentPairs) {
+                                result.append("No pairs found with more than 5 bids.");
+                            }
+
+                            // Update UI on the main thread
                             runOnUiThread(() -> {
-                                TextView walletPairStatsTextView = findViewById(R.id.walletStatsTextView); // Add this in your XML
-                                walletPairStatsTextView.setText(result.toString());
+                                TextView walletPairStatsTextView = findViewById(R.id.walletStatsTextView);
+                                if (walletPairStatsTextView != null) {
+                                    walletPairStatsTextView.setText(result.toString());
+                                } else {
+                                    Log.e("WalletStats", "TextView with ID walletStatsTextView not found in layout");
+                                }
+                            });
+                        } else {
+                            Log.d("WalletStats", "No documents found in bids collection");
+                            runOnUiThread(() -> {
+                                TextView walletPairStatsTextView = findViewById(R.id.walletStatsTextView);
+                                if (walletPairStatsTextView != null) {
+                                    walletPairStatsTextView.setText("No bids found in the collection.");
+                                }
                             });
                         }
+                    } else {
+                        // Handle query failure
+                        Exception exception = task.getException();
+                        String errorMsg = exception != null ? exception.getMessage() : "Unknown error";
+                        Log.e("WalletStats", "Error fetching bids: " + errorMsg);
+                        runOnUiThread(() -> {
+                            TextView walletPairStatsTextView = findViewById(R.id.walletStatsTextView);
+                            if (walletPairStatsTextView != null) {
+                                walletPairStatsTextView.setText("Error fetching bids: " + errorMsg);
+                            }
+                        });
                     }
                 });
     }
