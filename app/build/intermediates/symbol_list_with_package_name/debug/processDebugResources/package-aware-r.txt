@@ -3151,6 +3151,7 @@ drawable notify_panel_notification_icon_bg
 drawable orange_to_red
 drawable rounded_button
 drawable rounded_button_secondary
+drawable spinner_border
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -4015,6 +4016,7 @@ layout property_item2
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
+layout spinner_item
 layout support_simple_spinner_dropdown_item
 layout user_item
 mipmap ic_launcher

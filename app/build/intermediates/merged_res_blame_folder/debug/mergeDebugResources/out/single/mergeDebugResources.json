@@ -60,6 +60,10 @@
         "source": "com.example.myapplication.app-main-47:/layout/activity_contract_details.xml"
     },
     {
+        "merged": "com.example.myapplication.app-debug-45:/drawable_spinner_border.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/drawable/spinner_border.xml"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-45:/layout_activity_deploy_contracts.xml.flat",
         "source": "com.example.myapplication.app-main-47:/layout/activity_deploy_contracts.xml"
     },
@@ -138,6 +142,10 @@
     {
         "merged": "com.example.myapplication.app-debug-45:/layout_activity_pending_user.xml.flat",
         "source": "com.example.myapplication.app-main-47:/layout/activity_pending_user.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-45:/layout_spinner_item.xml.flat",
+        "source": "com.example.myapplication.app-main-47:/layout/spinner_item.xml"
     },
     {
         "merged": "com.example.myapplication.app-debug-45:/layout_activity_approved_user.xml.flat",

@@ -60,12 +60,24 @@
         android:textSize="16sp"
     />
 
+    <TextView
+        android:id="@+id/unapproved_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pending_approval"
+        app:layout_constraintTop_toBottomOf="@id/add_new_property"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        />
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_new_property"
+        app:layout_constraintTop_toBottomOf="@id/unapproved_message"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/logout"

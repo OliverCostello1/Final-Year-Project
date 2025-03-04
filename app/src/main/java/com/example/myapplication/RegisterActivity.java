@@ -60,10 +60,10 @@ public class RegisterActivity extends AppCompatActivity {
         // Register button
         registerButton.setOnClickListener(v -> registerUser());
 
-        // Set up role spinner
+        // Set up role spinner with custom layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.role_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.role_array, R.layout.spinner_item); // Use custom layout
+        adapter.setDropDownViewResource(R.layout.spinner_item); // Apply to dropdown as well
         roleSpinner.setAdapter(adapter);
 
         // Initialize Firebase
@@ -76,16 +76,14 @@ public class RegisterActivity extends AppCompatActivity {
         String firstName = firstNameField.getText().toString().trim();
         String lastName = lastNameField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
-        String role = roleSpinner.getSelectedItem().toString().trim(); // Trim to avoid whitespace issues
+        String role = roleSpinner.getSelectedItem().toString().trim();
         Log.d(TAG, "Selected role: " + role);
 
-        // Input validation
         if (email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create Ethereum address
         String walletAddress;
         try {
             walletAddress = createEthereumAddress();
@@ -95,13 +93,11 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // Register user in Firebase Authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            // Save user data to Firestore and navigate
                             CollectionReference usersRef = db.collection("users");
                             userDataToFirestore(usersRef, user.getUid(), email, firstName, lastName, password, role, walletAddress);
                         } else {
@@ -115,7 +111,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void userDataToFirestore(CollectionReference usersRef, String userId, String email, String firstName, String lastName, String password, String role, String walletAddress) {
-        // Prepare user data
         Map<String, Object> userData = new HashMap<>();
         userData.put("id", userId);
         userData.put("walletAddress", walletAddress);
@@ -123,19 +118,16 @@ public class RegisterActivity extends AppCompatActivity {
         userData.put("lastName", lastName);
         userData.put("role", role);
         userData.put("email", email);
-        userData.put("password", password); // Note: Storing passwords in plain text is insecure; consider removing this
+        userData.put("password", password);
         userData.put("userStatus", "pending");
         Log.d(TAG, "Saving user data: " + userData);
 
-        // Add user data to Firestore
         DocumentReference userRef = usersRef.document(userId);
         userRef.set(userData)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-
-                    // Navigate based on role
                     Intent intent;
-                    switch (role.toLowerCase()) { // Case-insensitive comparison
+                    switch (role.toLowerCase()) {
                         case "auctioneer":
                             intent = new Intent(RegisterActivity.this, AuctioneerActivity.class);
                             break;
@@ -146,11 +138,11 @@ public class RegisterActivity extends AppCompatActivity {
                             intent = new Intent(RegisterActivity.this, AdminActivity.class);
                             break;
                         default:
-                            Log.w(TAG, "Unexpected role: " + role); // Fixed typo: "Unexecpted" -> "Unexpected"
+                            Log.w(TAG, "Unexpected role: " + role);
                             intent = new Intent(RegisterActivity.this, MainActivity.class);
                             break;
                     }
-                    intent.putExtra("userId", userId); // Optional: Pass userId to next activity
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                     finish();
                 })
@@ -172,22 +164,5 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    // Users class (unchanged, included for completeness)
-    static class Users {
-        private String email, firstName, lastName, password, role, walletAddress, userStatus;
-
-        public Users() {}
-
-        public Users(String email, String firstName, String lastName, String password, String role, String walletAddress) {
-            this.email = email;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.password = password;
-            this.role = role;
-            this.walletAddress = walletAddress;
-            this.userStatus = "pending";
-        }
-
-        // Getters and setters omitted for brevity
-    }
+    // Users class omitted for brevity
 }

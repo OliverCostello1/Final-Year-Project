@@ -13,6 +13,7 @@ drawable ic_launcher_foreground
 drawable orange_to_red
 drawable rounded_button
 drawable rounded_button_secondary
+drawable spinner_border
 id activity_approve_bids_recycler
 id add_new_property
 id admin_intro
@@ -166,6 +167,7 @@ layout bids_item
 layout contract_item
 layout property_item
 layout property_item2
+layout spinner_item
 layout user_item
 mipmap ic_launcher
 mipmap ic_launcher_round

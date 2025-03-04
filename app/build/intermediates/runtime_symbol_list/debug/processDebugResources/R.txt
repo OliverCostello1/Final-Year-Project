@@ -3150,9 +3150,10 @@ int drawable notify_panel_notification_icon_bg 0x7f0800fe
 int drawable orange_to_red 0x7f0800ff
 int drawable rounded_button 0x7f080100
 int drawable rounded_button_secondary 0x7f080101
-int drawable test_level_drawable 0x7f080102
-int drawable tooltip_frame_dark 0x7f080103
-int drawable tooltip_frame_light 0x7f080104
+int drawable spinner_border 0x7f080102
+int drawable test_level_drawable 0x7f080103
+int drawable tooltip_frame_dark 0x7f080104
+int drawable tooltip_frame_light 0x7f080105
 int id ALT 0x7f090000
 int id BOTTOM_END 0x7f090001
 int id BOTTOM_START 0x7f090002
@@ -4014,8 +4015,9 @@ int layout property_item2 0x7f0c0085
 int layout select_dialog_item_material 0x7f0c0086
 int layout select_dialog_multichoice_material 0x7f0c0087
 int layout select_dialog_singlechoice_material 0x7f0c0088
-int layout support_simple_spinner_dropdown_item 0x7f0c0089
-int layout user_item 0x7f0c008a
+int layout spinner_item 0x7f0c0089
+int layout support_simple_spinner_dropdown_item 0x7f0c008a
+int layout user_item 0x7f0c008b
 int mipmap ic_launcher 0x7f0e0000
 int mipmap ic_launcher_round 0x7f0e0001
 int plurals mtrl_badge_content_description 0x7f0f0000
