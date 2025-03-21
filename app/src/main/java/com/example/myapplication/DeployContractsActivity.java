@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 
-import com.android.volley.BuildConfig;
 
 public class DeployContractsActivity extends AppCompatActivity {
 

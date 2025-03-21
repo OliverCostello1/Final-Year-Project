@@ -103,6 +103,7 @@
     <string name="error_fetching_data"> Error Fetching Data</string>
     <string name="error_getting_total_bids_count">Error getting total bids count</string>
     <string name="error_getting_total_properties_count">Error getting total properties count</string>
+    <string name="euro_sign">"€"</string>
     <string name="f_name">First Name: %1$s</string>
     <string name="fetch_contract_details">Fetch Contract Details</string>
     <string name="fetching_approved_users">Fetching Approved Users...</string>

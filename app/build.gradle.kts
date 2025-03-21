@@ -1,6 +1,3 @@
-import com.android.build.api.dsl.Packaging
-import org.jetbrains.kotlin.com.intellij.ide.plugins.ActionDescriptorName
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -33,9 +30,12 @@ android {
         }
     }
     packaging {
-
-        exclude("META-INF/DEPENDENCIES".toString())
-        exclude("META-INF/DISCLAIMER".toString())
+        jniLibs {
+            excludes += setOf("META-INF/DEPENDENCIES".toString(), "META-INF/DISCLAIMER".toString())
+        }
+        resources {
+            excludes += setOf("META-INF/DEPENDENCIES".toString(), "META-INF/DISCLAIMER".toString())
+        }
     }
 
     compileOptions {

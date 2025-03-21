@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
+// Adapter for approving bids
 public class ApproveBidsAdapter extends RecyclerView.Adapter<ApproveBidsAdapter.BidViewHolder> {
     private List<Bid> bidList;
     private Context context;

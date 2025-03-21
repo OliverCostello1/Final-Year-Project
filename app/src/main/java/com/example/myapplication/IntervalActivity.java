@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
@@ -10,7 +9,6 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
@@ -95,7 +93,7 @@ public class IntervalActivity extends AppCompatActivity {
         }
     }
 
-    // Refactored method to call Firebase Function `updateSchedule`
+    // method to call Firebase Function updateSchedule
     public void updateSchedule(String selectedFrequency, String selectedDayOfWeek) {
         if (selectedFrequency == null || selectedDayOfWeek == null) {
             Toast.makeText(this, "Please select both frequency and day",
@@ -110,7 +108,7 @@ public class IntervalActivity extends AppCompatActivity {
         data.put("frequency", selectedFrequency);
         data.put("day_of_week", selectedDayOfWeek);
 
-        // Call Firebase Cloud Function `updateSchedule`
+        // Call Firebase Cloud Function updateSchedule
         FirebaseFunctions.getInstance("us-central1")
                 .getHttpsCallable("updateSchedule")
                 .call(data)

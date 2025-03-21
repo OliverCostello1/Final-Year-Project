@@ -49,7 +49,7 @@ public class ApproveBidsActivity extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
         sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        String auctioneerID = sharedPreferences.getString("user_id", ""); // Assuming user_id is stored as String
+        String auctioneerID = sharedPreferences.getString("user_id", "");
         Log.d("ApproveBidsActivity", "User ID: " + auctioneerID);
         fetchPendingBids(auctioneerID);
 

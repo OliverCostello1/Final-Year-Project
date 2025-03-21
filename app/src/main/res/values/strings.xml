@@ -155,4 +155,5 @@
     <string name="app_usage_reports_and_data_analysis">App Usage Reports And Data Analysis</string>
     <string name="set_the_contract_deployment_schedule">Set the Contract Deployment Schedule</string>
     <string name="bid_description">Bid Description: %1$s</string>
+    <string name = "euro_sign">"€"</string>
 </resources>

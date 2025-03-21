@@ -2,16 +2,12 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.datatypes.Function;
@@ -23,14 +19,9 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.utils.Convert;
-
-import java.io.InputStream;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class ContractDetailsActivity extends AppCompatActivity {
 
@@ -96,8 +87,7 @@ public class ContractDetailsActivity extends AppCompatActivity {
                 BigInteger bidAmount = (BigInteger) decoded.get(3).getValue();
                 BigInteger timestamp = (BigInteger) decoded.get(4).getValue();
                 String status = decoded.get(5).getValue().toString();
-                // Directly use the bidAmount as it is without converting to Ether
-                String formattedBidAmount = bidAmount.toString();  // Regular number, no conversion to ETH
+                String formattedBidAmount = bidAmount.toString();
 
                 String formattedTimestamp = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         .format(new java.util.Date(timestamp.longValue() * 1000));

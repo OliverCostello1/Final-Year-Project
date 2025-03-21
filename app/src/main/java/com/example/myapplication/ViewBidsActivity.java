@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -75,7 +73,7 @@ public class ViewBidsActivity extends AppCompatActivity {
 
             // Query Firestore for the bids based on the logged-in user's role (bidder or auctioneer)
             // Check role (bidder or auctioneer) and fetch relevant bids
-            String role = sharedPreferences.getString("role", ""); // Assume "role" is stored in shared preferences
+            String role = sharedPreferences.getString("role", "");
             Log.d("ViewBidsActivity", "User Role," + role);
             Query query;
             if ("Bidder".equals(role)) {

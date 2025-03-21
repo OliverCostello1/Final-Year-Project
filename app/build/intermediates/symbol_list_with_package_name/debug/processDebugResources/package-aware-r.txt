@@ -4161,6 +4161,7 @@ string error_fetching_data
 string error_getting_total_bids_count
 string error_getting_total_properties_count
 string error_icon_content_description
+string euro_sign
 string exposed_dropdown_menu_content_description
 string f_name
 string fab_transformation_scrim_behavior

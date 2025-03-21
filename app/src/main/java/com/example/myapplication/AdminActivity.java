@@ -7,7 +7,6 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.web3j.protocol.admin.Admin;
 
 // Admin user home page
 public class AdminActivity extends AppCompatActivity  {

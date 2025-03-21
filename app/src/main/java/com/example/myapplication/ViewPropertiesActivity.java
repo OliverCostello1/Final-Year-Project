@@ -45,7 +45,6 @@ public class ViewPropertiesActivity extends AppCompatActivity {
     }
 
     private void fetchPropertiesFromFirestore() {
-        // Show a progress dialog or placeholder if needed
         // Firebase Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 

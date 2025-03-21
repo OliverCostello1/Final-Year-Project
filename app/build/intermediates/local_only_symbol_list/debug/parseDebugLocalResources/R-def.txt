@@ -240,6 +240,7 @@ string enter_your_details_to_register
 string error_fetching_data
 string error_getting_total_bids_count
 string error_getting_total_properties_count
+string euro_sign
 string f_name
 string fetch_contract_details
 string fetching_approved_users

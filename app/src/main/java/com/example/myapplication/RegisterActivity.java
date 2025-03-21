@@ -42,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize UI elements
         emailField = findViewById(R.id.email);
         firstNameField = findViewById(R.id.first_name);
         lastNameField = findViewById(R.id.last_name);
@@ -50,23 +49,19 @@ public class RegisterActivity extends AppCompatActivity {
         roleSpinner = findViewById(R.id.role);
         registerButton = findViewById(R.id.register);
 
-        // Return button
         Button returnHome = findViewById(R.id.register_return);
         returnHome.setOnClickListener(view -> {
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
-        // Register button
         registerButton.setOnClickListener(v -> registerUser());
 
-        // Set up role spinner with custom layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.role_array, R.layout.spinner_item); // Use custom layout
-        adapter.setDropDownViewResource(R.layout.spinner_item); // Apply to dropdown as well
+                R.array.role_array, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         roleSpinner.setAdapter(adapter);
 
-        // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
     }
@@ -125,24 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
         DocumentReference userRef = usersRef.document(userId);
         userRef.set(userData)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(RegisterActivity.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent;
-                    switch (role.toLowerCase()) {
-                        case "auctioneer":
-                            intent = new Intent(RegisterActivity.this, AuctioneerActivity.class);
-                            break;
-                        case "bidder":
-                            intent = new Intent(RegisterActivity.this, BidderActivity.class);
-                            break;
-                        case "admin":
-                            intent = new Intent(RegisterActivity.this, AdminActivity.class);
-                            break;
-                        default:
-                            Log.w(TAG, "Unexpected role: " + role);
-                            intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            break;
-                    }
-                    intent.putExtra("userId", userId);
+                    Toast.makeText(RegisterActivity.this, "Registration successful! Please wait for admin approval.", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 })
@@ -163,6 +142,4 @@ public class RegisterActivity extends AppCompatActivity {
             throw new RuntimeException("Failed to create Ethereum address: " + e.getMessage());
         }
     }
-
-    // Users class omitted for brevity
 }

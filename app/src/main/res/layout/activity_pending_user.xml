@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/gradient_bg"
+    android:background="@color/white"
     >
 
 
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/wallet_address"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
 
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/user_id"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="@string/f_name"
         android:textSize="14sp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
 
         app:layout_constraintTop_toBottomOf="@id/wallet_address_admin"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/l_name"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
 
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/f_name_admin"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:text="@string/role_string"
         android:textSize="14sp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/l_name_admin"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -75,6 +75,8 @@
         android:layout_height="wrap_content"
         android:text = "@string/approve_user"
         android:textColor="@color/white"
+        android:backgroundTint="@color/primary_button_color"
+
 
         app:layout_constraintTop_toBottomOf="@id/role_admin"
         app:layout_constraintStart_toStartOf="parent"

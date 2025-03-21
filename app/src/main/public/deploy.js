@@ -12,17 +12,16 @@ const CONFIG = {
 
 
 // Declare a global variable to hold the config
-let secretsConfig = {}; // Declare secretsConfig globally
+let secretsConfig = {};
 
 async function fetchSecrets() {
   try {
-    const response = await fetch('https://getsecrets-obhajuq66q-uc.a.run.app'); // Replace with your actual function URL
+    const response = await fetch('https://getsecrets-obhajuq66q-uc.a.run.app');
     const data = await response.json();
 
     if (data.status === "success") {
-      secretsConfig = data.CONFIG;  // Save the config for later use
+      secretsConfig = data.CONFIG;
 
-      // Log the secrets for debugging
       console.log(`INFURA_URL: ${secretsConfig.INFURA_URL}`);
       console.log(`SENDER_ADDRESS: ${secretsConfig.SENDER_ADDRESS}`);
       console.log(`PRIVATE_KEY: ${secretsConfig.PRIVATE_KEY}`);
@@ -43,30 +42,27 @@ let wallet = null;   // Declare wallet as null globally
 // Initialize provider and wallet after fetching secrets
 export async function initializeProvider() {
   try {
-    const secrets = await fetchSecrets(); // Fetch secrets from your endpoint
+    const secrets = await fetchSecrets();
 
     if (!secrets || !secrets.INFURA_URL || !secrets.PRIVATE_KEY) {
       throw new Error("Missing required secrets. Cannot initialize provider.");
     }
 
-    // Initialize the provider using the INFURA URL
     provider = new ethers.providers.JsonRpcProvider(secrets.INFURA_URL);
     console.log("✅ Provider initialized with URL:", secrets.INFURA_URL);
 
-    // Initialize the wallet using the PRIVATE_KEY and provider
+    // Initialize the wallet using PRIVATE_KEY and provider
     wallet = new ethers.Wallet(secrets.PRIVATE_KEY, provider);
-    console.log("✅ Wallet initialized with address:", await wallet.getAddress());
+    console.log("Wallet initialized with address:", await wallet.getAddress());
 
-    // Optional: Log network info for debugging
     const network = await provider.getNetwork();
-    console.log("🌐 Connected to network:", network.name, "Chain ID:", network.chainId);
+    console.log(" Connected to network:", network.name, "Chain ID:", network.chainId);
 
-    // Optional: Check wallet balance
     const balance = await provider.getBalance(wallet.address);
-    console.log(`💰 Wallet Balance: ${ethers.utils.formatEther(balance)} ETH`);
+    console.log(`Wallet Balance: ${ethers.utils.formatEther(balance)} ETH`);
 
   } catch (error) {
-    console.error("❌ Error initializing provider and wallet:", error.message);
+    console.error("Error initializing provider and wallet:", error.message);
   }
 }
 
@@ -84,7 +80,6 @@ async function setupAndTestConnection() {
     }
 }
 
-// Then you can test the connection with:
 async function testConnection() {
     try {
         // Ensure provider is initialized before accessing it
@@ -134,7 +129,7 @@ export async function fetchAndInitFirebase() {
       throw new Error('Invalid Firebase configuration received.');
     }
 
-    // Clean up the temporary app and initialize Firebase with the fetched config
+    // Clean up the temporary app and initialize Firebase with fetched config
     await deleteApp(tempApp);
 
     const app = initializeApp(FIREBASE_CONFIG);
@@ -254,7 +249,7 @@ const deployContract = async (bid) => {
         const contractFactory = new ethers.ContractFactory(CONTRACT_ARTIFACTS.abi, CONTRACT_ARTIFACTS.bytecode, wallet);
 
         // Gas settings
-        const gasLimit = ethers.BigNumber.from(10000000); // Start with 3M, adjust based on usage
+        const gasLimit = ethers.BigNumber.from(10000000);
         const maxPriorityFeePerGas = ethers.utils.parseUnits("1", "gwei");
         const maxFeePerGas = ethers.utils.parseUnits("2", "gwei");
 
@@ -296,11 +291,11 @@ const deployContract = async (bid) => {
 export async function processBids(bid) {
   try {
     if (!wallet || !provider) {
-      console.error("❌ Wallet or provider is not initialized. Call initializeProvider() first.");
+      console.error("Wallet or provider is not initialized. Call initializeProvider() first.");
       throw new Error("Wallet or provider not initialized");
     }
 
-    console.log("🚀 Starting contract deployment for Bid ID:", bid.bid_id);
+    console.log("Starting contract deployment for Bid ID:", bid.bid_id);
 
     // Validate essential fields
     if (!bid.bidder_wallet || !bid.auctioneer_wallet || !bid.propertyID || !bid.bid_amount) {
@@ -309,7 +304,7 @@ export async function processBids(bid) {
     }
 
     if (bid.contract_generated) {
-      console.log(`⚠️ Contract already deployed for Bid ID: ${bid.bid_id}. Skipping...`);
+      console.log(`Contract already deployed for Bid ID: ${bid.bid_id}. Skipping...`);
       throw new Error(`Contract already deployed for Bid ID: ${bid.bid_id}`);
     }
 
@@ -326,13 +321,13 @@ export async function processBids(bid) {
       { gasLimit }
     );
 
-    console.log("⏳ Contract deployed. Waiting for confirmation...");
+    console.log("Contract deployed. Waiting for confirmation...");
 
-    console.log(`🛠️ Processing Bid ID: ${bid.bid_id}`, bid);
+    console.log(`Processing Bid ID: ${bid.bid_id}`, bid);
 
     // Set a timeout for transaction confirmation
     const timeout = setTimeout(() => {
-      console.error("❌ Transaction confirmation timeout");
+      console.error("Transaction confirmation timeout");
       throw new Error("Transaction confirmation timeout");
     }, 60000); // 1 minute timeout
 
@@ -346,7 +341,7 @@ export async function processBids(bid) {
     const receipt = await contract.deployTransaction.wait();
     clearTimeout(timeout);
 
-    console.log("✅ Contract successfully deployed!");
+    console.log("Contract successfully deployed!");
     console.log("Transaction Hash:", contract.deployTransaction.hash);
     console.log("Contract Address:", contract.address);
 
@@ -354,7 +349,7 @@ export async function processBids(bid) {
     await storeContractDetails(bid.bid_id, contract.deployTransaction.hash, contract.address);
     await updateBidStatus(bid.bid_id);
 
-    console.log(`✅ Bid ${bid.bid_id} processed successfully.`);
+    console.log(`Bid ${bid.bid_id} processed successfully.`);
 
     // Return the transaction hash and contract address
     return {
@@ -363,7 +358,7 @@ export async function processBids(bid) {
     };
 
   } catch (error) {
-    console.error(`❌ Error processing bid ${bid.bid_id}:`, error);
+    console.error(`Error processing bid ${bid.bid_id}:`, error);
     throw error; // Re-throw the error to be caught by the caller
   }
 }

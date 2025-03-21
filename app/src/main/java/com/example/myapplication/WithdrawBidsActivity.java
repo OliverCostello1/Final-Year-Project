@@ -2,42 +2,32 @@ package com.example.myapplication;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.CollectionReference;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WithdrawBidsActivity extends AppCompatActivity {
@@ -65,6 +55,13 @@ public class WithdrawBidsActivity extends AppCompatActivity {
 
         // Load bids for the logged-in bidder
         loadBids();
+
+
+        Button returnButton = findViewById(R.id.return_button);
+        returnButton.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+
     }
 
     private void loadBids() {
