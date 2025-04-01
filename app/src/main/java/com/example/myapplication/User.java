@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+// User adapter to be used by activities interacting with the User table
 @IgnoreExtraProperties
 public class User {
     private String id;
@@ -22,7 +23,7 @@ public class User {
         this.wallet_address = wallet_address;
 
     }
-
+    // Getters and setters for each variable.
     public String getId() {
         return id;
     }

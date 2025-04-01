@@ -44,6 +44,8 @@ public class UserAdminActivity extends AppCompatActivity implements ApprovedUser
         // Fetch users from Firestore
         fetchUsers();
 
+        // Lets user return to the previous page.
+
         Button returnButton = findViewById(R.id.return_button);
         returnButton.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();

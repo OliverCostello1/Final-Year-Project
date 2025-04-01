@@ -15,6 +15,8 @@ import com.google.firebase.database.Logger;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+// Activity that allows Auctioneer user to add a property
+
 public class AddPropertyActivity extends AppCompatActivity {
 
     private EditText etEircode, etLink, etAskingPrice;
@@ -26,6 +28,7 @@ public class AddPropertyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Sets the XML layout file to be used for the activity.
         setContentView(R.layout.activity_add_property);
         FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
 
@@ -36,10 +39,10 @@ public class AddPropertyActivity extends AppCompatActivity {
         etAskingPrice = findViewById(R.id.asking_price);
         btnSubmit = findViewById(R.id.submit_button);
 
-        // Retrieve auctioneer ID and wallet from SharedPreferences
+        // Retrieve auctioneer ID and wallet from SharedPreferences ( user_prefs )
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         auctioneerId = prefs.getString("user_id", "");  // Default value of -1 if not found
-        auctioneerWallet = prefs.getString("walletAddress", "");  // Default empty string if not found
+        auctioneerWallet = prefs.getString("wallet_address", "");  // Default empty string if not found
 
         // Log the auctioneer details for debugging
         Log.d("AddPropertyActivity", "Auctioneer ID: " + auctioneerId);

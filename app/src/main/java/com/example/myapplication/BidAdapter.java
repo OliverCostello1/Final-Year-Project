@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+// Adapters are used to connect the UI to the data source ( Firebase )
 public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
     private static final String TAG = "BidAdapter";
     private final List<Bid> bids;
@@ -71,6 +72,7 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
 
         public BidViewHolder(@NonNull View itemView) {
             super(itemView);
+            // Gets the text views from hte
             bidIdText = itemView.findViewById(R.id.bid_id_label);
             propertyIdText = itemView.findViewById(R.id.property_id_label);
             bidAmountText = itemView.findViewById(R.id.bid_amount_label);
@@ -81,6 +83,8 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.BidViewHolder> {
         }
 
         public void bind(Bid bid) {
+            // Populates each text view with the value from Firebase.
+
             bidIdText.setText(context.getString(R.string.bid_id, bid.getBid_id()));
             propertyIdText.setText(context.getString(R.string.property_id_text, bid.getPropertyID()));
             bidAmountText.setText(context.getString(R.string.bid_amount, bid.getBid_amount()));

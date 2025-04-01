@@ -22,9 +22,6 @@ async function fetchSecrets() {
     if (data.status === "success") {
       secretsConfig = data.CONFIG;
 
-      console.log(`INFURA_URL: ${secretsConfig.INFURA_URL}`);
-      console.log(`SENDER_ADDRESS: ${secretsConfig.SENDER_ADDRESS}`);
-      console.log(`PRIVATE_KEY: ${secretsConfig.PRIVATE_KEY}`);
 
       return secretsConfig; // Return the secretsConfig for use in the rest of the code
     } else {
@@ -49,17 +46,16 @@ export async function initializeProvider() {
     }
 
     provider = new ethers.providers.JsonRpcProvider(secrets.INFURA_URL);
-    console.log("✅ Provider initialized with URL:", secrets.INFURA_URL);
+    console.log("Provider initialized with URL");
 
     // Initialize the wallet using PRIVATE_KEY and provider
     wallet = new ethers.Wallet(secrets.PRIVATE_KEY, provider);
-    console.log("Wallet initialized with address:", await wallet.getAddress());
+    console.log("Wallet initialized with address:");
 
     const network = await provider.getNetwork();
-    console.log(" Connected to network:", network.name, "Chain ID:", network.chainId);
+    console.log(" Connected to network");
 
     const balance = await provider.getBalance(wallet.address);
-    console.log(`Wallet Balance: ${ethers.utils.formatEther(balance)} ETH`);
 
   } catch (error) {
     console.error("Error initializing provider and wallet:", error.message);
@@ -268,9 +264,7 @@ const deployContract = async (bid) => {
         const tx = await contract.deployTransaction.wait();
 
         console.log('Contract deployed successfully');
-        console.log('Transaction Hash:', tx.transactionHash);
-        console.log('Contract Address:', contract.address);
-        console.log('Gas Used:', tx.gasUsed.toString());
+
         displayLog('Contract deployed successfully', { txHash: tx.transactionHash, address: contract.address });
 
         // Store and update
